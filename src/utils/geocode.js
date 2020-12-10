@@ -13,7 +13,8 @@ const geocode = (address, callback) => {
         } else if (messageError == "Not Authorized - Invalid Token") {
             callback(messageError, undefined)
         } else if (features.length < 1 || features == undefined) {
-            callback('No Center Point Found, please check address')
+            messageError = "No Center Point Found, Invalid Address"
+            callback(messageError, undefined)
         } else {
             const coordinates = {
                 latitude: features[0].center[1],

@@ -2,12 +2,14 @@ const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
 const request = require('postman-request')
-const printLocalTime = require('./utils/printLocalTime')
+const calcLocalTime = require('./utils/calcLocalTime')
 const geocode = require('./utils/geocode')
 const currentForecast = require('./utils/currentForcast')
 const futureForecast = require('./utils/futureForcast')
-const dateUtil = require('./utils/dateUtil')
+const dateUtil = require('./utils/calcEndDateTime')
+const { query } = require('express')
 const port = 3000
+let errorMsg = undefined
 
 const app = express()
 let requestedTimeIndex = 13
@@ -58,10 +60,10 @@ app.get('/weather', (req, res) => {
         requestedTimeIndex = parseInt(req.query.time) + 1
     }
     geocode(req.query.address, (error, { latitude, longitude, location } = {}) => {
+        console.log(error)
         if (error) {
-            res.send({
-                error: error
-            })
+            errorMsg = error
+            return res.send({ errorMsg })
         } else {
             const geocodeData = {
                 type: "Geocode",
@@ -71,7 +73,8 @@ app.get('/weather', (req, res) => {
             }
             currentForecast(latitude, longitude, (error, { temp: currentTemp, units, wind, windUnits } = {}) => {
                 if (error) {
-                    console.log(error)
+                    errorMsg = error
+                    return
                 } else {
                     const currentData = {
                         temp: currentTemp,
@@ -79,28 +82,31 @@ app.get('/weather', (req, res) => {
                         wind: wind,
                         windUnits: windUnits
                     }
-                    futureForecast(latitude, longitude, dateUtil(24), requestedTimeIndex, (error, { temp: forcastTemp, rainChance, time, rainChanceArray } = {}) => {
+                    futureForecast(latitude, longitude, dateUtil(24), requestedTimeIndex, (error, { temp: forcastTemp, rainChance, observationTime, rainChanceArray } = {}) => {
                         if (error) {
-                            console.log(error)
+                            if (errorMsg === undefined) {
+                                errorMsg = error
+                            }
+                            return res.send({
+                                errorMsg
+                            })
                         } else {
+                            const rainIn24Hours = isFinite(Math.max(...rainChanceArray))
+                            const observationTimeLocal = calcLocalTime(observationTime)
+                            const hoursFromNow = requestedTimeIndex - 1
+                            const forecastData = {
+                                hoursFromNow,
+                                observationTimeLocal,
+                                rainChance,
+                                forcastTemp,
+                                units,
+                                rainIn24Hours: rainIn24Hours
+                            }
                             res.send({
                                 geocode: geocodeData,
-                                currentForecast: currentData
+                                currentForecast: currentData,
+                                futureForecast: forecastData
                             })
-                            console.log('')
-                            console.log("-------Future Conditions-----------")
-                            console.log(`${printLocalTime(time)} (${requestedTimeIndex - 1} hours from now)`)
-                            console.log('Conditions at obsrevation time.')
-                            console.log(`Chance of rain: ${rainChance}%`)
-                            console.log(`Temperature: ${forcastTemp}${units}`)
-
-                            if (isFinite(Math.max(...rainChanceArray))) {
-                                console.log(`Chance of rain in next 24 hours is: ${Math.max(...rainChanceArray)}%`)
-                            } else {
-                                console.log(`Chance of rain in next 24 hours is: 0%`)
-                            }
-                            console.log("------------------")
-                            console.log('')
                         }
 
                     })

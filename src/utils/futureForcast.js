@@ -12,6 +12,8 @@ const futureForecast = (lat, lon, endTime, requestedTimeIndex, callback) => {
             callback(`Error Msg: ${body.message}`)
         } else if (body.message) {
             console.log(`ERROR when attempting to retrieve forecast data! "${body.message}"`)
+        } else if (!Number.isInteger(requestedTimeIndex)) {
+            callback('ERROR: Invalid quary parameter entered for TIME parameter. But be an integer.')
         } else {
             //Get array of rain chances
             for (let index = 0; index < body.length; index++) {
