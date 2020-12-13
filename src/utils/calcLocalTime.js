@@ -1,7 +1,7 @@
 const printLocalTime = (dateTime) => {
     const dateTimeLocal = new Date(dateTime)
-    const datTimeLocalHours = dateTimeLocal.toString().split(" ")[4]
-    return datTimeLocalHours;
+    const dateTimeLocalHours = dateTimeLocal.toString().split(" ")[4]
+    return dateTimeLocalHours;
 
 }
 

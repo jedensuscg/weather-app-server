@@ -6,13 +6,14 @@ const calcLocalTime = require('./utils/calcLocalTime')
 const geocode = require('./utils/geocode')
 const currentForecast = require('./utils/currentForcast')
 const futureForecast = require('./utils/futureForcast')
-const dateUtil = require('./utils/calcEndDateTime')
+const calcEndDateTime = require('./utils/calcEndDateTime')
 const { query } = require('express')
 const port = 3000
 let errorMsg = undefined
 
 const app = express()
 let requestedTimeIndex = 13
+
 // Define paths for express config
 const publicDirectoryPath = path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
@@ -82,7 +83,7 @@ app.get('/weather', (req, res) => {
                         wind: wind,
                         windUnits: windUnits
                     }
-                    futureForecast(latitude, longitude, dateUtil(24), requestedTimeIndex, (error, { temp: forcastTemp, rainChance, observationTime, rainChanceArray } = {}) => {
+                    futureForecast(latitude, longitude, calcEndDateTime(24), requestedTimeIndex, (error, { temp: forcastTemp, rainChance, observationTime, rainChanceArray } = {}) => {
                         if (error) {
                             if (errorMsg === undefined) {
                                 errorMsg = error

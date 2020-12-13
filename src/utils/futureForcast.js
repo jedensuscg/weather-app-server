@@ -21,6 +21,7 @@ const futureForecast = (lat, lon, endTime, requestedTimeIndex, callback) => {
             }
             //Get highest chance of rain during time period
             const observationTime = body[requestedTimeIndex].observation_time.value
+            console.log(body[requestedTimeIndex].observation_time.value)
             const rainChance = body[requestedTimeIndex].precipitation_probability.value
 
             const data = {

@@ -1,11 +1,13 @@
-const dateUtil = (hours) => {
-    const currentDateTimeZulu = new Date()
-    const endDateTimeZulu = new Date()
+const timeZoneOffsetHours = new Date().getTimezoneOffset() / 60;
+const currentDateTimeUTC = new Date(Date.now());
+const currentDateTimeLocal = new Date(currentDateTimeUTC.setHours(currentDateTimeUTC.getHours() - timeZoneOffsetHours));
+const endDateTimeUTC = new Date()
 
-    endDateTimeZulu.setHours(currentDateTimeZulu.getHours() + hours)
-    const endDateTimeZuluISO = endDateTimeZulu.toISOString()
 
-    return endDateTimeZuluISO
+const calcEndDateTime = (hours) => {
+    endDateTimeUTC.setHours(endDateTimeUTC.getHours() + hours)
+    const endDateTimeUTCISO = endDateTimeUTC.toISOString()
+    return endDateTimeUTCISO
 }
 
-module.exports = dateUtil
+module.exports = calcEndDateTime
