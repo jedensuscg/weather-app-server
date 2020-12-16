@@ -9,6 +9,7 @@ const feelsLike = document.querySelector('#feels-like')
 const currentWinds = document.querySelector('#current-winds');
 const precip = document.querySelector('#precip');
 const humidity = document.querySelector('#humidity');
+const weatherCode = document.querySelector('#weather-code');
 
 
 
@@ -24,6 +25,7 @@ weatherForm.addEventListener('submit', (e) => {
     precip.textContent = '';
     feelsLike.textContent = '';
     humidity.textContent = '';
+    weatherCode.textContent = '';
 
     fetch(`http://localhost:3000/weather?address=${location}`).then((response) => {
         response.json().then((data) => {
@@ -35,6 +37,7 @@ weatherForm.addEventListener('submit', (e) => {
                 currentTemp.textContent = `${data.errorMsg}`;
             } else {
                 weatherHead.textContent = `Your Current Weather for ${geocode.Location}`;
+                weatherCode.textContent = `Conditions: ${normalizeString(currentForecast.weatherCode)}`;
                 currentTemp.textContent = `Temperature: ${Math.ceil(currentForecast.temp)}${currentForecast.units}`;
                 feelsLike.textContent = `Feels Like: ${Math.ceil(currentForecast.feelsLike)}${currentForecast.units}`;
                 currentWinds.textContent = `Winds: ${currentForecast.cardinalWindHeading} at ${Math.ceil(currentForecast.windSpeed)} ${currentForecast.windUnits}`
@@ -52,4 +55,9 @@ weatherForm.addEventListener('submit', (e) => {
 
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function normalizeString(string) {
+    str = string.replace('_', " ")
+    return str.charAt(0).toUpperCase() + str.slice(1);
 }

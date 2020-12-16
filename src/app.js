@@ -71,7 +71,7 @@ app.get('/weather', (req, res) => {
                 Longitude: longitude,
                 Location: location,
             }
-            currentForecast(latitude, longitude, (error, { temp: currentTemp, units, windSpeed, windUnits, windDirection, precipitation, precipitationUnits, humidity, feelsLike, cardinalWindHeading, precipitationType, precipWord } = {}) => {
+            currentForecast(latitude, longitude, (error, { temp: currentTemp, units, windSpeed, windUnits, windDirection, precipitation, precipitationUnits, humidity, feelsLike, cardinalWindHeading, precipitationType, precipWord, weatherCode } = {}) => {
                 if (error) {
                     errorMsg = error
                     return
@@ -89,6 +89,7 @@ app.get('/weather', (req, res) => {
                         cardinalWindHeading,
                         precipitationType,
                         precipWord,
+                        weatherCode,
                     }
                     futureForecast(latitude, longitude, calcEndDateTime(24), requestedTimeIndex, (error, { temp, rainChance, observationTime, rainChanceArray } = {}) => {
                         if (error) {
