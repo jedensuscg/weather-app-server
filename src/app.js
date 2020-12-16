@@ -71,18 +71,26 @@ app.get('/weather', (req, res) => {
                 Longitude: longitude,
                 Location: location,
             }
-            currentForecast(latitude, longitude, (error, { temp: currentTemp, units, wind, windUnits } = {}) => {
+            currentForecast(latitude, longitude, (error, { temp: currentTemp, units, windSpeed, windUnits, windDirection, precipitation, precipitationUnits, humidity, feelsLike, cardinalWindHeading, precipitationType, precipWord } = {}) => {
                 if (error) {
                     errorMsg = error
                     return
                 } else {
                     const currentData = {
                         temp: currentTemp,
-                        units: units,
-                        wind: wind,
-                        windUnits: windUnits
+                        units,
+                        windSpeed,
+                        windUnits,
+                        windDirection,
+                        precipitation,
+                        precipitationUnits,
+                        humidity,
+                        feelsLike,
+                        cardinalWindHeading,
+                        precipitationType,
+                        precipWord,
                     }
-                    futureForecast(latitude, longitude, calcEndDateTime(24), requestedTimeIndex, (error, { temp: forcastTemp, rainChance, observationTime, rainChanceArray } = {}) => {
+                    futureForecast(latitude, longitude, calcEndDateTime(24), requestedTimeIndex, (error, { temp, rainChance, observationTime, rainChanceArray } = {}) => {
                         if (error) {
                             if (errorMsg === undefined) {
                                 errorMsg = error
@@ -98,7 +106,7 @@ app.get('/weather', (req, res) => {
                                 hoursFromNow,
                                 observationTimeLocal,
                                 rainChance,
-                                forcastTemp,
+                                temp,
                                 units,
                                 rainIn24Hours: rainIn24Hours
                             }

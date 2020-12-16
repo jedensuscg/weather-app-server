@@ -29,6 +29,7 @@ header {
 
 .main-content {
     flex-grow: 1;
+    width: 100%;
 }
 
 footer {
@@ -36,11 +37,13 @@ footer {
     height: 75px;
     margin: 0;
     width: 100%;
+    min-width: 300px;
     background-color: rgb(6, 89, 245);
     display: table;
     position: absolute;
     bottom: 0px;
     left: 0px;
+    right: 0px;
 }
 
 .footerText {
