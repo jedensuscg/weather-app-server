@@ -82,7 +82,7 @@ $(document).ready(function () {
 
     function displayForecastWeather(geocode, futureForecast) {
         $('#forecast-weather-head').text(`Your Forecasted Weather at ${futureForecast.observationTimeLocal} (${futureForecast.newHoursFromNow.hours} hours, ${futureForecast.newHoursFromNow.minutes} minutes from now.)`);
-        $('#forecast-temp').text(`The temperature ${futureForecast.hoursFromNow} hours from now will be ${futureForecast.temp}${futureForecast.units}`)
+        $('#forecast-temp').text(`The temperature will be ${Math.ceil(futureForecast.temp)}${futureForecast.units}`)
         if (futureForecast.rainChanceIn24Hours < 1) {
             console.log(futureForecast.rainChanceIn24Hours)
             $('#forecast-precip-chance').text('No rain is forecasted for the next 24 hours.');
