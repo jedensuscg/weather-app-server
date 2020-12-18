@@ -3,7 +3,7 @@ const request = require('postman-request')
 
 
 const geocode = (address, callback) => {
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?country=us&access_token=pk.eyJ1IjoiamVkZW5zdXNjZyIsImEiOiJja2h0ZmRnaWgwajVvMnltYWZvZnYydjRsIn0.KXbuLC-Z6UvR8R0nm7vUEg`
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?&access_token=pk.eyJ1IjoiamVkZW5zdXNjZyIsImEiOiJja2h0ZmRnaWgwajVvMnltYWZvZnYydjRsIn0.KXbuLC-Z6UvR8R0nm7vUEg`
 
     request({ url: url, json: true }, (error, response, { message: messageError, features = [] } = {}) => {
         if (error) {
@@ -13,7 +13,7 @@ const geocode = (address, callback) => {
         } else if (messageError == "Not Authorized - Invalid Token") {
             callback(messageError, undefined)
         } else if (features.length < 1 || features == undefined) {
-            messageError = "No Center Point Found, Invalid Address"
+            messageError = "Invalid Address. Address formats should include at least the city and state for best accuracy. Such as New York NY."
             callback(messageError, undefined)
         } else {
             const coordinates = {

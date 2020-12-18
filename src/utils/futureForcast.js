@@ -23,10 +23,12 @@ const futureForecast = (lat, lon, endTime, requestedTimeIndex, callback) => {
             const observationTime = body[requestedTimeIndex].observation_time.value
             console.log(body[requestedTimeIndex].observation_time.value)
             const rainChance = body[requestedTimeIndex].precipitation_probability.value
-
+            const rainChanceIn24Hours = Math.max(...rainChanceArray);
+            console.log(rainChanceIn24Hours)
             const data = {
                 rainChanceArray: rainChanceArray,
                 rainChance: rainChance,
+                rainChanceIn24Hours,
                 observationTime: observationTime,
                 temp: body[requestedTimeIndex].temp.value,
                 units: body[requestedTimeIndex].temp.units
