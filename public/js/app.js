@@ -12,8 +12,13 @@ $(document).ready(function () {
     const precip = document.querySelector('#precip');
     const humidity = document.querySelector('#humidity');
     const weatherCode = document.querySelector('#weather-code');
-    const hoursSlider = document.querySelector('#hours-range')
-    const hoursLabel = document.querySelector('#hours-label')
+    const hoursSlider = document.querySelector('#hours-range');
+    const hoursLabel = document.querySelector('#hours-label');
+    const forecastWeatherHeader = document.querySelector('#forecast-weather-head');
+    const forecastTemp = document.querySelector('#forecast-temp');
+    const betweenForecastHR = document.createElement('hr');
+    const forecastPrecipChance = document.querySelector('#forecast-precip-chance');
+    const forecastWeatherContent = document.querySelector('#forcast-weather-content');
 
     hoursLabel.innerHTML = hoursSlider.value;
     hoursSlider.oninput = function () {
@@ -33,10 +38,10 @@ $(document).ready(function () {
         feelsLike.textContent = '';
         humidity.textContent = '';
         weatherCode.textContent = '';
-        $('#forecast-weather-head').text(``);
-        $('#forecast-temp').text("");
-        $("#between-forcasts").remove();
-        $('#forecast-precip-chance').text('');
+        forecastWeatherHeader.textContent = "";
+        forecastTemp.textContent = "";
+        forecastPrecipChance.textContent = "";
+        betweenForecastHR.remove();
 
         fetch(`http://localhost:3000/weather?address=${location}&time=${hours}`).then((response) => {
             response.json().then((data) => {
@@ -77,17 +82,18 @@ $(document).ready(function () {
         } else {
             precip.textContent = `Precipitation: There is currently no precipitation`;
         };
-        $('#precip').after("<hr id='between-forcasts'>")
+
     }
 
     function displayForecastWeather(geocode, futureForecast) {
-        $('#forecast-weather-head').text(`Your Forecasted Weather at ${futureForecast.observationTimeLocal} (${futureForecast.newHoursFromNow.hours} hours, ${futureForecast.newHoursFromNow.minutes} minutes from now.)`);
-        $('#forecast-temp').text(`The temperature will be ${Math.ceil(futureForecast.temp)}${futureForecast.units}`)
+        forecastWeatherContent.insertBefore(betweenForecastHR, forecastWeatherHeader)
+        forecastWeatherHeader.textContent = `Your Forecasted Weather at ${futureForecast.observationTimeLocal} (${futureForecast.newHoursFromNow.hours} hours, ${futureForecast.newHoursFromNow.minutes} minutes from now.)`;
+        forecastTemp.textContent = `The temperature will be ${Math.ceil(futureForecast.temp)}${futureForecast.units}`;
         if (futureForecast.rainChanceIn24Hours < 1) {
             console.log(futureForecast.rainChanceIn24Hours)
-            $('#forecast-precip-chance').text('No rain is forecasted for the next 24 hours.');
+            forecastPrecipChance.textContent = 'No rain is forecasted for the next 24 hours.';
         } else {
-            $('#forecast-precip-chance').text(`Chance of rain at observation time: ${futureForecast.rainChance}%\n But there is a ${futureForecast.rainChanceIn24Hours}% chance of rain in the next 24 hours.`);
+            forecastPrecipChance.textContent = `Chance of rain at observation time: ${futureForecast.rainChance}%. There is a ${futureForecast.rainChanceIn24Hours}% chance of rain in the next 24 hours.`;
         };
     }
 });
