@@ -8,10 +8,11 @@ const currentForecast = require('./utils/currentForcast')
 const futureForecast = require('./utils/futureForcast')
 const calcEndDateTime = require('./utils/calcEndDateTime')
 const { query } = require('express')
-const port = 3000
+
 let errorMsg = undefined
 
 const app = express()
+const port = process.env.PORT || 3000
 let requestedTimeIndex = 13
 
 // Define paths for express config

@@ -43,7 +43,7 @@ weatherForm.addEventListener('submit', (e) => {
     forecastPrecipChance.textContent = "";
     betweenForecastHR.remove();
 
-    fetch(`http://localhost:3000/weather?address=${location}&time=${hours}`).then((response) => {
+    fetch(`/weather?address=${location}&time=${hours}`).then((response) => {
         response.json().then((data) => {
             const { geocode, currentForecast, futureForecast } = data;
 
