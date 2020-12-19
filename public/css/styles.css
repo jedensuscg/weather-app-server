@@ -74,3 +74,53 @@ header a:hover {
     margin-top: 25px;
     position: relative;
 }
+
+.slider {
+    appearance: none;
+    height: 25px;
+    background: rgb(114, 114, 114);
+    outline: none;
+    transition: 0.2;
+    border-radius: 50px;
+}
+
+.slider:hover {
+    background: rgb(82, 81, 81);
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    background: #ff3300;
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+#hours-label {
+    font-weight: bold;
+    font-size: 1.2em;
+    position: relative;
+    bottom: 5px;
+}
+.search {
+    border: 1px solid rgb(114, 114, 114);
+    padding: 8px;
+}
+.search:hover {
+    background: rgb(230, 230, 230);;
+}
+.search-button {
+    cursor: pointer;
+    border: 1px solid rgb(114, 114, 114);
+    background: rgb(114, 114, 114);
+    color: white;
+    height: 25px;
+    width: 15%;
+    margin: 8px 0px 8px 0px;
+}
+
+.search-button:hover {
+    background: rgb(82, 81, 81);
+
+}
