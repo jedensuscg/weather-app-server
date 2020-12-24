@@ -14,6 +14,7 @@ let errorMsg = undefined
 const app = express()
 const port = process.env.PORT || 3000
 const mapbox_api = process.env.API_KEY_MAPBOX;
+const climacell_api = process.env.API_KEY_CLIMACELL;
 let requestedTimeIndex = 13
 
 // Define paths for express config
@@ -72,7 +73,7 @@ app.get('/weather', (req, res) => {
                 Longitude: longitude,
                 Location: location,
             }
-            currentForecast(latitude, longitude, (error, { temp: currentTemp, units, windSpeed, windUnits, windDirection, precipitation, precipitationUnits, humidity, feelsLike, cardinalWindHeading, precipitationType, precipWord, weatherCode } = {}) => {
+            currentForecast(climacell_api, latitude, longitude, (error, { temp: currentTemp, units, windSpeed, windUnits, windDirection, precipitation, precipitationUnits, humidity, feelsLike, cardinalWindHeading, precipitationType, precipWord, weatherCode } = {}) => {
                 if (error) {
                     errorMsg = error
                     return
@@ -92,7 +93,7 @@ app.get('/weather', (req, res) => {
                         precipWord,
                         weatherCode,
                     }
-                    futureForecast(latitude, longitude, calcEndDateTime(24), requestedTimeIndex, (error, { temp, rainChance, observationTime, rainChanceIn24Hours } = {}) => {
+                    futureForecast(climacell_api, latitude, longitude, calcEndDateTime(24), requestedTimeIndex, (error, { temp, rainChance, observationTime, rainChanceIn24Hours } = {}) => {
                         if (error) {
                             if (errorMsg === undefined) {
                                 errorMsg = error
