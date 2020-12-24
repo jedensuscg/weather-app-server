@@ -16,7 +16,6 @@ const currentForecast = (lat, lon, callback) => {
 
             const cardinalWindHeading = windDegToCardinal(wind_direction.value)
             const precipWord = precipWords(precipitation.value)
-            console.log(precipitation_type.value)
 
             const data = {
                 temp: temp.value,

@@ -1,18 +1,19 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
-const request = require('postman-request')
 const calcLocalTime = require('./utils/calcLocalTime')
 const geocode = require('./utils/geocode')
 const currentForecast = require('./utils/currentForcast')
 const futureForecast = require('./utils/futureForcast')
 const calcEndDateTime = require('./utils/calcEndDateTime')
 const { query } = require('express')
+require('dotenv').config();
 
 let errorMsg = undefined
 
 const app = express()
 const port = process.env.PORT || 3000
+const mapbox_api = process.env.API_KEY_MAPBOX;
 let requestedTimeIndex = 13
 
 // Define paths for express config
@@ -60,7 +61,7 @@ app.get('/weather', (req, res) => {
     if (req.query.time) {
         requestedTimeIndex = parseInt(req.query.time) + 1
     }
-    geocode(req.query.address, (error, { latitude, longitude, location } = {}) => {
+    geocode(mapbox_api, req.query.address, (error, { latitude, longitude, location } = {}) => {
         if (error) {
             errorMsg = error
             return res.send({ errorMsg })
@@ -163,4 +164,4 @@ app.get('*', (req, res) => {
 })
 
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Weather app listening on port ${port}!`))

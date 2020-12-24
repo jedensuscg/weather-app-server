@@ -11,7 +11,7 @@ const futureForecast = (lat, lon, endTime, requestedTimeIndex, callback) => {
             callback(`Error Code: ${body.errorCode}`)
             callback(`Error Msg: ${body.message}`)
         } else if (body.message) {
-            console.log(`ERROR when attempting to retrieve forecast data! "${body.message}"`)
+            callback(`ERROR when attempting to retrieve forecast data! "${body.message}"`)
         } else if (!Number.isInteger(requestedTimeIndex)) {
             callback('ERROR: Invalid quary parameter entered for TIME parameter. But be an integer.')
         } else {
@@ -21,10 +21,8 @@ const futureForecast = (lat, lon, endTime, requestedTimeIndex, callback) => {
             }
             //Get highest chance of rain during time period
             const observationTime = body[requestedTimeIndex].observation_time.value
-            console.log(body[requestedTimeIndex].observation_time.value)
             const rainChance = body[requestedTimeIndex].precipitation_probability.value
             const rainChanceIn24Hours = Math.max(...rainChanceArray);
-            console.log(rainChanceIn24Hours)
             const data = {
                 rainChanceArray: rainChanceArray,
                 rainChance: rainChance,

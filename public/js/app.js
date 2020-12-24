@@ -62,6 +62,7 @@ weatherForm.addEventListener('submit', (e) => {
 })
 
 function capitalize(string) {
+
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -77,7 +78,7 @@ function displayCurrentWeather(geocode, currentForecast) {
     feelsLike.textContent = `Feels Like: ${Math.ceil(currentForecast.feelsLike)}${currentForecast.units}`;
     currentWinds.textContent = `Winds: ${currentForecast.cardinalWindHeading} at ${Math.ceil(currentForecast.windSpeed)} ${currentForecast.windUnits}`
     humidity.textContent = `Humidity: ${currentForecast.humidity}%`;
-    if (currentForecast.precipitationType != "none") {
+    if (currentForecast.precipitationType != null) {
         precip.textContent = `Precipitation: ${capitalize(currentForecast.precipWord)} ${capitalize(currentForecast.precipitationType)} (${currentForecast.precipitation} ${currentForecast.precipitationUnits})`;
     } else {
         precip.textContent = `Precipitation: There is currently no precipitation`;
