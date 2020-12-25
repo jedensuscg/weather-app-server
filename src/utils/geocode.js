@@ -10,10 +10,10 @@ const geocode = (mapbox_api, address, callback) => {
             callback(`Unable to Connect to mapbox geocode service. Check internet connection or verify API URL`, undefined)
         } else if (messageError == 'Not Found') {
             callback('Location Not Found', undefined)
-        } else if (messageError == "Not Authorized - Invalid Token") {
+        } else if (messageError == "GEOCODE API: Not Authorized - Invalid Token") {
             callback(messageError, undefined)
         } else if (features.length < 1 || features == undefined) {
-            messageError = "Invalid Address. Address formats should include at least the city and state for best accuracy. Such as New York NY."
+            messageError = "GEOCODE API: Invalid Address. Address formats should include at least the city and state for best accuracy. Such as New York NY."
             callback(messageError, undefined)
         } else {
             const coordinates = {

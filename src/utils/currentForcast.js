@@ -8,12 +8,10 @@ const currentForecast = (climacell_api, lat, lon, callback) => {
         if (error) {
             callback('Could not connect to Climacell API when attemping to retrieve current data. Check internet or verify URL.')
         } else if (errorCode) {
-            callback(`Error Code: ${errorCode}`)
-            callback(`Error Msg: ${msgError}`)
+            callback(`Climacell: Error Code: ${errorCode}: Error Msg: ${msgError}`)
         } else if (msgError) {
-            callback(`ERROR when attempting to retrieve current data! ${msgError}`)
+            callback(`Climacell: ERROR when attempting to retrieve current data! ${msgError}`)
         } else {
-
             const cardinalWindHeading = windDegToCardinal(wind_direction.value)
             const precipWord = precipWords(precipitation.value)
 

@@ -8,18 +8,18 @@ const futureForecast = (climacell_api, lat, lon, endTime, requestedTimeIndex, ca
         if (error) {
             callback('Could not connect to Climacell API when attemping to retrieve forecast data. Check internet or verify URL.')
         } else if (body.errorCode) {
-            callback(`Error Code: ${body.errorCode}`)
-            callback(`Error Msg: ${body.message}`)
+            callback(`Climacell Error Code: ${body.errorCode}: Error Msg: ${body.message}`)
         } else if (body.message) {
-            callback(`ERROR when attempting to retrieve forecast data! "${body.message}"`)
+            callback(`Climacell: ERROR when attempting to retrieve forecast data! "${body.message}"`)
         } else if (!Number.isInteger(requestedTimeIndex)) {
-            callback('ERROR: Invalid quary parameter entered for TIME parameter. But be an integer.')
+            callback('Climacell: ERROR: Invalid quary parameter entered for TIME parameter. But be an integer.')
         } else {
             //Get array of rain chances
             for (let index = 0; index < body.length; index++) {
                 rainChanceArray.push(body[index].precipitation_probability.value)
             }
             //Get highest chance of rain during time period
+            console.log(body.observation_time.value);
             const observationTime = body[requestedTimeIndex].observation_time.value
             const rainChance = body[requestedTimeIndex].precipitation_probability.value
             const rainChanceIn24Hours = Math.max(...rainChanceArray);

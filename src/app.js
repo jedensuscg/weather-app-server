@@ -76,7 +76,7 @@ app.get('/weather', (req, res) => {
             currentForecast(climacell_api, latitude, longitude, (error, { temp: currentTemp, units, windSpeed, windUnits, windDirection, precipitation, precipitationUnits, humidity, feelsLike, cardinalWindHeading, precipitationType, precipWord, weatherCode } = {}) => {
                 if (error) {
                     errorMsg = error
-                    return
+                    return res.send({errorMsg})
                 } else {
                     const currentData = {
                         temp: currentTemp,
