@@ -12,20 +12,22 @@
 <body>
     <div id="wrapper">
         <div class="main-content">
-            {{>header}}
-            <p>Use this site for weather!</p>
-
-            <form action="">
-                <input placeholder="Location" class="search" type="text">
-                <br>
-                <br>
-                <label for="hours-range">Hours from now you want to check for future forecast</label>
-                <br>
-                <input type="range" class="slider" id="hours-range" min="1" max="24" value="8"> <span
-                    id="hours-label"></span>
-                <br>
-                <button class="search-button">Search</button>
-            </form>
+            <div class="top-content">
+                {{>header}}
+                <p>Use this site for weather!</p>
+    
+                <form action="">
+                    <input placeholder="Location" class="search" type="text">
+                    <br>
+                    <br>
+                    <label for="hours-range">Hours from now you want to check for future forecast (Rounded UP to nearest hour.)</label>
+                    <br>
+                    <input type="range" class="slider" id="hours-range" min="1" max="24" value="8"> <span
+                        id="hours-label"></span>
+                    <br>
+                    <button class="search-button">Search</button>
+                </form>
+            </div>
             <div id="weather-content" class="weather">
                 <div id="current-weather-content">
                     <p id="weather-head"></p>

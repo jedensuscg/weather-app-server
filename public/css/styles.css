@@ -10,9 +10,8 @@ body {
 
 #wrapper {
     position: relative;
-    min-height: 100vh;
-    width: 100%;
-
+    width: 100vw;
+    
 
 }
 
@@ -36,17 +35,39 @@ header {
     margin: 16px 0 48px 0;
 }
 
+
 .main-content {
-    width: 30%;
-    min-width: 25%;
     margin: 0 auto;
     padding-bottom: 100px;
-    margin-right: 40%;
-
+    width: 100vw;
 }
+form {
+    position: relative;
+    max-width: 40%;
+}
+@media (min-width: 651px) {
+    .top-content {
+        width: 70vw;
+        margin: 0 auto 0 30%;
+    }
 
-#weather-content {
-    padding: 10px 5px;
+    #weather-content {
+        padding: 10px 5px;
+        margin: auto;
+        width: fit-content;
+    }
+}
+@media (max-width:650px) {
+    .top-content {
+        width: 80%;
+        margin: 0 auto 0 30%;
+    }
+
+    #weather-content {
+        padding: 10px 5px;
+        width: 90%;
+        margin: auto;
+    }
 }
 
 footer {

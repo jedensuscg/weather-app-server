@@ -60,7 +60,7 @@ app.get('/weather', (req, res) => {
         })
     }
     if (req.query.time) {
-        requestedTimeIndex = parseInt(req.query.time) + 1
+        requestedTimeIndex = parseInt(req.query.time)
     }
     geocode(mapbox_api, req.query.address, (error, { latitude, longitude, location } = {}) => {
         if (error) {
@@ -93,7 +93,7 @@ app.get('/weather', (req, res) => {
                         precipWord,
                         weatherCode,
                     }
-                    futureForecast(climacell_api, latitude, longitude, calcEndDateTime(24), requestedTimeIndex, (error, { temp, rainChance, observationTime, rainChanceIn24Hours } = {}) => {
+                    futureForecast(climacell_api, latitude, longitude, calcEndDateTime(25), requestedTimeIndex, (error, { temp, rainChance, observationTime, rainChanceIn24Hours } = {}) => {
                         if (error) {
                             if (errorMsg === undefined) {
                                 errorMsg = error

@@ -29,7 +29,7 @@ weatherForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const location = search.value;
-    const hours = time.value;
+    const hours = (time.value) - 1;
 
     weatherHead.textContent = 'Loading Weather';
     currentTemp.textContent = '';
@@ -43,10 +43,9 @@ weatherForm.addEventListener('submit', (e) => {
     forecastPrecipChance.textContent = "";
     betweenForecastHR.remove();
 
-    fetch(`/weather?address=${location}&time=${hours - 1}`).then((response) => {
+    fetch(`/weather?address=${location}&time=${hours + 2}`).then((response) => {
         response.json().then((data) => {
             const { geocode, currentForecast, futureForecast } = data;
-
             WeatherContent.classList.add("weather-border")
 
             if (data.errorMsg) {
