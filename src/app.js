@@ -11,19 +11,22 @@ const geocode = require('./utils/geocode')
 const currentForecast = require('./utils/currentForcast')
 const futureForecast = require('./utils/futureForcast')
 const calcEndDateTime = require('./utils/calcEndDateTime')
-// const {
-//     query
-// } = require('express')
 require('dotenv').config();
 
 //Dev Stuff
+let testGeocode = null
+let testCurrentForecast = null
+let testFutureForecast = null
+if (process.env.NODE_ENV == 'development') {
     const fs = require('fs')
     const rawData = fs.readFileSync('./devOps/testWeather.json')
     const testData = JSON.parse(rawData)
     console.log(process.env.NODE_ENV)
-    const testGeocode = testData.geocode
-    const testCurrentForecast = testData.currentForecast
-    const testFutureForecast = testData.futureForecast
+    testGeocode = testData.geocode
+    testCurrentForecast = testData.currentForecast
+    testFutureForecast = testData.futureForecast
+}
+
 
 
 let errorMsg = undefined
