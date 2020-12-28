@@ -8,7 +8,7 @@ You can view the LIVE app at https://weather.jamesedens.me
 If you wish to use this and expand on it some key things to know are:
 1) run npm install to download required npm packages
 
-2) You will need to register for your own Climacell and Mailbox API keys.
+2) You will need to register for your own Climacell and Mapbox API keys.
 No keys are included with for obvious reasons.
 
 3) You will them need to reference your keys. The keys are referenced in 
