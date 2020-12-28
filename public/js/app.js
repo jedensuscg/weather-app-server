@@ -1,3 +1,9 @@
+/**
+ * Created by James Edens. Inspired by the Udemy course located at
+ * https://www.udemy.com/course/the-complete-nodejs-developer-course-2/
+ * Credit goes to Andrew Mead for the inspiration. Mead.io
+ */
+
 console.log('Client Side Javascript loaded');
 
 const WeatherContent = document.querySelector('#weather-content');
