@@ -8,8 +8,6 @@ const calcEndDateTime = (hours) => {
     endDateTimeUTC.setHours(endDateTimeUTC.getHours() + hours)
 
     const endDateTimeUTCISO = endDateTimeUTC.toISOString()
-    console.log(endDateTimeUTCISO);
-    console.log({currentDateTimeUTC, endDateTimeUTC, endDateTimeUTCISO})
     return endDateTimeUTCISO
 }
 
