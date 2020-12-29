@@ -21,7 +21,6 @@ if (process.env.NODE_ENV == 'development') {
     const fs = require('fs')
     const rawData = fs.readFileSync('./devOps/testWeather.json')
     const testData = JSON.parse(rawData)
-    console.log(process.env.NODE_ENV)
     testGeocode = testData.geocode
     testCurrentForecast = testData.currentForecast
     testFutureForecast = testData.futureForecast
@@ -74,7 +73,7 @@ app.get('/help', (req, res) => {
 })
 
 if (process.env.NODE_ENV == 'production') {
-    console.log('sending production data mode:' + process.env.NODE_ENV)
+    console.log(`Sendign data in ${process.env.NODE_ENV} mode.`)
     app.get('/weather', (req, res) => {
         if (!req.query.address) {
             return res.send({
@@ -199,7 +198,7 @@ if (process.env.NODE_ENV == 'production') {
 }
 
 if (process.env.NODE_ENV == 'development') {
-    console.log('Sending data in dev mode' + process.env.NODE_ENV)
+    console.log(`Sendign data in ${process.env.NODE_ENV} mode.`)
     app.get('/weather', (req, res) => {
         res.send({
             geocode: testGeocode,
