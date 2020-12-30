@@ -51,7 +51,7 @@ weatherForm.addEventListener('submit', (e) => {
 
     fetch(`/weather?address=${location}&time=${hours + 2}`).then((response) => {
         response.json().then((data) => {
-            console.log(data)
+            console.log
             const { geocode, currentForecast, futureForecast } = data;
             WeatherContent.classList.add("weather-border")
 

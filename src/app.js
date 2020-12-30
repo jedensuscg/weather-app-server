@@ -54,26 +54,26 @@ app.use(express.static(publicDirectoryPath))
 app.get('', (req, res) => {
     res.render('index', {
         title: 'Weather',
-        name: "James"
+        name: "James Edens"
     })
 })
 
 app.get('/about', (req, res) => {
     res.render('about', {
         title: 'About Page',
-        name: 'James'
+        name: 'James Edens'
     })
 })
 
 app.get('/help', (req, res) => {
     res.render('help', {
         title: 'Help page',
-        name: 'James'
+        name: 'James Edens'
     })
 })
 
 if (process.env.NODE_ENV == 'production') {
-    console.log(`Sendign data in ${process.env.NODE_ENV} mode.`)
+    console.log(`Sending data in ${process.env.NODE_ENV} mode.`)
     app.get('/weather', (req, res) => {
         if (!req.query.address) {
             return res.send({
@@ -212,7 +212,7 @@ app.get('/help/*', (req, res) => {
     res.render('404', {
         title: "404",
         msg: "Help Article not found",
-        name: 'James'
+        name: 'James Edens'
     })
 })
 
@@ -221,7 +221,7 @@ app.get('*', (req, res) => {
     res.render('404', {
         title: "404",
         msg: "Could not find the page you are looking for",
-        name: 'James'
+        name: 'James Edens'
     })
 })
 

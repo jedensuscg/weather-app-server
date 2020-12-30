@@ -12,16 +12,18 @@
 <body>
     <div id="wrapper">
         <div class="main-content">
-            {{>header}}
-            <p> This is a work in progress. Currently you can type any address you like. Formats include: <br>
-                City State (New York NY)<br>
-                City Country (Paris France) <br>
-                Whole are partial address (122 Main st Miami) <br>
-            </p>
-            <p>
-                The Geocode API will attempt to find the best address based on your search, and return the weather.
-            </p>
-        </div>
+            <div class="top-content">
+                {{>header}}
+                <p> This is a work in progress. Currently you can type any address you like. Formats include: <br>
+                    City State (New York NY)<br>
+                    City Country (Paris France) <br>
+                    Whole are partial address (122 Main st Miami) <br>
+                </p>
+                <p>
+                    The Geocode API will attempt to find the best address based on your search, and return the weather.
+                </p>
+            </div>
+            </div>
 
         {{>footer}}
     </div>
