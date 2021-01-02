@@ -54,7 +54,7 @@ app.use(express.static(publicDirectoryPath))
 app.get('', (req, res) => {
     res.render('index', {
         title: 'Weather',
-        name: "James Edens"
+        name: "James Edens",
     })
 })
 
@@ -137,10 +137,9 @@ if (process.env.NODE_ENV == 'production') {
                             weatherCode,
                         }
                         futureForecast(climacellAPIKey, latitude, longitude, calcEndDateTime(25), requestedTimeIndex, (error, {
-                            temp,
-                            rainChance,
-                            observationTime,
-                            rainChanceIn24Hours
+                            hourWeather,
+                            rainChanceIn24Hours,
+                            tempUnit,
                         } = {}) => {
                             if (error) {
                                 if (errorMsg === undefined) {
@@ -150,35 +149,25 @@ if (process.env.NODE_ENV == 'production') {
                                     errorMsg
                                 })
                             } else {
-                                const observationTimeLocal = (() => {
-                                    let time = calcLocalTime(observationTime)
-                                    return time.substring(0, time.length - 3)
-                                })();
-                                const hoursFromNow = requestedTimeIndex - 1
-
-                                const newHoursFromNow = (() => {
-                                    const d1 = (Date.parse(observationTime))
-                                    const d2 = (Date.now())
-                                    let seconds = Math.floor((d1 - d2) / 1000);
-                                    let minutes = Math.floor(seconds / 60);
-                                    let hours = Math.floor(minutes / 60);
-                                    let days = Math.floor(hours / 24);
-                                    hours = hours - (days * 24);
-                                    minutes = minutes - (days * 24 * 60) - (hours * 60);
-                                    seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
-                                    return {
-                                        hours,
-                                        minutes,
-                                    }
-                                })();
+                                // const newHoursFromNow = (() => {
+                                //     const d1 = (Date.parse(observationTime))
+                                //     const d2 = (Date.now())
+                                //     let seconds = Math.floor((d1 - d2) / 1000);
+                                //     let minutes = Math.floor(seconds / 60);
+                                //     let hours = Math.floor(minutes / 60);
+                                //     let days = Math.floor(hours / 24);
+                                //     hours = hours - (days * 24);
+                                //     minutes = minutes - (days * 24 * 60) - (hours * 60);
+                                //     seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
+                                //     return {
+                                //         hours,
+                                //         minutes,
+                                //     }
+                                // })();
                                 const forecastData = {
-                                    hoursFromNow,
-                                    observationTimeLocal,
-                                    rainChance,
-                                    temp,
-                                    units,
+                                    hourWeather,
                                     rainChanceIn24Hours,
-                                    newHoursFromNow,
+                                    tempUnit,
                                 }
                                 res.send({
                                     geocode: geocodeData,

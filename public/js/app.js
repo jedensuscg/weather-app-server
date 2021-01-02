@@ -23,6 +23,7 @@ const hoursLabel = document.querySelector('#hours-label');
 const forecastWeatherHeader = document.querySelector('#forecast-weather-head');
 const forecastTemp = document.querySelector('#forecast-temp');
 const betweenForecastHR = document.createElement('hr');
+
 const forecastPrecipChance = document.querySelector('#forecast-precip-chance');
 
 
@@ -44,15 +45,16 @@ weatherForm.addEventListener('submit', (e) => {
     feelsLike.textContent = '';
     humidity.textContent = '';
     weatherCode.textContent = '';
-    forecastWeatherHeader.textContent = "";
-    forecastTemp.textContent = "";
-    forecastPrecipChance.textContent = "";
     betweenForecastHR.remove();
 
     fetch(`/weather?address=${location}&time=${hours + 2}`).then((response) => {
         response.json().then((data) => {
             console.log
-            const { geocode, currentForecast, futureForecast } = data;
+            const {
+                geocode,
+                currentForecast,
+                futureForecast
+            } = data;
             WeatherContent.classList.add("weather-border")
 
             if (data.errorMsg) {
@@ -94,8 +96,8 @@ function displayCurrentWeather(geocode, currentForecast) {
 
 function displayForecastWeather(geocode, futureForecast) {
     forecastWeatherContent.insertBefore(betweenForecastHR, forecastWeatherHeader)
-    forecastWeatherHeader.textContent = `Your Forecasted Weather at ${futureForecast.observationTimeLocal} (${futureForecast.newHoursFromNow.hours} hours, ${futureForecast.newHoursFromNow.minutes} minutes from now.)`;
-    forecastTemp.textContent = `The temperature will be ${Math.ceil(futureForecast.temp)}${futureForecast.units}`;
+    forecastPrecipChance.before(createForecastList(futureForecast))
+    
     if (futureForecast.rainChanceIn24Hours < 1) {
         console.log(futureForecast.rainChanceIn24Hours)
         forecastPrecipChance.textContent = 'No rain is forecasted for the next 24 hours.';
@@ -104,3 +106,14 @@ function displayForecastWeather(geocode, futureForecast) {
     };
 }
 
+function createForecastList({hourWeather:hours, tempUnit:unit}) {
+    const hourList = document.createElement('ul')
+    hourList.className = "forecast-hour-list"
+    hours.forEach((hour, index) => {
+        let temp = Math.ceil(hour.temp);
+        hourItem = document.createElement('li');
+        hourItem.appendChild(document.createTextNode(`Time: ${hour.time}: ${temp}${unit}`))
+        hourList.appendChild(hourItem)
+    });
+    return hourList;
+}

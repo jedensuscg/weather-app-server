@@ -1,5 +1,8 @@
+const calcLocalTime = require('./calcLocalTime')
 const request = require('postman-request')
 let rainChanceArray = [];
+let hourWeather = [];
+
 
 
 const futureForecast = (climacell_api, lat, lon, endTime, requestedTimeIndex, callback) => {
@@ -17,18 +20,20 @@ const futureForecast = (climacell_api, lat, lon, endTime, requestedTimeIndex, ca
             //Get array of rain chances
             for (let index = 0; index < body.length; index++) {
                 rainChanceArray.push(body[index].precipitation_probability.value)
+                const time = calcLocalTime(body[index].observation_time.value)
+                hourWeather.push({
+                    time,
+                    temp: body[index].temp.value,
+                    rainChanceAtHour: body[index].precipitation_probability.value,
+                })
             }
             //Get highest chance of rain during time period
             const observationTime = body[requestedTimeIndex].observation_time.value
-            const rainChance = body[requestedTimeIndex].precipitation_probability.value
             const rainChanceIn24Hours = Math.max(...rainChanceArray);
             const data = {
-                rainChanceArray: rainChanceArray,
-                rainChance: rainChance,
+                hourWeather,
                 rainChanceIn24Hours,
-                observationTime: observationTime,
-                temp: body[requestedTimeIndex].temp.value,
-                units: body[requestedTimeIndex].temp.units
+                tempUnit: body[0].temp.units
             }
             callback(undefined, data)
         }
