@@ -32,8 +32,8 @@ let errorMsg = undefined
 
 const app = express()
 const port = process.env.PORT || 3000
-const mapbox_api = process.env.API_KEY_MAPBOX;
-const climacell_api = process.env.API_KEY_CLIMACELL;
+const mapboxAPIKey = process.env.API_KEY_MAPBOX;
+const climacellAPIKey = process.env.API_KEY_CLIMACELL;
 let requestedTimeIndex = 13
 
 // Define paths for express config
@@ -83,7 +83,7 @@ if (process.env.NODE_ENV == 'production') {
         if (req.query.time) {
             requestedTimeIndex = parseInt(req.query.time)
         }
-        geocode(mapbox_api, req.query.address, (error, {
+        geocode(mapboxAPIKey, req.query.address, (error, {
             latitude,
             longitude,
             location
@@ -100,7 +100,7 @@ if (process.env.NODE_ENV == 'production') {
                     Longitude: longitude,
                     Location: location,
                 }
-                currentForecast(climacell_api, latitude, longitude, (error, {
+                currentForecast(climacellAPIKey, latitude, longitude, (error, {
                     temp: currentTemp,
                     units,
                     windSpeed,
@@ -136,7 +136,7 @@ if (process.env.NODE_ENV == 'production') {
                             precipWord,
                             weatherCode,
                         }
-                        futureForecast(climacell_api, latitude, longitude, calcEndDateTime(25), requestedTimeIndex, (error, {
+                        futureForecast(climacellAPIKey, latitude, longitude, calcEndDateTime(25), requestedTimeIndex, (error, {
                             temp,
                             rainChance,
                             observationTime,

@@ -17,6 +17,8 @@
     "postman-request": "^2.88.1-postman.27"
   },
   "devDependencies": {
+    "eslint": "^7.17.0",
+    "eslint-config-google": "^0.14.0",
     "nodemon": "^2.0.6"
   }
 }
