@@ -15,25 +15,27 @@ const futureForecast = (climacell_api, lat, lon, endTime, requestedTimeIndex, ca
         } else if (body.message) {
             callback(`Climacell: ERROR when attempting to retrieve forecast data! "${body.message}"`)
         } else if (!Number.isInteger(requestedTimeIndex)) {
-            callback('Climacell: ERROR: Invalid quary parameter entered for TIME parameter. But be an integer.')
+            callback('Climacell: ERROR: Invalid query parameter entered for TIME parameter. But be an integer.')
         } else {
+            const tempUnit = body[0].temp.units;
             //Get array of rain chances
             for (let index = 0; index < body.length; index++) {
                 rainChanceArray.push(body[index].precipitation_probability.value)
-                const time = calcLocalTime(body[index].observation_time.value)
+                const time = calcLocalTime.readableFormatLocalTIme(body[index].observation_time.value)
                 hourWeather.push({
                     time,
-                    temp: body[index].temp.value,
-                    rainChanceAtHour: body[index].precipitation_probability.value,
+                    temp: `${Math.ceil(body[index].temp.value)}${tempUnit}`,
+                    rainChanceAtHour: `${body[index].precipitation_probability.value}%`,
                 })
             }
             //Get highest chance of rain during time period
+            console.log(hourWeather)
             const observationTime = body[requestedTimeIndex].observation_time.value
             const rainChanceIn24Hours = Math.max(...rainChanceArray);
             const data = {
                 hourWeather,
                 rainChanceIn24Hours,
-                tempUnit: body[0].temp.units
+ 
             }
             callback(undefined, data)
         }

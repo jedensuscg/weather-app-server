@@ -156,6 +156,20 @@ header a:hover {
 
 }
 
-.forecast-hour-list {
-    list-style-type: none;
+.forecast.hourly.div {
+    margin: auto;
+}
+
+.forecast-hour-time {
+    text-decoration: underline;
+}
+
+.forecast-hour-temp {
+    padding: 0;
+    margin: 0;
+}
+
+.forecast-hour-rain {
+    padding: 0;
+    margin: 0;
 }

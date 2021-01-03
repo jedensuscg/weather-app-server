@@ -49,7 +49,6 @@ weatherForm.addEventListener('submit', (e) => {
 
     fetch(`/weather?address=${location}&time=${hours + 2}`).then((response) => {
         response.json().then((data) => {
-            console.log
             const {
                 geocode,
                 currentForecast,
@@ -97,23 +96,45 @@ function displayCurrentWeather(geocode, currentForecast) {
 function displayForecastWeather(geocode, futureForecast) {
     forecastWeatherContent.insertBefore(betweenForecastHR, forecastWeatherHeader)
     forecastPrecipChance.before(createForecastList(futureForecast))
-    
+
     if (futureForecast.rainChanceIn24Hours < 1) {
-        console.log(futureForecast.rainChanceIn24Hours)
         forecastPrecipChance.textContent = 'No rain is forecasted for the next 24 hours.';
     } else {
         forecastPrecipChance.textContent = `Chance of rain at observation time: ${futureForecast.rainChance}%. There is a ${futureForecast.rainChanceIn24Hours}% chance of rain in the next 24 hours.`;
     };
 }
 
-function createForecastList({hourWeather:hours, tempUnit:unit}) {
-    const hourList = document.createElement('ul')
-    hourList.className = "forecast-hour-list"
-    hours.forEach((hour, index) => {
-        let temp = Math.ceil(hour.temp);
-        hourItem = document.createElement('li');
-        hourItem.appendChild(document.createTextNode(`Time: ${hour.time}: ${temp}${unit}`))
-        hourList.appendChild(hourItem)
-    });
+function createForecastList({
+    hourWeather: hours
+}) {
+
+    let hourList = document.createElement('div')
+    hourList.className = "forecast-hourly-div"
+
+
+
+    for (let hour = 0; hour < hours.length; hour++) {
+        let timeH4 = document.createElement('h4')
+        timeH4.className = "forecast-hour-time"
+        let tempP = document.createElement('p')
+        tempP.className = "forecast-hour-temp"
+        let rainP = document.createElement('p')
+        rainP.className = "forecast-hour-rain"
+        let hourDiv = document.createElement('div')
+        hourDiv.className = "forecast-hour-div"
+        let hourData = hours[hour]
+
+        timeH4.appendChild(document.createTextNode(hourData.time))
+        tempP.appendChild(document.createTextNode(`Temperature: ${hourData.temp}`))
+        rainP.appendChild(document.createTextNode(`Rain Chance: ${hourData.rainChanceAtHour}`))
+        hourDiv.appendChild(timeH4)
+        hourDiv.appendChild(tempP)
+        hourDiv.appendChild(rainP)
+
+
+
+        hourList.appendChild(hourDiv)
+    }
+
     return hourList;
 }

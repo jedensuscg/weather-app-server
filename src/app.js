@@ -19,7 +19,7 @@ let testCurrentForecast = null
 let testFutureForecast = null
 if (process.env.NODE_ENV == 'development') {
     const fs = require('fs')
-    const rawData = fs.readFileSync('./devOps/testWeather.json')
+    const rawData = fs.readFileSync('./devOps/testWeatherFull.json')
     const testData = JSON.parse(rawData)
     testGeocode = testData.geocode
     testCurrentForecast = testData.currentForecast
