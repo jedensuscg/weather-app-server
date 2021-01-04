@@ -107,6 +107,21 @@ function displayForecastWeather(geocode, futureForecast) {
 function createForecastList({
     hourWeather: hours
 }) {
+    const lineBreak = document.createElement('br')
+    const rainDropImg = document.createElement('img');    
+    rainDropImg.setAttribute("src", "/img/drop.svg");
+    rainDropImg.setAttribute("width", "15");
+    rainDropImg.setAttribute("height", "15");
+    rainDropImg.setAttribute("alt", "rain drop");
+
+    const tempImg = createWeatherIcon("/img/temperature.svg", "15", "temp guage")
+
+    // let tempImg = document.createElement('img');    
+    // tempImg.setAttribute("src", "/img/temperature.svg");
+    // tempImg.setAttribute("width", "15");
+    // tempImg.setAttribute("height", "15");
+    // tempImg.setAttribute("alt", "temp guage");
+
 
     let hourList = document.createElement('div')
     hourList.className = "forecast-hourly-div"
@@ -116,19 +131,23 @@ function createForecastList({
     for (let hour = 0; hour < hours.length; hour++) {
         let timeH4 = document.createElement('h4')
         timeH4.className = "forecast-hour-time"
-        let tempP = document.createElement('p')
+        let tempP = document.createElement('span')
         tempP.className = "forecast-hour-temp"
-        let rainP = document.createElement('p')
+        let rainP = document.createElement('span')
         rainP.className = "forecast-hour-rain"
         let hourDiv = document.createElement('div')
         hourDiv.className = "forecast-hour-div"
         let hourData = hours[hour]
 
         timeH4.appendChild(document.createTextNode(hourData.time))
-        tempP.appendChild(document.createTextNode(`Temperature: ${hourData.temp}`))
-        rainP.appendChild(document.createTextNode(`Rain Chance: ${hourData.rainChanceAtHour}`))
+        tempP.appendChild(document.createTextNode(hourData.temp))
+
+        rainP.appendChild(document.createTextNode(hourData.rainChanceAtHour))
         hourDiv.appendChild(timeH4)
+        hourDiv.appendChild(tempImg.cloneNode(true))
         hourDiv.appendChild(tempP)
+        hourDiv.appendChild(lineBreak.cloneNode(true))
+        hourDiv.appendChild(rainDropImg.cloneNode(true))
         hourDiv.appendChild(rainP)
 
 
@@ -137,4 +156,14 @@ function createForecastList({
     }
 
     return hourList;
+}
+
+function createWeatherIcon(src, width, alt) {
+    let Img = document.createElement('img');    
+    Img.setAttribute("src", src);
+    Img.setAttribute("width", width);
+    Img.setAttribute("height", width);
+    Img.setAttribute("alt", alt);
+
+    return Img
 }

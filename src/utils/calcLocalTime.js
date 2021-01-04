@@ -12,6 +12,11 @@ const readableFormatLocalTIme = (dateTime) => {
     if(hours > 12) {
         hours -= 12;
         ampm = "pm"
+
+    }
+    if (hours == 0) {
+        hours = 12;
+        ampm = "am";
     }
     returnHour = `${hours} ${ampm}`
     return returnHour;

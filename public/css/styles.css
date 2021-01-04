@@ -45,6 +45,8 @@ form {
     position: relative;
     max-width: 40%;
 }
+
+
 @media (min-width: 651px) {
     .top-content {
         width: 70vw;
@@ -156,17 +158,33 @@ header a:hover {
 
 }
 
-.forecast.hourly.div {
-    margin: auto;
+.forecast-hourly-div {
+    display: grid;
+    grid-template-columns: 50% 50%;
+
 }
 
+.forecast-hour-div {
+    margin-top: 0px;
+    color: black;
+    padding-left: 15%;
+    border: 1px solid black;
+    border-radius: 5px;
+    background: rgb(255,255,255);
+background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(181,230,247,1) 20%, rgba(181,230,247,1) 72%, rgba(255,255,255,1) 100%);
+}
 .forecast-hour-time {
     text-decoration: underline;
+
+    margin: 5px 10px 2px -20px;
+    background-color: rgb(153, 153, 153);
 }
 
 .forecast-hour-temp {
     padding: 0;
-    margin: 0;
+    margin: 2px;
+    margin-top: -20px;
+    font-size: 1.5em;
 }
 
 .forecast-hour-rain {

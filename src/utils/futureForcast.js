@@ -29,7 +29,6 @@ const futureForecast = (climacell_api, lat, lon, endTime, requestedTimeIndex, ca
                 })
             }
             //Get highest chance of rain during time period
-            console.log(hourWeather)
             const observationTime = body[requestedTimeIndex].observation_time.value
             const rainChanceIn24Hours = Math.max(...rainChanceArray);
             const data = {

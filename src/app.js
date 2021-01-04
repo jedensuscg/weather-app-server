@@ -149,21 +149,7 @@ if (process.env.NODE_ENV == 'production') {
                                     errorMsg
                                 })
                             } else {
-                                // const newHoursFromNow = (() => {
-                                //     const d1 = (Date.parse(observationTime))
-                                //     const d2 = (Date.now())
-                                //     let seconds = Math.floor((d1 - d2) / 1000);
-                                //     let minutes = Math.floor(seconds / 60);
-                                //     let hours = Math.floor(minutes / 60);
-                                //     let days = Math.floor(hours / 24);
-                                //     hours = hours - (days * 24);
-                                //     minutes = minutes - (days * 24 * 60) - (hours * 60);
-                                //     seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
-                                //     return {
-                                //         hours,
-                                //         minutes,
-                                //     }
-                                // })();
+                               
                                 const forecastData = {
                                     hourWeather,
                                     rainChanceIn24Hours,
@@ -187,7 +173,7 @@ if (process.env.NODE_ENV == 'production') {
 }
 
 if (process.env.NODE_ENV == 'development') {
-    console.log(`Sendign data in ${process.env.NODE_ENV} mode.`)
+    console.log(`sending data in ${process.env.NODE_ENV} mode.`)
     app.get('/weather', (req, res) => {
         res.send({
             geocode: testGeocode,
