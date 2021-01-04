@@ -175,9 +175,9 @@ background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(181,230,247,1) 2
 }
 .forecast-hour-time {
     text-decoration: underline;
-
+    font-size: 1.3em;
     margin: 5px 10px 2px -20px;
-    background-color: rgb(153, 153, 153);
+    background-color: rgb(121, 119, 253);
 }
 
 .forecast-hour-temp {

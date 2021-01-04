@@ -108,19 +108,10 @@ function createForecastList({
     hourWeather: hours
 }) {
     const lineBreak = document.createElement('br')
-    const rainDropImg = document.createElement('img');    
-    rainDropImg.setAttribute("src", "/img/drop.svg");
-    rainDropImg.setAttribute("width", "15");
-    rainDropImg.setAttribute("height", "15");
-    rainDropImg.setAttribute("alt", "rain drop");
 
-    const tempImg = createWeatherIcon("/img/temperature.svg", "15", "temp guage")
 
-    // let tempImg = document.createElement('img');    
-    // tempImg.setAttribute("src", "/img/temperature.svg");
-    // tempImg.setAttribute("width", "15");
-    // tempImg.setAttribute("height", "15");
-    // tempImg.setAttribute("alt", "temp guage");
+    const tempImg = createWeatherIcon("/img/temperature.svg", "25", "temp guage")
+    const rainDropImg = createWeatherIcon("/img/drop.svg", "15", "rain drop")
 
 
     let hourList = document.createElement('div')
@@ -159,7 +150,7 @@ function createForecastList({
 }
 
 function createWeatherIcon(src, width, alt) {
-    let Img = document.createElement('img');    
+    let Img = document.createElement('img');
     Img.setAttribute("src", src);
     Img.setAttribute("width", width);
     Img.setAttribute("height", width);
