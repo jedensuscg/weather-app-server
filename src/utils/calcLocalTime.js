@@ -1,3 +1,12 @@
+/**
+ * Calculate Local TIme Module
+ * @module calcLocalTime 
+ */
+
+/**
+ * Convert full Date object to local hours in 24 hour format.
+ * @param {Date} dateTime Date object to convert to local hours.
+ */
 const printLocalTime = (dateTime) => {
     const dateTimeLocal = new Date(dateTime)
     const dateTimeLocalHours = dateTimeLocal.toString().split(" ")[4]
@@ -5,6 +14,10 @@ const printLocalTime = (dateTime) => {
 
 }
 
+/**
+ * Convert full Date object to local hours in 12 format with am pm appended.
+ * @param {Date} dateTime Date object to convert
+ */
 const readableFormatLocalTIme = (dateTime) => {
     const dateTimeLocal = new Date(dateTime)
     let ampm = "am";

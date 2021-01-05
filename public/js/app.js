@@ -90,7 +90,6 @@ function displayCurrentWeather(geocode, currentForecast) {
     } else {
         precip.textContent = `Precipitation: There is currently no precipitation`;
     };
-
 }
 
 function displayForecastWeather(geocode, futureForecast) {
@@ -149,6 +148,12 @@ function createForecastList({
     return hourList;
 }
 
+/**
+ * 
+ * @param {string} src icon src
+ * @param {string} width desired width
+ * @param {string} alt alt text for image
+ */
 function createWeatherIcon(src, width, alt) {
     let Img = document.createElement('img');
     Img.setAttribute("src", src);

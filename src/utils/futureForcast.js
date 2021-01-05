@@ -4,7 +4,15 @@ let rainChanceArray = [];
 let hourWeather = [];
 
 
-
+/**
+ * 
+ * @param {string} climacell_api API Key for Climacell
+ * @param {string} lat latitude
+ * @param {string} lon longitude
+ * @param {string} endTime end time to use for forecast
+ * @param {string} requestedTimeIndex No longer used. leave blank
+ * @param {callback} callback Callback
+ */
 const futureForecast = (climacell_api, lat, lon, endTime, requestedTimeIndex, callback) => {
     const urlCurrent = `https://api.climacell.co/v3/weather/forecast/hourly?lat=${lat}&lon=${lon}&unit_system=us&start_time=now&end_time=${endTime}&fields=temp,precipitation_probability&apikey=${climacell_api}`
     request({ url: urlCurrent, json: true }, (error, { body }) => {
@@ -28,6 +36,8 @@ const futureForecast = (climacell_api, lat, lon, endTime, requestedTimeIndex, ca
                     rainChanceAtHour: `${body[index].precipitation_probability.value}%`,
                 })
             }
+
+            
             //Get highest chance of rain during time period
             const observationTime = body[requestedTimeIndex].observation_time.value
             const rainChanceIn24Hours = Math.max(...rainChanceArray);
