@@ -4,39 +4,39 @@
  * Credit goes to Andrew Mead for the inspiration. Mead.io
  */
 
-console.log("Client Side Javascript loaded");
+console.log('Client Side Javascript loaded');
 
-const WeatherContent = document.querySelector("#weather-content");
+const WeatherContent = document.querySelector('#weather-content');
 const forecastWeatherContent = document.querySelector(
-  "#forcast-weather-content"
+    '#forcast-weather-content',
 );
-const weatherForm = document.querySelector("form");
-const search = document.querySelector("input");
-const time = document.querySelector("#hours-range");
-const weatherHead = document.querySelector("#weather-head");
-const currentTemp = document.querySelector("#current-temp");
-const feelsLike = document.querySelector("#feels-like");
-const currentWinds = document.querySelector("#current-winds");
-const precip = document.querySelector("#precip");
-const humidity = document.querySelector("#humidity");
-const weatherCode = document.querySelector("#weather-code");
-const hoursSlider = document.querySelector("#hours-range");
-const hoursLabel = document.querySelector("#hours-label");
-const forecastWeatherHeader = document.querySelector("#forecast-weather-head");
-const forecastTemp = document.querySelector("#forecast-temp");
-const betweenForecastHR = document.createElement("hr");
+const weatherForm = document.querySelector('form');
+const search = document.querySelector('input');
+const time = document.querySelector('#hours-range');
+const weatherHead = document.querySelector('#weather-head');
+const currentTemp = document.querySelector('#current-temp');
+const feelsLike = document.querySelector('#feels-like');
+const currentWinds = document.querySelector('#current-winds');
+const precip = document.querySelector('#precip');
+const humidity = document.querySelector('#humidity');
+const weatherCode = document.querySelector('#weather-code');
+const hoursSlider = document.querySelector('#hours-range');
+const hoursLabel = document.querySelector('#hours-label');
+const forecastWeatherHeader = document.querySelector('#forecast-weather-head');
+const forecastTemp = document.querySelector('#forecast-temp');
+const betweenForecastHR = document.createElement('hr');
 let hourListDiv = undefined;
 
-const forecastPrecipChance = document.querySelector("#forecast-precip-chance");
+const forecastPrecipChance = document.querySelector('#forecast-precip-chance');
 
-hoursLabel.innerHTML = hoursSlider.value + " Hours";
-hoursSlider.oninput = function () {
-  hoursLabel.innerHTML = this.value + " Hours";
+hoursLabel.innerHTML = hoursSlider.value + ' Hours';
+hoursSlider.oninput = function() {
+  hoursLabel.innerHTML = this.value + ' Hours';
 };
 
-weatherForm.addEventListener("submit", (e) => {
+weatherForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  console.log("running fetch");
+  console.log('running fetch');
   const location = search.value;
   const hours = time.value - 1;
 
@@ -44,11 +44,11 @@ weatherForm.addEventListener("submit", (e) => {
 
   fetch(`/weather?address=${location}&time=${hours + 2}`).then((response) => {
     response.json().then((data) => {
-      const { geocode, currentForecast, futureForecast } = data;
-      WeatherContent.classList.add("weather-border");
+      const {geocode, currentForecast, futureForecast} = data;
+      WeatherContent.classList.add('weather-border');
 
       if (data.errorMsg) {
-        weatherHead.textContent = "ERROR";
+        weatherHead.textContent = 'ERROR';
         currentTemp.textContent = `${data.errorMsg}`;
       } else {
         displayCurrentWeather(geocode, currentForecast);
@@ -59,19 +59,33 @@ weatherForm.addEventListener("submit", (e) => {
   });
 });
 
+/**
+ * @description Capitalize the first word of a string.
+ * @param {string} string String to capitalize first word.
+ */
 function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+/** 
+ * @description Removes underscores and capitalizes first word of string.
+ * @param {string} string String to normalize
+ */
 function normalizeString(string) {
-  str = string.replace("_", " ");
+  str = string.replace('_', ' ');
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+/**
+ * 
+ * @param {object} geocode Object containing geocode data
+ * @see {@link module:geocode}
+ * @param {object} currentForecast object containing current forecast data
+ */
 function displayCurrentWeather(geocode, currentForecast) {
   weatherHead.textContent = `Your Current Weather for ${geocode.Location}`;
   weatherCode.textContent = `Conditions: ${normalizeString(
-    currentForecast.weatherCode
+      currentForecast.weatherCode,
   )}`;
   currentTemp.textContent = `Temperature: ${Math.ceil(currentForecast.temp)}${
     currentForecast.units
@@ -85,7 +99,7 @@ function displayCurrentWeather(geocode, currentForecast) {
   humidity.textContent = `Humidity: ${currentForecast.humidity}%`;
   if (currentForecast.precipitationType != null) {
     precip.textContent = `Precipitation: ${capitalize(
-      currentForecast.precipWord
+        currentForecast.precipWord,
     )} ${capitalize(currentForecast.precipitationType)} (${
       currentForecast.precipitation
     } ${currentForecast.precipitationUnits})`;
@@ -101,35 +115,35 @@ function displayForecastWeather(geocode, futureForecast) {
 
   if (futureForecast.rainChanceIn24Hours < 1) {
     forecastPrecipChance.textContent =
-      "No rain is forecasted for the next 24 hours.";
+      'No rain is forecasted for the next 24 hours.';
   } else {
     forecastPrecipChance.textContent = `Chance of rain at observation time: ${futureForecast.rainChance}%. There is a ${futureForecast.rainChanceIn24Hours}% chance of rain in the next 24 hours.`;
   }
 }
 
-function createForecastList({ hourWeather: hours }) {
-  const lineBreak = document.createElement("br");
-  console.log("hours lenght: " + hours.length);
-  console.log("creating nodes");
+function createForecastList({hourWeather: hours}) {
+  const lineBreak = document.createElement('br');
+  console.log('hours lenght: ' + hours.length);
+  console.log('creating nodes');
 
-  const tempImg = createWeatherIcon("/img/temperature.svg", "25", "temp guage");
-  const rainDropImg = createWeatherIcon("/img/drop.svg", "15", "rain drop");
+  const tempImg = createWeatherIcon('/img/temperature.svg', '25', 'temp guage');
+  const rainDropImg = createWeatherIcon('/img/drop.svg', '15', 'rain drop');
 
-  let hourList = document.createElement("div");
-  console.log("hour list before: " + hourList.childElementCount);
-  hourList.className = "forecast-hourly-div";
-  hourList.id = "hour-list";
+  const hourList = document.createElement('div');
+  console.log('hour list before: ' + hourList.childElementCount);
+  hourList.className = 'forecast-hourly-div';
+  hourList.id = 'hour-list';
 
   for (let hour = 0; hour < hours.length; hour++) {
-    let timeH4 = document.createElement("h4");
-    timeH4.className = "forecast-hour-time";
-    let tempP = document.createElement("span");
-    tempP.className = "forecast-hour-temp";
-    let rainP = document.createElement("span");
-    rainP.className = "forecast-hour-rain";
-    let hourDiv = document.createElement("div");
-    hourDiv.className = "forecast-hour-div";
-    let hourData = hours[hour];
+    const timeH4 = document.createElement('h4');
+    timeH4.className = 'forecast-hour-time';
+    const tempP = document.createElement('span');
+    tempP.className = 'forecast-hour-temp';
+    const rainP = document.createElement('span');
+    rainP.className = 'forecast-hour-rain';
+    const hourDiv = document.createElement('div');
+    hourDiv.className = 'forecast-hour-div';
+    const hourData = hours[hour];
 
     timeH4.appendChild(document.createTextNode(hourData.time));
     tempP.appendChild(document.createTextNode(hourData.temp));
@@ -144,7 +158,7 @@ function createForecastList({ hourWeather: hours }) {
 
     hourList.appendChild(hourDiv);
   }
-  console.log("hourList " + hourList.childElementCount);
+  console.log('hourList ' + hourList.childElementCount);
   return hourList;
 }
 
@@ -155,11 +169,11 @@ function createForecastList({ hourWeather: hours }) {
  * @param {string} alt alt text for image
  */
 function createWeatherIcon(src, width, alt) {
-  let Img = document.createElement("img");
-  Img.setAttribute("src", src);
-  Img.setAttribute("width", width);
-  Img.setAttribute("height", width);
-  Img.setAttribute("alt", alt);
+  const Img = document.createElement('img');
+  Img.setAttribute('src', src);
+  Img.setAttribute('width', width);
+  Img.setAttribute('height', width);
+  Img.setAttribute('alt', alt);
 
   return Img;
 }
@@ -175,13 +189,13 @@ function removeAllChildNodes(parent) {
 }
 
 function clearPreviousSearch() {
-  weatherHead.textContent = "Loading Weather";
-  currentTemp.textContent = "";
-  currentWinds.textContent = "";
-  precip.textContent = "";
-  feelsLike.textContent = "";
-  humidity.textContent = "";
-  weatherCode.textContent = "";
+  weatherHead.textContent = 'Loading Weather';
+  currentTemp.textContent = '';
+  currentWinds.textContent = '';
+  precip.textContent = '';
+  feelsLike.textContent = '';
+  humidity.textContent = '';
+  weatherCode.textContent = '';
   betweenForecastHR.remove();
   if (hourListDiv != null) {
     removeAllChildNodes(hourListDiv);

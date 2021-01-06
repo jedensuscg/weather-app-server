@@ -11,6 +11,8 @@ const geocode = require('./utils/geocode')
 const currentForecast = require('./utils/currentForcast')
 const futureForecast = require('./utils/futureForcast')
 const calcEndDateTime = require('./utils/calcEndDateTime')
+const setQueryString = require('./utils/setQueryString')
+const { query } = require('express')
 require('dotenv').config();
 
 //Dev Stuff
@@ -25,8 +27,18 @@ if (process.env.NODE_ENV == 'development') {
     testCurrentForecast = testData.currentForecast
     testFutureForecast = testData.futureForecast
 }
+/**
+ * @description The formatted query string that includes all fields desired to be retrieved from Climacell API
+ * @example For temperature, wind speed and humidity to be returned, query string 
+ * @type {string}
+ * @const
+ * 
+ */
 
-
+const currentForecastQueryFields = ["wind_speed","temp","wind_direction","feels_like","humidity","precipitation","precipitation_type","weather_code"]
+const currentForecastQueryString = setQueryString(currentForecastQueryFields)
+const forecastWeatherQueryFields = ["temp","precipitation_probability"]
+const forecastWeatherQueryString = setQueryString(forecastWeatherQueryFields)
 
 let errorMsg = undefined
 
@@ -100,7 +112,7 @@ if (process.env.NODE_ENV == 'production') {
                     Longitude: longitude,
                     Location: location,
                 }
-                currentForecast(climacellAPIKey, latitude, longitude, (error, {
+                currentForecast(climacellAPIKey, latitude, longitude, currentForecastQueryString, (error, {
                     temp: currentTemp,
                     units,
                     windSpeed,
@@ -136,7 +148,7 @@ if (process.env.NODE_ENV == 'production') {
                             precipWord,
                             weatherCode,
                         }
-                        futureForecast(climacellAPIKey, latitude, longitude, calcEndDateTime(25), requestedTimeIndex, (error, {
+                        futureForecast(climacellAPIKey, latitude, longitude, forecastWeatherQueryString,calcEndDateTime(25), requestedTimeIndex, (error, {
                             hourWeather,
                             rainChanceIn24Hours,
                             tempUnit,
@@ -203,3 +215,4 @@ app.get('*', (req, res) => {
 
 
 app.listen(port, () => console.log(`Weather app listening on port ${port}!`))
+

@@ -1,5 +1,6 @@
 const calcLocalTime = require('./calcLocalTime')
-const request = require('postman-request')
+const request = require('postman-request');
+const { query } = require('express');
 let rainChanceArray = [];
 
 
@@ -13,8 +14,8 @@ let rainChanceArray = [];
  * @param {string} requestedTimeIndex No longer used. leave blank
  * @param {callback} callback Callback
  */
-const futureForecast = (climacell_api, lat, lon, endTime, requestedTimeIndex, callback) => {
-    const urlCurrent = `https://api.climacell.co/v3/weather/forecast/hourly?lat=${lat}&lon=${lon}&unit_system=us&start_time=now&end_time=${endTime}&fields=temp,precipitation_probability&apikey=${climacell_api}`
+const futureForecast = (climacell_api, lat, lon, queryString, endTime, requestedTimeIndex, callback) => {
+    const urlCurrent = `https://api.climacell.co/v3/weather/forecast/hourly?lat=${lat}&lon=${lon}&unit_system=us&start_time=now&end_time=${endTime}&fields=${queryString}&apikey=${climacell_api}`
     request({ url: urlCurrent, json: true }, (error, { body }) => {
         if (error) {
             callback('Could not connect to Climacell API when attemping to retrieve forecast data. Check internet or verify URL.')
