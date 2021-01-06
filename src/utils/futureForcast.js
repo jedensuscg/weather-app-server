@@ -1,7 +1,7 @@
 const calcLocalTime = require('./calcLocalTime')
 const request = require('postman-request')
 let rainChanceArray = [];
-let hourWeather = [];
+
 
 
 /**
@@ -26,7 +26,7 @@ const futureForecast = (climacell_api, lat, lon, endTime, requestedTimeIndex, ca
             callback('Climacell: ERROR: Invalid query parameter entered for TIME parameter. But be an integer.')
         } else {
             const tempUnit = body[0].temp.units;
-            //Get array of rain chances
+            let hourWeather = [];
             for (let index = 0; index < body.length; index++) {
                 rainChanceArray.push(body[index].precipitation_probability.value)
                 const time = calcLocalTime.readableFormatLocalTIme(body[index].observation_time.value)
