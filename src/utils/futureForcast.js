@@ -14,7 +14,7 @@ let rainChanceArray = [];
  * @param {string} requestedTimeIndex No longer used. leave blank
  * @param {callback} callback Callback
  */
-const futureForecast = (climacell_api, lat, lon, queryString, endTime, requestedTimeIndex, callback) => {
+const futureForecast = (climacell_api, lat, lon, queryString, endTime, callback) => {
     const urlCurrent = `https://api.climacell.co/v3/weather/forecast/hourly?lat=${lat}&lon=${lon}&unit_system=us&start_time=now&end_time=${endTime}&fields=${queryString}&apikey=${climacell_api}`
     request({ url: urlCurrent, json: true }, (error, { body }) => {
         if (error) {
@@ -23,8 +23,6 @@ const futureForecast = (climacell_api, lat, lon, queryString, endTime, requested
             callback(`Climacell Error Code: ${body.errorCode}: Error Msg: ${body.message}`)
         } else if (body.message) {
             callback(`Climacell: ERROR when attempting to retrieve forecast data! "${body.message}"`)
-        } else if (!Number.isInteger(requestedTimeIndex)) {
-            callback('Climacell: ERROR: Invalid query parameter entered for TIME parameter. But be an integer.')
         } else {
             const tempUnit = body[0].temp.units;
             let hourWeather = [];
@@ -40,7 +38,6 @@ const futureForecast = (climacell_api, lat, lon, queryString, endTime, requested
 
             
             //Get highest chance of rain during time period
-            const observationTime = body[requestedTimeIndex].observation_time.value
             const rainChanceIn24Hours = Math.max(...rainChanceArray);
             const data = {
                 hourWeather,

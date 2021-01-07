@@ -56,7 +56,7 @@ form {
     #weather-content {
         padding: 10px 5px;
         margin: auto;
-        width: fit-content;
+        width: 60%
     }
 }
 @media (max-width:650px) {
@@ -190,4 +190,9 @@ background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(181,230,247,1) 2
 .forecast-hour-rain {
     padding: 0;
     margin: 0;
+}
+
+.attribution {
+    padding-top: 5px;
+    font-size: .75em;
 }

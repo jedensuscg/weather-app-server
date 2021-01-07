@@ -20,8 +20,7 @@ const currentWinds = document.querySelector('#current-winds');
 const precip = document.querySelector('#precip');
 const humidity = document.querySelector('#humidity');
 const weatherCode = document.querySelector('#weather-code');
-const hoursSlider = document.querySelector('#hours-range');
-const hoursLabel = document.querySelector('#hours-label');
+
 const forecastWeatherHeader = document.querySelector('#forecast-weather-head');
 const forecastTemp = document.querySelector('#forecast-temp');
 const betweenForecastHR = document.createElement('hr');
@@ -29,20 +28,16 @@ let hourListDiv = undefined;
 
 const forecastPrecipChance = document.querySelector('#forecast-precip-chance');
 
-hoursLabel.innerHTML = hoursSlider.value + ' Hours';
-hoursSlider.oninput = function() {
-  hoursLabel.innerHTML = this.value + ' Hours';
-};
+
 
 weatherForm.addEventListener('submit', (e) => {
   e.preventDefault();
   console.log('running fetch');
   const location = search.value;
-  const hours = time.value - 1;
 
   clearPreviousSearch();
 
-  fetch(`/weather?address=${location}&time=${hours + 2}`).then((response) => {
+  fetch(`/weather?address=${location}`).then((response) => {
     response.json().then((data) => {
       const {geocode, currentForecast, futureForecast} = data;
       WeatherContent.classList.add('weather-border');
@@ -79,8 +74,9 @@ function normalizeString(string) {
 /**
  * 
  * @param {object} geocode Object containing geocode data
- * @see {@link module:geocode}
+ * @see {@link module:geocode} for how geocode data is obtained.
  * @param {object} currentForecast object containing current forecast data
+ * @see {@link module:currentForecast} for how current forecast data is retrieved.
  */
 function displayCurrentWeather(geocode, currentForecast) {
   weatherHead.textContent = `Your Current Weather for ${geocode.Location}`;
@@ -117,7 +113,7 @@ function displayForecastWeather(geocode, futureForecast) {
     forecastPrecipChance.textContent =
       'No rain is forecasted for the next 24 hours.';
   } else {
-    forecastPrecipChance.textContent = `Chance of rain at observation time: ${futureForecast.rainChance}%. There is a ${futureForecast.rainChanceIn24Hours}% chance of rain in the next 24 hours.`;
+    forecastPrecipChance.textContent = `There is a ${futureForecast.rainChanceIn24Hours}% chance of rain in the next 24 hours.`;
   }
 }
 

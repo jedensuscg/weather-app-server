@@ -148,7 +148,7 @@ if (process.env.NODE_ENV == 'production') {
                             precipWord,
                             weatherCode,
                         }
-                        futureForecast(climacellAPIKey, latitude, longitude, forecastWeatherQueryString,calcEndDateTime(25), requestedTimeIndex, (error, {
+                        futureForecast(climacellAPIKey, latitude, longitude, forecastWeatherQueryString,calcEndDateTime(25), (error, {
                             hourWeather,
                             rainChanceIn24Hours,
                             tempUnit,
