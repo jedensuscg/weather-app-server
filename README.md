@@ -7,14 +7,14 @@
     - [UPCOMING FEATURES](#upcoming-features)
 
 ### ABOUT
-Full application for the weather app course on udemy.com.
+This is a full application that is continuing the app created through a course on udemy.com.
 https://www.udemy.com/course/the-complete-nodejs-developer-course-2/
 
 Extensive additions to the original course.
 You can view the LIVE app at https://weather.jamesedens.me
 NOTE* Live implementation running on Heroku free dynamo. Thus, if the app has no been used in 30 minutes it is unloaded and will take about 10-20 seconds for the server to boot up on Heroku's end. Please wait.
 
-Back end webserver created in Node.JS and ExpressJS. MVC handled through handlebars. No frameworks used for front end implementation.
+Back end webserver created in Node.JS and ExpressJS. Basic templenting handled through handlebars. (Footer and header mostly). 
 
 ### CURRENT FEATURES
 - Easy geocoding
