@@ -155,33 +155,42 @@ function createForecastList({hourWeather: hours}) {
   const lineBreak = document.createElement('br');
   const tempImg = createWeatherIcon('/img/temperature.svg', '25', 'small-temp-icon', 'temp gauge');
   const rainDropImg = createWeatherIcon('/img/drop.svg', '15', 'small-precip-icon','rain drop');
-
+  
   const hourList = document.createElement('div');
-  console.log('hour list before: ' + hourList.childElementCount);
   hourList.className = 'forecast-hourly-div';
   hourList.id = 'hour-list';
 
   for (let hour = 0; hour < hours.length; hour++) {
-    const timeH4 = document.createElement('h4');
-    timeH4.className = 'forecast-hour-time';
-    const tempP = document.createElement('span');
-    tempP.className = 'forecast-hour-temp';
-    const rainP = document.createElement('span');
-    rainP.className = 'forecast-hour-rain';
-    const hourDiv = document.createElement('div');
-    hourDiv.className = 'forecast-hour-div';
-    const hourData = hours[hour];
 
+    
+    const conditionIcon = createWeatherIcon(`/img/${hours[hour].weatherCode}.svg`, '60', 'small-condition-icon', 'condition icon' )
+    const leftDiv = createElementWithClass('div', 'hour-left-div');
+    const rightDiv = createElementWithClass('div', 'hour-right-div');
+    const timeH4 = createElementWithClass('h4', 'forecast-hour-time');
+    const tempP = createElementWithClass('span', 'forecast-hour-temp');
+    const rainP = createElementWithClass('span', 'forecast-hour-rain');
+    const hourDiv = createElementWithClass('div', 'forecast-hour-div');
+    const conditionDiv = createElementWithClass('div','small-condition-div');
+    
+    const hourData = hours[hour];
+    hourDiv.appendChild(timeH4);
+    hourDiv.appendChild(leftDiv);
+    hourDiv.appendChild(rightDiv);
     timeH4.appendChild(document.createTextNode(hourData.time));
     tempP.appendChild(document.createTextNode(hourData.temp));
-
     rainP.appendChild(document.createTextNode(hourData.rainChanceAtHour));
-    hourDiv.appendChild(timeH4);
-    hourDiv.appendChild(tempImg.cloneNode(true));
-    hourDiv.appendChild(tempP);
-    hourDiv.appendChild(lineBreak.cloneNode(true));
-    hourDiv.appendChild(rainDropImg.cloneNode(true));
-    hourDiv.appendChild(rainP);
+    
+    leftDiv.appendChild(tempImg.cloneNode(true));
+    leftDiv.appendChild(tempP);
+    leftDiv.appendChild(lineBreak.cloneNode(true));
+    leftDiv.appendChild(rainDropImg.cloneNode(true));
+    leftDiv.appendChild(rainP);
+
+
+    rightDiv.appendChild(conditionDiv);
+    conditionDiv.appendChild(conditionIcon)
+    
+ 
 
     hourList.appendChild(hourDiv);
   }
@@ -243,4 +252,15 @@ function clearPreviousSearch() {
     conditionIcon.remove();
     largeTempIcon.remove();
   }
+}
+
+/**
+ * 
+ * @param {string} type the type of HTML Element to create
+ * @param {string} className a class you want to add.
+ */
+function createElementWithClass(type, className) {
+  const element = document.createElement(type);
+  element.className = className
+  return element;
 }
