@@ -72,6 +72,13 @@ form {
     }
 }
 
+#current-temp {
+    font-size: 3em;
+}
+
+.large-condition-icon {
+    display: block;
+}
 footer {
     height: 75px;
     margin: auto;

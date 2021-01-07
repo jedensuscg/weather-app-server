@@ -12,7 +12,7 @@ const precipWords = require('./precipWords')
  * @param {string} lat Latitude
  * @param {string} lon Longtitude
  * @param {string} queryString The query string to send for desired data from Climacell API.
- * @param {callback} callback Callback
+ * @param {callback} callback The callback with requested weather data or error.
  */
 const currentForecast = (climacell_api, lat, lon, queryString, callback) => {
     const urlCurrent = `https://api.climacell.co/v3/weather/realtime?unit_system=us&apikey=${climacell_api}&lat=${lat}&lon=${lon}&fields=${queryString}`

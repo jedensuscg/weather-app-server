@@ -1,3 +1,8 @@
+/**
+ * @description Gets future forecast from Climacell using specified query string.
+ * @module futureForecast
+ */
+
 const calcLocalTime = require('./calcLocalTime')
 const request = require('postman-request');
 const { query } = require('express');
