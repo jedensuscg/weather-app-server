@@ -1,9 +1,21 @@
+/**
+ * @description Gets current forecast from Climacell using specified query string.
+ * @module currentForecast
+ */
 const request = require('postman-request')
 const windDegToCardinal = require('./windDegToCardinal');
 const precipWords = require('./precipWords')
 
-const currentForecast = (climacell_api, lat, lon, callback) => {
-    const urlCurrent = `https://api.climacell.co/v3/weather/realtime?unit_system=us&apikey=${climacell_api}&lat=${lat}&lon=${lon}&fields=wind_speed,temp,wind_direction,feels_like,humidity,precipitation,precipitation_type,weather_code`
+/**
+ * 
+ * @param {string} climacell_api API key for Climacell
+ * @param {string} lat Latitude
+ * @param {string} lon Longtitude
+ * @param {string} queryString The query string to send for desired data from Climacell API.
+ * @param {callback} callback The callback with requested weather data or error.
+ */
+const currentForecast = (climacell_api, lat, lon, queryString, callback) => {
+    const urlCurrent = `https://api.climacell.co/v3/weather/realtime?unit_system=us&apikey=${climacell_api}&lat=${lat}&lon=${lon}&fields=${queryString}`
     request({ url: urlCurrent, json: true }, (error, response, { errorCode, message: msgError, temp, wind_speed, wind_direction, feels_like, humidity, precipitation, precipitation_type, weather_code } = {}) => {
         if (error) {
             callback('Could not connect to Climacell API when attemping to retrieve current data. Check internet or verify URL.')

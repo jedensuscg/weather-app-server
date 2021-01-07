@@ -97,4 +97,4 @@ Here is an example parsed JSON return
 
 ### UPCOMING FEATURES
 - Full 12 hours forecast for the current day.
-- 5 day forcast for the week.
+- 5 day forecast for the week.

@@ -45,6 +45,8 @@ form {
     position: relative;
     max-width: 40%;
 }
+
+
 @media (min-width: 651px) {
     .top-content {
         width: 70vw;
@@ -54,7 +56,7 @@ form {
     #weather-content {
         padding: 10px 5px;
         margin: auto;
-        width: fit-content;
+        width: 60%
     }
 }
 @media (max-width:650px) {
@@ -70,6 +72,13 @@ form {
     }
 }
 
+#current-temp {
+    font-size: 3em;
+}
+
+.large-condition-icon {
+    display: block;
+}
 footer {
     height: 75px;
     margin: auto;
@@ -154,4 +163,64 @@ header a:hover {
 .search-button:hover {
     background: rgb(82, 81, 81);
 
+}
+
+.forecast-hourly-div {
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+}
+
+.forecast-hour-div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin-top: 0px;
+    color: black;
+    padding-left: 15%;
+    border: 1px solid black;
+    border-radius: 5px;
+    background: rgb(255,255,255);
+background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(181,230,247,1) 20%, rgba(181,230,247,1) 72%, rgba(255,255,255,1) 100%);
+}
+.forecast-hour-time {
+    grid-column: span 2;
+    text-decoration: underline;
+    font-size: 1.3em;
+    margin: 5px 10px 2px -20px;
+    background-color: rgb(121, 119, 253);
+}
+
+.small-condition-div{
+    display: inline-block;
+    position: absolute;
+}
+
+.hour-left-div {
+    grid-row: span 3;
+}
+
+.hour-right-div {
+    grid-row: span 3;
+}
+
+.forecast-hour-temp {
+    padding: 0;
+    margin: 2px;
+    margin-top: -20px;
+    font-size: 1.5em;
+}
+
+.forecast-hour-rain {
+    padding: 0;
+    margin: 0;
+}
+
+.attribution {
+    padding-top: 5px;
+    font-size: .75em;
+}
+
+.climacell-icon {
+    width: 40%;
 }

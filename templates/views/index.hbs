@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Use this site to get local weather.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
@@ -15,36 +16,33 @@
             <div class="top-content">
                 {{>header}}
                 <p>Use this site for weather!</p>
-    
                 <form action="">
                     <input placeholder="Location" class="search" type="text">
                     <br>
-                    <br>
-                    <label for="hours-range">Hours from now you want to check for future forecast (Rounded UP to nearest hour.)</label>
-                    <br>
-                    <input type="range" class="slider" id="hours-range" min="1" max="24" value="8"> <span
-                        id="hours-label"></span>
-                    <br>
+
                     <button class="search-button">Search</button>
                 </form>
+
             </div>
             <div id="weather-content" class="weather">
                 <div id="current-weather-content">
                     <p id="weather-head"></p>
-                    <id id="weather-code"></id>
-                    <p id="current-temp"></p>
+                    <span id="current-temp"></span>
+                    <br>
+                    <p id="weather-code"></p>
                     <p id="feels-like"></p>
                     <p id="current-winds"></p>
                     <p id="humidity"></p>
                     <p id="precip"></p>
                 </div>
-                <div id="forcast-weather-content" class="weather">
-                    <p id="forecast-weather-head"></p>
-                    <p id="forecast-temp"></p>
+                <div id="forecast-weather-content" class="weather">
                     <p id="forecast-precip-chance"></p>
 
                 </div>
+                <div class="climacell-attribute"><img src="/img/powered_by_climacell_black.svg" alt="climacell icon" class="climacell-icon"></div>
+                <div class="attribution">Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
             </div>
+
         </div>
         {{>footer}}
     </div>
