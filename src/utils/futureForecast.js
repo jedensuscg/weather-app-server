@@ -38,6 +38,7 @@ const futureForecast = (climacell_api, lat, lon, queryString, endTime, callback)
                     time,
                     temp: `${Math.ceil(body[index].temp.value)}${tempUnit}`,
                     rainChanceAtHour: `${body[index].precipitation_probability.value}%`,
+                    weatherCode : body[index].weather_code.value,
                 })
             }
 

@@ -49,7 +49,7 @@ const currentForecastQueryFields = ['wind_speed', 'temp', 'wind_direction', 'fee
  * @const
  */
 const currentForecastQueryString = setQueryString(currentForecastQueryFields);
-const forecastWeatherQueryFields = ['temp', 'precipitation_probability'];
+const forecastWeatherQueryFields = ['temp', 'precipitation_probability', 'weather_code'];
 const forecastWeatherQueryString = setQueryString(forecastWeatherQueryFields);
 
 let errorMsg = undefined;

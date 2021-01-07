@@ -27,7 +27,12 @@ const weatherCode = document.querySelector('#weather-code');
 const forecastPrecipChance = document.querySelector('#forecast-precip-chance');
 const forecastWeatherHeader = document.querySelector('#forecast-weather-head');
 const betweenForecastHR = document.createElement('hr');
-const hourListDiv = undefined;
+const flatIconAtt = document.querySelector('.attribution')
+const climacellIcon = document.querySelector('.climacell-attribute')
+let firstSearch = true;
+let hourListDiv = undefined
+flatIconAtt.style.visibility = 'hidden';
+climacellIcon.style.visibility = 'hidden';
 // #endregion
 
 weatherForm.addEventListener('submit', (e) => {
@@ -35,8 +40,9 @@ weatherForm.addEventListener('submit', (e) => {
   console.log('running fetch');
   const location = search.value;
 
+  
   clearPreviousSearch();
-
+  firstSearch = false;
   fetch(`/weather?address=${location}`).then((response) => {
     response.json().then((data) => {
       const {geocode, currentForecast, futureForecast} = data;
@@ -49,6 +55,8 @@ weatherForm.addEventListener('submit', (e) => {
         displayCurrentWeather(geocode, currentForecast);
 
         displayForecastWeather(futureForecast);
+        flatIconAtt.style.visibility = 'visible';
+        climacellIcon.style.visibility = 'visible';
       }
     });
   });
@@ -88,7 +96,7 @@ function displayCurrentWeather(geocode, currentForecast) {
   weatherHead.textContent = `Your Current Weather for ${geocode.Location}`;
 
   
-  const currentConditionIcon = createWeatherIcon('/img/cloud.svg','75','large-condition-icon','conditions icon')
+  const currentConditionIcon = createWeatherIcon(`/img/${currentForecast.weatherCode}.svg`,'75','large-condition-icon','conditions icon')
   currentTemp.before(createWeatherIcon('/img/temperature.svg','50','large-temp-icon','temperature icon'))
   currentTemp.textContent = `${Math.ceil(currentForecast.temp)}${
     currentForecast.units
@@ -125,7 +133,7 @@ function displayCurrentWeather(geocode, currentForecast) {
  */
 function displayForecastWeather(futureForecast) {
   forecastWeatherContent.insertBefore(betweenForecastHR, forecastWeatherHeader);
-  const hourListDiv = createForecastList(futureForecast);
+  hourListDiv = createForecastList(futureForecast);
   forecastPrecipChance.before(hourListDiv);
 
   if (futureForecast.rainChanceIn24Hours < 1) {
@@ -226,8 +234,13 @@ function clearPreviousSearch() {
   humidity.textContent = '';
   weatherCode.textContent = '';
   betweenForecastHR.remove();
-  if (hourListDiv != null) {
+
+  if (firstSearch == false) {
     removeAllChildNodes(hourListDiv);
     hourListDiv.remove();
+    const conditionIcon = document.querySelector('.large-condition-icon')
+    const largeTempIcon = document.querySelector('.large-temp-icon')
+    conditionIcon.remove();
+    largeTempIcon.remove();
   }
 }

@@ -203,3 +203,7 @@ background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(181,230,247,1) 2
     padding-top: 5px;
     font-size: .75em;
 }
+
+.climacell-icon {
+    width: 40%;
+}
