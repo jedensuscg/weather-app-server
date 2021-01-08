@@ -3,7 +3,6 @@
  * @module futureForecast
  */
 
-const calcLocalTime = require('./calcLocalTime')
 const request = require('postman-request');
 const { query } = require('express');
 let rainChanceArray = [];
