@@ -8,7 +8,7 @@ View the app at [https://weather.jamesedens.me](https://weather.jamesedens.me)
 
 ### ABOUT
 This is a full application that is continuing the app created through a course on udemy.com.
-https://www.udemy.com/course/the-complete-nodejs-developer-course-2/
+[The complete nodejs developer course](https://www.udemy.com/course/the-complete-nodejs-developer-course-2/)
 
 Extensive additions to the original course.
 You can view the LIVE app at [https://weather.jamesedens.me](https://weather.jamesedens.me)
