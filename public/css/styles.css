@@ -33,7 +33,7 @@ body {
     color: black;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 50px;
 }
 
 .current-temp {
@@ -169,7 +169,6 @@ header a:hover {
 #weather-head {
     text-align: center;
     grid-column: span 2;
-    height: 50px;
 }
 
 .forecast-hourly-div {
@@ -185,7 +184,7 @@ header a:hover {
 .forecast-hour-div {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 50px;
+    grid-template-rows: 1fr 1fr 1fr;
     margin-top: 0px;
     color: black;
     padding-left: 15%;
