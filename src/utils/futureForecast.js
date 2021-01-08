@@ -33,9 +33,8 @@ const futureForecast = (climacell_api, lat, lon, queryString, endTime, callback)
             let hourWeather = [];
             for (let index = 0; index < body.length; index++) {
                 rainChanceArray.push(body[index].precipitation_probability.value)
-                const time = calcLocalTime.readableFormatLocalTIme(body[index].observation_time.value)
                 hourWeather.push({
-                    time,
+                    time: body[index].observation_time.value,
                     temp: `${Math.ceil(body[index].temp.value)}${tempUnit}`,
                     rainChanceAtHour: `${body[index].precipitation_probability.value}%`,
                     weatherCode : body[index].weather_code.value,

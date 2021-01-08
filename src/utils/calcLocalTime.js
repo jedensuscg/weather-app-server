@@ -2,7 +2,7 @@
  * Calculate Local TIme Module
  * @module calcLocalTime 
  */
-
+const { DateTime } = require("luxon");
 /**
  * Convert full Date object to local hours in 24 hour format.
  * @param {Date} dateTime Date object to convert to local hours.
@@ -20,8 +20,12 @@ const printLocalTime = (dateTime) => {
  */
 const readableFormatLocalTIme = (dateTime) => {
     const dateTimeLocal = new Date(dateTime)
+    console.log(dateTimeLocal)
+    dateTimeLocal.setUTCHours(dateTimeLocal.getUTCHours() - timezoneOffset)
+    console.log(dateTimeLocal)
     let ampm = "am";
-    let hours = dateTimeLocal.getHours();
+    let hours = dateTimeLocal.
+    console.log(hours)
     if(hours > 12) {
         hours -= 12;
         ampm = "pm"
@@ -32,6 +36,8 @@ const readableFormatLocalTIme = (dateTime) => {
         ampm = "am";
     }
     returnHour = `${hours} ${ampm}`
+    console.log(returnHour)
+ 
     return returnHour;
 
 }
