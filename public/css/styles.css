@@ -236,9 +236,10 @@ background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(181,230,247,1) 2
 }
 
 .error {
-    display:inline-block;
+    position: absolute;
     font-size: 1.5em;
     width: 100%;
     text-align: center;
     color: white;
+    grid-column: span 2;
 }
