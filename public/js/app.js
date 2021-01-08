@@ -11,6 +11,7 @@
 console.log('Client Side Javascript loaded');
 
 // #region DECLARATIONS
+
 const weatherContent = document.querySelector('#weather-content');
 const forecastWeatherContent = document.querySelector(
   '#forecast-weather-content',
@@ -164,7 +165,7 @@ function createForecastList({ hourWeather: hours }) {
   hourList.className = 'forecast-hourly-div';
   hourList.id = 'hour-list';
 
-  for (let hour = 0; hour < hours.length; hour++) {
+  for (let hour = 1; hour < hours.length; hour++) {
 
 
     const conditionIcon = createWeatherIcon(`/img/${hours[hour].weatherCode}.svg`, '60', 'small-condition-icon', 'condition icon')
@@ -177,10 +178,11 @@ function createForecastList({ hourWeather: hours }) {
     const conditionDiv = createElementWithClass('div', 'small-condition-div');
 
     const hourData = hours[hour];
+    time = readableFormatLocalTIme(hourData.time)
     hourDiv.appendChild(timeH4);
     hourDiv.appendChild(leftDiv);
     hourDiv.appendChild(rightDiv);
-    timeH4.appendChild(document.createTextNode(hourData.time));
+    timeH4.appendChild(document.createTextNode(time));
     tempP.appendChild(document.createTextNode(hourData.temp));
     rainP.appendChild(document.createTextNode(hourData.rainChanceAtHour));
 
@@ -279,4 +281,27 @@ function createElementWithClass(type, className) {
   const element = document.createElement(type);
   element.className = className
   return element;
+}
+
+function readableFormatLocalTIme (dateTime) {
+  const dateTimeLocal = new Date(dateTime)
+  console.log(dateTimeLocal)
+
+  let ampm = "am";
+  let hours = dateTimeLocal.getHours()
+  console.log(hours)
+  if(hours > 12) {
+      hours -= 12;
+      ampm = "pm"
+
+  }
+  if (hours == 0) {
+      hours = 12;
+      ampm = "am";
+  }
+  returnHour = `${hours} ${ampm}`
+  console.log(returnHour)
+
+  return returnHour;
+
 }
