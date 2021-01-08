@@ -1,5 +1,7 @@
 # Node.JS Weather App Webserver and front-end UI.
-
+View the app at [https://weather.jamesedens.me](https://weather.jamesedens.me)
+(Give it 10-20 seconds. Its hosted on a free Heroku dyno and needs to "wake up
+the server)
 - [Node.JS Weather App Webserver and front-end UI.](#nodejs-weather-app-webserver-and-front-end-ui)
     - [ABOUT](#about)
     - [CURRENT FEATURES](#current-features)
@@ -8,10 +10,10 @@
 
 ### ABOUT
 This is a full application that is continuing the app created through a course on udemy.com.
-https://www.udemy.com/course/the-complete-nodejs-developer-course-2/
+[The complete nodejs developer course](https://www.udemy.com/course/the-complete-nodejs-developer-course-2/)
 
 Extensive additions to the original course.
-You can view the LIVE app at https://weather.jamesedens.me
+You can view the LIVE app at [https://weather.jamesedens.me](https://weather.jamesedens.me)
 NOTE* Live implementation running on Heroku free dynamo. Thus, if the app has no been used in 30 minutes it is unloaded and will take about 10-20 seconds for the server to boot up on Heroku's end. Please wait.
 
 Back end webserver created in Node.JS and ExpressJS. Basic templates handled through handlebars. (Footer and header mostly). 
