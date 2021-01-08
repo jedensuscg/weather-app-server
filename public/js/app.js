@@ -11,9 +11,9 @@
 console.log('Client Side Javascript loaded');
 
 // #region DECLARATIONS
-const WeatherContent = document.querySelector('#weather-content');
+const weatherContent = document.querySelector('#weather-content');
 const forecastWeatherContent = document.querySelector(
-    '#forecast-weather-content',
+  '#forecast-weather-content',
 );
 const weatherForm = document.querySelector('form');
 const search = document.querySelector('input');
@@ -29,6 +29,8 @@ const forecastWeatherHeader = document.querySelector('#forecast-weather-head');
 const betweenForecastHR = document.createElement('hr');
 const flatIconAtt = document.querySelector('.attribution')
 const climacellIcon = document.querySelector('.climacell-attribute')
+const currentLeftDIv = document.querySelector('.current-left-div');
+const currentRIghtDiv = document.querySelector('.current-right-div');
 let firstSearch = true;
 let hourListDiv = undefined
 flatIconAtt.style.visibility = 'hidden';
@@ -38,25 +40,29 @@ climacellIcon.style.visibility = 'hidden';
 weatherForm.addEventListener('submit', (e) => {
   e.preventDefault();
   console.log('running fetch');
+  weatherContent.style.background = 'inherit'
   const location = search.value;
 
-  
+
   clearPreviousSearch();
   firstSearch = false;
   fetch(`/weather?address=${location}`).then((response) => {
     response.json().then((data) => {
-      const {geocode, currentForecast, futureForecast} = data;
-      WeatherContent.classList.add('weather-border');
+      const { geocode, currentForecast, futureForecast } = data;
+      weatherContent.classList.add('weather-border');
 
       if (data.errorMsg) {
         weatherHead.textContent = 'ERROR';
         currentTemp.textContent = `${data.errorMsg}`;
+        currentTemp.classList.add('error')
       } else {
         displayCurrentWeather(geocode, currentForecast);
 
         displayForecastWeather(futureForecast);
         flatIconAtt.style.visibility = 'visible';
         climacellIcon.style.visibility = 'visible';
+        weatherContent.style.background = 'white';
+        weatherHead.style.color = 'black';
       }
     });
   });
@@ -95,31 +101,29 @@ function normalizeString(string) {
 function displayCurrentWeather(geocode, currentForecast) {
   weatherHead.textContent = `Your Current Weather for ${geocode.Location}`;
 
-  
-  const currentConditionIcon = createWeatherIcon(`/img/${currentForecast.weatherCode}.svg`,'75','large-condition-icon','conditions icon')
-  currentTemp.before(createWeatherIcon('/img/temperature.svg','50','large-temp-icon','temperature icon'))
-  currentTemp.textContent = `${Math.ceil(currentForecast.temp)}${
-    currentForecast.units
-  }`;
 
+  const currentConditionIcon = createWeatherIcon(`/img/${currentForecast.weatherCode}.svg`, '75', 'large-condition-icon', 'conditions icon')
+  currentTemp.before(createWeatherIcon('/img/temperature.svg', '50', 'large-temp-icon', 'temperature icon'))
   const currentTempIcon = document.querySelector('.large-temp-icon')
   currentTempIcon.before(currentConditionIcon)
+  
+  currentTemp.textContent = `${Math.ceil(currentForecast.temp)}${currentForecast.units
+    }`;
+
+
   weatherCode.textContent = `Conditions: ${normalizeString(
     currentForecast.weatherCode,
-)}`;
-  feelsLike.textContent = `Feels Like: ${Math.ceil(currentForecast.feelsLike)}${
-    currentForecast.units
-  }`;
-  currentWinds.textContent = `Winds: ${
-    currentForecast.cardinalWindHeading
-  } at ${Math.ceil(currentForecast.windSpeed)} ${currentForecast.windUnits}`;
+  )}`;
+  feelsLike.textContent = `Feels Like: ${Math.ceil(currentForecast.feelsLike)}${currentForecast.units
+    }`;
+  currentWinds.textContent = `Winds: ${currentForecast.cardinalWindHeading
+    } at ${Math.ceil(currentForecast.windSpeed)} ${currentForecast.windUnits}`;
   humidity.textContent = `Humidity: ${currentForecast.humidity}%`;
   if (currentForecast.precipitationType != null) {
     precip.textContent = `Precipitation: ${capitalize(
-        currentForecast.precipWord,
-    )} ${capitalize(currentForecast.precipitationType)} (${
-      currentForecast.precipitation
-    } ${currentForecast.precipitationUnits})`;
+      currentForecast.precipWord,
+    )} ${capitalize(currentForecast.precipitationType)} (${currentForecast.precipitation
+      } ${currentForecast.precipitationUnits})`;
   } else {
     precip.textContent = `Precipitation: There is currently no precipitation`;
   }
@@ -151,27 +155,27 @@ function displayForecastWeather(futureForecast) {
  * weather data for each hour.
  * @return {HTMLDivElement} The container DIV with all individual child divs for each hour.
  */
-function createForecastList({hourWeather: hours}) {
+function createForecastList({ hourWeather: hours }) {
   const lineBreak = document.createElement('br');
   const tempImg = createWeatherIcon('/img/temperature.svg', '25', 'small-temp-icon', 'temp gauge');
-  const rainDropImg = createWeatherIcon('/img/drop.svg', '15', 'small-precip-icon','rain drop');
-  
+  const rainDropImg = createWeatherIcon('/img/drop.svg', '15', 'small-precip-icon', 'rain drop');
+
   const hourList = document.createElement('div');
   hourList.className = 'forecast-hourly-div';
   hourList.id = 'hour-list';
 
   for (let hour = 0; hour < hours.length; hour++) {
 
-    
-    const conditionIcon = createWeatherIcon(`/img/${hours[hour].weatherCode}.svg`, '60', 'small-condition-icon', 'condition icon' )
+
+    const conditionIcon = createWeatherIcon(`/img/${hours[hour].weatherCode}.svg`, '60', 'small-condition-icon', 'condition icon')
     const leftDiv = createElementWithClass('div', 'hour-left-div');
     const rightDiv = createElementWithClass('div', 'hour-right-div');
     const timeH4 = createElementWithClass('h4', 'forecast-hour-time');
     const tempP = createElementWithClass('span', 'forecast-hour-temp');
     const rainP = createElementWithClass('span', 'forecast-hour-rain');
     const hourDiv = createElementWithClass('div', 'forecast-hour-div');
-    const conditionDiv = createElementWithClass('div','small-condition-div');
-    
+    const conditionDiv = createElementWithClass('div', 'small-condition-div');
+
     const hourData = hours[hour];
     hourDiv.appendChild(timeH4);
     hourDiv.appendChild(leftDiv);
@@ -179,7 +183,7 @@ function createForecastList({hourWeather: hours}) {
     timeH4.appendChild(document.createTextNode(hourData.time));
     tempP.appendChild(document.createTextNode(hourData.temp));
     rainP.appendChild(document.createTextNode(hourData.rainChanceAtHour));
-    
+
     leftDiv.appendChild(tempImg.cloneNode(true));
     leftDiv.appendChild(tempP);
     leftDiv.appendChild(lineBreak.cloneNode(true));
@@ -189,8 +193,8 @@ function createForecastList({hourWeather: hours}) {
 
     rightDiv.appendChild(conditionDiv);
     conditionDiv.appendChild(conditionIcon)
-    
- 
+
+
 
     hourList.appendChild(hourDiv);
   }
@@ -235,23 +239,35 @@ function removeAllChildNodes(parent) {
  * @description Clears all stale weather data from webpage when new search is performed.
  */
 function clearPreviousSearch() {
-  weatherHead.textContent = 'Loading Weather';
-  currentTemp.textContent = '';
-  currentWinds.textContent = '';
-  precip.textContent = '';
-  feelsLike.textContent = '';
-  humidity.textContent = '';
-  weatherCode.textContent = '';
-  betweenForecastHR.remove();
+  if (weatherHead.textContent != 'ERROR') {
+    weatherHead.textContent = 'Loading Weather';
+    weatherHead.style.color = 'white';
+    currentTemp.textContent = '';
+    currentWinds.textContent = '';
+    precip.textContent = '';
+    feelsLike.textContent = '';
+    humidity.textContent = '';
+    weatherCode.textContent = '';
+    forecastPrecipChance.textContent = '';
+    betweenForecastHR.remove();
+    climacellIcon.style.visibility = "hidden";
+    flatIconAtt.style.visibility = 'hidden';
 
-  if (firstSearch == false) {
-    removeAllChildNodes(hourListDiv);
-    hourListDiv.remove();
-    const conditionIcon = document.querySelector('.large-condition-icon')
-    const largeTempIcon = document.querySelector('.large-temp-icon')
-    conditionIcon.remove();
-    largeTempIcon.remove();
+    if (firstSearch == false) {
+      removeAllChildNodes(hourListDiv);
+      hourListDiv.remove();
+      const conditionIcon = document.querySelector('.large-condition-icon')
+      const largeTempIcon = document.querySelector('.large-temp-icon')
+      conditionIcon.remove();
+      largeTempIcon.remove();
+
+    }
+  } else {
+    weatherHead.textContent = 'Loading Weather';
+    currentTemp.textContent = '';
+    currentTemp.classList.remove('error')
   }
+
 }
 
 /**
