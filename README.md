@@ -1,5 +1,5 @@
 # Node.JS Weather App Webserver and front-end UI.
-View the app at https://weather.jamesedens.me](https://weather.jamesedens.me)
+View the app at [https://weather.jamesedens.me](https://weather.jamesedens.me)
 - [Node.JS Weather App Webserver and front-end UI.](#nodejs-weather-app-webserver-and-front-end-ui)
     - [ABOUT](#about)
     - [CURRENT FEATURES](#current-features)
