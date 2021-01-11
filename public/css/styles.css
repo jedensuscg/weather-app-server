@@ -174,7 +174,6 @@ header a:hover {
 .forecast-hourly-div {
     display: grid;
     grid-template-columns: 50% 50%;
-
 }
 
 #forecast-precip-chance {
@@ -193,12 +192,18 @@ header a:hover {
     background: rgb(255,255,255);
 background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(181,230,247,1) 20%, rgba(181,230,247,1) 72%, rgba(255,255,255,1) 100%);
 }
+
+
 .forecast-hour-time {
     grid-column: span 2;
     text-decoration: underline;
     font-size: 1.3em;
     margin: 5px 10px 2px -20px;
     background-color: rgb(121, 119, 253);
+}
+
+.date-span {
+    float: right;
 }
 
 .small-condition-div{

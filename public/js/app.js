@@ -36,6 +36,19 @@ let firstSearch = true;
 let hourListDiv = undefined
 flatIconAtt.style.visibility = 'hidden';
 climacellIcon.style.visibility = 'hidden';
+const month = [
+"January",
+"February",
+"March",
+"April",
+"May",
+"June",
+"July",
+"August",
+"September",
+"October",
+"November",
+"December"]
 // #endregion
 
 weatherForm.addEventListener('submit', (e) => {
@@ -157,6 +170,7 @@ function displayForecastWeather(futureForecast) {
  * @return {HTMLDivElement} The container DIV with all individual child divs for each hour.
  */
 function createForecastList({ hourWeather: hours }) {
+  let printedNewDay = false;
   const lineBreak = document.createElement('br');
   const tempImg = createWeatherIcon('/img/temperature.svg', '25', 'small-temp-icon', 'temp gauge');
   const rainDropImg = createWeatherIcon('/img/drop.svg', '15', 'small-precip-icon', 'rain drop');
@@ -164,10 +178,9 @@ function createForecastList({ hourWeather: hours }) {
   const hourList = document.createElement('div');
   hourList.className = 'forecast-hourly-div';
   hourList.id = 'hour-list';
-
+ 
   for (let hour = 1; hour < hours.length; hour++) {
-
-
+    
     const conditionIcon = createWeatherIcon(`/img/${hours[hour].weatherCode}.svg`, '60', 'small-condition-icon', 'condition icon')
     const leftDiv = createElementWithClass('div', 'hour-left-div');
     const rightDiv = createElementWithClass('div', 'hour-right-div');
@@ -178,11 +191,37 @@ function createForecastList({ hourWeather: hours }) {
     const conditionDiv = createElementWithClass('div', 'small-condition-div');
 
     const hourData = hours[hour];
-    time = readableFormatLocalTIme(hourData.time)
+    const time = readableFormatLocalTIme(hourData.time)
+    const observationDate = new Date(hourData.time)
+    const observationDay = observationDate.getDate();
+    const currentDate = new Date();
+
     hourDiv.appendChild(timeH4);
     hourDiv.appendChild(leftDiv);
     hourDiv.appendChild(rightDiv);
+  
     timeH4.appendChild(document.createTextNode(time));
+    if(hour == 1) {
+      const dateSpan = createElementWithClass('span', 'date-span')
+      const currentDay = currentDate.getDate();
+      const currentMonth = month[currentDate.getMonth()];
+      const currentYear = currentDate.getYear();
+      const dateString = `${currentDay} ${currentMonth}`
+      dateSpan.appendChild(document.createTextNode(dateString))
+      timeH4.appendChild(dateSpan)
+    }
+    if (observationDay > currentDate.getDate() & printedNewDay == false) {
+      const dateSpan = createElementWithClass('span', 'date-span')
+      const nextDay = observationDay;
+      const observedMonth = month[observationDate.getMonth()];
+      const observedYear = observationDate.getYear();
+      const dateString = `${nextDay} ${observedMonth}`
+      dateSpan.appendChild(document.createTextNode(dateString))
+      timeH4.appendChild(dateSpan)
+      printedNewDay = true;
+    }
+
+    
     tempP.appendChild(document.createTextNode(hourData.temp));
     rainP.appendChild(document.createTextNode(hourData.rainChanceAtHour));
 
@@ -200,7 +239,6 @@ function createForecastList({ hourWeather: hours }) {
 
     hourList.appendChild(hourDiv);
   }
-  console.log('hourList ' + hourList.childElementCount);
   return hourList;
 }
 
@@ -285,11 +323,8 @@ function createElementWithClass(type, className) {
 
 function readableFormatLocalTIme (dateTime) {
   const dateTimeLocal = new Date(dateTime)
-  console.log(dateTimeLocal)
-
   let ampm = "am";
   let hours = dateTimeLocal.getHours()
-  console.log(hours)
   if(hours > 12) {
       hours -= 12;
       ampm = "pm"
@@ -300,7 +335,6 @@ function readableFormatLocalTIme (dateTime) {
       ampm = "am";
   }
   returnHour = `${hours} ${ampm}`
-  console.log(returnHour)
 
   return returnHour;
 
