@@ -197,7 +197,7 @@ header a:hover {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     margin-top: 0px;
-    color: black;
+    color: white;
     padding-left: 15%;
     border: 1px solid black;
     border-radius: 5px;
@@ -213,11 +213,13 @@ background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%,
     font-size: 1.3em;
     margin: 5px 10px 2px -20px;
     background-color: rgb(121, 119, 253);
+    color: black;
 }
 
 .date-span {
     float: left;
     font-weight: bolder;
+    color: white;
 }
 
 .small-condition-div{
