@@ -171,6 +171,7 @@ function displayForecastWeather(futureForecast) {
  */
 function createForecastList({ hourWeather: hours }) {
   let printedNewDay = false;
+  let nightDay = ''
   const lineBreak = document.createElement('br');
   const tempImg = createWeatherIcon('/img/temperature.svg', '25', 'small-temp-icon', 'temp gauge');
   const rainDropImg = createWeatherIcon('/img/drop.svg', '15', 'small-precip-icon', 'rain drop');
@@ -181,16 +182,23 @@ function createForecastList({ hourWeather: hours }) {
  
   for (let hour = 1; hour < hours.length; hour++) {
     
+    const hourData = hours[hour];
     const conditionIcon = createWeatherIcon(`/img/${hours[hour].weatherCode}.svg`, '60', 'small-condition-icon', 'condition icon')
     const leftDiv = createElementWithClass('div', 'hour-left-div');
     const rightDiv = createElementWithClass('div', 'hour-right-div');
     const timeH4 = createElementWithClass('h4', 'forecast-hour-time');
     const tempP = createElementWithClass('span', 'forecast-hour-temp');
     const rainP = createElementWithClass('span', 'forecast-hour-rain');
-    const hourDiv = createElementWithClass('div', 'forecast-hour-div');
+    console.log(hourData.dayNight)
+    if(hourData.dayNight == 'day') {
+      nightDay = 'forecast-hour-div-day'
+      console.log('day')
+    } else {
+      nightDay = 'forecast-hour-div-night'
+    }
+    const hourDiv = createElementWithClass('div', `${nightDay}`);
     const conditionDiv = createElementWithClass('div', 'small-condition-div');
 
-    const hourData = hours[hour];
     const time = readableFormatLocalTIme(hourData.time)
     const observationDate = new Date(hourData.time)
     const observationDay = observationDate.getDate();
@@ -220,6 +228,8 @@ function createForecastList({ hourWeather: hours }) {
       timeH4.appendChild(dateSpan)
       printedNewDay = true;
     }
+
+ 
 
     
     tempP.appendChild(document.createTextNode(hourData.temp));

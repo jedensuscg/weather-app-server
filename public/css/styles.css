@@ -180,7 +180,7 @@ header a:hover {
     color: black;
 }
 
-.forecast-hour-div {
+.forecast-hour-div-day {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
@@ -190,11 +190,24 @@ header a:hover {
     border: 1px solid black;
     border-radius: 5px;
     background: rgb(255,255,255);
-background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(181,230,247,1) 20%, rgba(181,230,247,1) 72%, rgba(255,255,255,1) 100%);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(74,207,241,1) 22%, rgba(74,207,241,1) 72%, rgba(255,255,255,1) 100%);
+}
+.forecast-hour-div-night {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin-top: 0px;
+    color: black;
+    padding-left: 15%;
+    border: 1px solid black;
+    border-radius: 5px;
+    background: rgb(85,113,239);
+background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%, rgba(28,49,165,1) 72%, rgba(85,113,239,1) 100%);
 }
 
 
 .forecast-hour-time {
+    text-align: right;
     grid-column: span 2;
     text-decoration: underline;
     font-size: 1.3em;
@@ -203,7 +216,8 @@ background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(181,230,247,1) 2
 }
 
 .date-span {
-    float: right;
+    float: left;
+    font-weight: bolder;
 }
 
 .small-condition-div{
