@@ -16,7 +16,7 @@ const precipWords = require('./precipWords')
  */
 const currentForecast = (climacell_api, lat, lon, queryString, callback) => {
     const urlCurrent = `https://api.climacell.co/v3/weather/realtime?unit_system=us&apikey=${climacell_api}&lat=${lat}&lon=${lon}&fields=${queryString}`
-    request({ url: urlCurrent, json: true }, (error, response, { errorCode, message: msgError, temp, wind_speed, wind_direction, feels_like, humidity, precipitation, precipitation_type, weather_code } = {}) => {
+    request({ url: urlCurrent, json: true }, (error, response, { errorCode, message: msgError, temp, wind_speed, wind_direction, feels_like, humidity, precipitation, precipitation_type, weather_code, sunrise, sunset } = {}) => {
         if (error) {
             callback('Could not connect to Climacell API when attemping to retrieve current data. Check internet or verify URL.')
         } else if (errorCode) {
@@ -41,6 +41,8 @@ const currentForecast = (climacell_api, lat, lon, queryString, callback) => {
                 precipWord,
                 precipitationType: precipitation_type.value,
                 weatherCode: weather_code.value,
+                sunrise,
+                sunset,
             }
             callback(undefined, data)
         }
