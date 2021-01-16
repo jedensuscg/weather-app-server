@@ -13,6 +13,7 @@ const hbs = require("hbs");
 const geocode = require("./utils/geocode");
 const currentForecast = require("./utils/currentForecast");
 const futureForecast = require("./utils/futureForecast");
+const fiveDayForecast = require('./utils/fiveDayForecast')
 const calcEndDateTime = require("./utils/calcEndDateTime");
 const setQueryString = require("./utils/setQueryString");
 require("dotenv").config();
@@ -66,6 +67,15 @@ const forecastWeatherQueryFields = [
   'sunset',
 ];
 const forecastWeatherQueryString = setQueryString(forecastWeatherQueryFields);
+
+const dailyForecastQueryFields = [
+  "temp",
+  "precipitation_probability",
+  "weather_code",
+  'sunrise',
+  'sunset',
+];
+const dailyForecastQueryString = setQueryString(dailyForecastQueryFields);
 
 let errorMsg = undefined;
 
@@ -177,16 +187,7 @@ if (process.env.NODE_ENV == "production") {
                   precipWord,
                   weatherCode,
                 };
-                futureForecast(
-                  climacellAPIKey,
-                  latitude,
-                  longitude,
-                  forecastWeatherQueryString,
-                  calcEndDateTime(25),
-                  (
-                    error,
-                    { hourWeather, rainChanceIn24Hours, tempUnit } = {}
-                  ) => {
+                futureForecast(climacellAPIKey,latitude,longitude,forecastWeatherQueryString,calcEndDateTime.addHours(25),(error,{ hourWeather, rainChanceIn24Hours, tempUnit } = {}) => {
                     if (error) {
                       if (errorMsg === undefined) {
                         errorMsg = error;
@@ -200,10 +201,28 @@ if (process.env.NODE_ENV == "production") {
                         rainChanceIn24Hours,
                         tempUnit,
                       };
-                      res.send({
-                        geocode: geocodeData,
-                        currentForecast: currentData,
-                        futureForecast: forecastData,
+                      fiveDayForecast(climacellAPIKey,latitude,longitude,dailyForecastQueryString,calcEndDateTime.addDays(5),(error,{ dailyWeather, tempUnit } = {}) => {
+                        if (error) {
+
+                          if (errorMsg === undefined) {
+                            errorMsg = error;
+                          }
+                          return res.send({
+                            errorMsg,
+                          });
+                        } else {
+                          const dailyForecastData = {
+                            dailyWeather,
+                            tempUnit,
+                          }
+                          res.send({
+                            geocode: geocodeData,
+                            currentForecast: currentData,
+                            futureForecast: forecastData,
+                            dailyForecast: dailyForecastData,
+                          });
+                        }
+
                       });
                     }
                   }

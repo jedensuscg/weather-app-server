@@ -171,6 +171,7 @@ header a:hover {
     grid-column: span 2;
 }
 
+/* #region HOURLY FORECAST STYLES*/
 .forecast-hourly-div {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -246,6 +247,15 @@ background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%,
     padding: 0;
     margin: 0;
 }
+/* #endregion */
+
+/* #region DAILY FORECAST STYLES */
+.forecast-daily-div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+/* #endregion */
 
 .attribution {
     padding-top: 5px;
@@ -264,3 +274,35 @@ background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%,
     color: white;
     grid-column: span 2;
 }
+
+/* #region TAB STYLES*/
+.tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    margin-bottom: -20px;
+    font-size: 17px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .tabcontent {
+    color: white;
+    display: none;
+    padding: 5px;
+  }
+
+  #forecast-weather-content {
+      background-color: lightblue;
+  }
+
+  #forecast-daily-content {
+      color: black;
+      background-color: darkblue;
+      display: flex;
+  }
+/* #endregion */
