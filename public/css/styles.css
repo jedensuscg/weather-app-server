@@ -213,7 +213,8 @@ background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%,
     text-decoration: underline;
     font-size: 1.3em;
     margin: 5px 10px 2px -20px;
-    background-color: rgb(121, 119, 253);
+    width: 100%;
+    border-bottom: solid 1px black;
     color: black;
 }
 
@@ -230,10 +231,12 @@ background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%,
 
 .hour-left-div {
     grid-row: span 3;
+    padding-top: 5px;
 }
 
 .hour-right-div {
     grid-row: span 3;
+    padding-top: 5px;
 }
 
 .forecast-hour-temp {
@@ -253,8 +256,29 @@ background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%,
 .forecast-daily-div {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 30%;
+    border: solid black 1px;
+    border-radius: 5px;
 }
+
+.forecast-day-date{
+    grid-column: span 2;
+    text-align: center;
+    font-weight: bolder;
+    width: 100%;
+    border-bottom: solid 1px black;
+    margin: auto;
+}
+
+.day-right-div {
+    text-align: center;
+}
+
+.day-left-div {
+    padding-left: 10px;
+}
+
+
 /* #endregion */
 
 .attribution {
@@ -302,7 +326,7 @@ background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%,
 
   #forecast-daily-content {
       color: black;
-      background-color: darkblue;
-      display: flex;
+      background-color: lightblue;
+  
   }
 /* #endregion */

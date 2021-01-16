@@ -55,11 +55,13 @@ const month = [
   "December",
 ];
 
+const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
 hourlyTabButton.addEventListener('click', function() {
   openPage('forecast-weather-content', this, 'lightblue')
 })
 dailyTabButton.addEventListener('click', function(){
-  openPage('forecast-daily-content', this, 'darkblue')
+  openPage('forecast-daily-content', this, 'lightblue')
 })
 // #endregion
 
@@ -200,22 +202,44 @@ function displayFiveDayWeather(dailyForecast) {
 
 function createDailyList({dailyWeather: days}) {
   const dayList = createElementWithClass('div', 'daily-forecast-list')
-
-  for (let day = 1; day < days.length; day++) {
+  let day = 0;
+  for (let index = 0; index < days.length; index++) {
+    date = new Date(days[index].time)
+    if (date.getDate() == new Date().getDate())
+    day = index
+  }
+  for (day; day < days.length; day++) {
     const dayData = days[day];
     const conditionIcon = createWeatherIcon(
-      `/img/${days[day].weatherCode}.svg`,
-      "60",
+      `/img/${dayData.weatherCode}.svg`,
+      "80",
       "small-condition-icon",
       "condition icon"
     );
     const dayDiv = createElementWithClass('div', 'forecast-daily-div')
     const leftDiv = createElementWithClass('div', 'day-left-div');
     const rightDiv = createElementWithClass('div', 'day-right-div');
-    const dateH4 = createElementWithClass('h4', 'forecast-day-date');
+    const dateH3 = createElementWithClass('h3', 'forecast-day-date');
+    
+    // Temps
+    const lowTempDiv = createElementWithClass('div', 'daily-low-temp-div')
+    const highTempDiv = createElementWithClass('div', 'daily-high-temp-div')
+    lowTempDiv.appendChild(document.createTextNode(`LOW: ${dayData.minTemp}`))
+    highTempDiv.appendChild(document.createTextNode(`HIGH: ${dayData.maxTemp}`))
+    leftDiv.appendChild(lowTempDiv);
+    leftDiv.appendChild(highTempDiv);
 
+    //Rain Chance
+    const rainChanceDiv = createElementWithClass('div', 'daily-rain-chance-div')
+    rainChanceDiv.appendChild(document.createTextNode(`Precipitation: ${dayData.rainChance}`))
+    leftDiv.appendChild(rainChanceDiv)
+
+
+    dateH3.appendChild(document.createTextNode(getDayAndMonth(dayData.time)))
+    dayDiv.appendChild(dateH3)
     rightDiv.appendChild(conditionIcon)
-
+    
+    dayDiv.appendChild(leftDiv)
     dayDiv.appendChild(rightDiv)
     dayList.appendChild(dayDiv)
   }
@@ -267,8 +291,10 @@ function createForecastList({ hourWeather: hours }) {
     const rainP = createElementWithClass("span", "forecast-hour-rain");
     if (hourData.dayNight == "day") {
       nightDay = "forecast-hour-div-day";
+
     } else {
       nightDay = "forecast-hour-div-night";
+      timeH4.style.color = 'white'
     }
     const hourDiv = createElementWithClass("div", `${nightDay}`);
     const conditionDiv = createElementWithClass("div", "small-condition-div");
@@ -285,19 +311,15 @@ function createForecastList({ hourWeather: hours }) {
     timeH4.appendChild(document.createTextNode(time));
     if (hour == 1) {
       const dateSpan = createElementWithClass("span", "date-span");
-      const currentDay = currentDate.getDate();
-      const currentMonth = month[currentDate.getMonth()];
-      const currentYear = currentDate.getYear();
-      const dateString = `${currentDay} ${currentMonth}`;
+      const dateString = `TODAY`;
       dateSpan.appendChild(document.createTextNode(dateString));
+      dateSpan.style.color = 'black'
       timeH4.appendChild(dateSpan);
     }
     if ((observationDay > currentDate.getDate()) & (printedNewDay == false)) {
       const dateSpan = createElementWithClass("span", "date-span");
-      const nextDay = observationDay;
-      const observedMonth = month[observationDate.getMonth()];
-      const observedYear = observationDate.getYear();
-      const dateString = `${nextDay} ${observedMonth}`;
+
+      const dateString = `TOMORROW`;
       dateSpan.appendChild(document.createTextNode(dateString));
       timeH4.appendChild(dateSpan);
       printedNewDay = true;
@@ -371,6 +393,9 @@ function clearPreviousSearch() {
     betweenForecastHR.remove();
     climacellIcon.style.visibility = "hidden";
     flatIconAtt.style.visibility = "hidden";
+    forecastWeatherContent.style.visibility = 'hidden';
+    dailyTabButton.style.visibility = 'hidden';
+    hourlyTabButton.style.visibility = 'hidden';
 
     if (firstSearch == false) {
       removeAllChildNodes(hourListDiv);
@@ -396,6 +421,27 @@ function createElementWithClass(type, className) {
   const element = document.createElement(type);
   element.className = className;
   return element;
+}
+
+function getDayAndMonth(dateTime){
+  const dateTimeLocal = new Date(dateTime)
+  const currentDate = new Date();
+  let returnString = '';
+  if(dateTimeLocal.getDate() >= currentDate.getDate()) {
+    if (dateTimeLocal.getDate() == currentDate.getDate()) {
+      return 'TODAY'
+    } else {
+      const newMonth = month[dateTimeLocal.getMonth()];
+      const newWeekday = weekday[dateTimeLocal.getDay()];
+      const newDate = dateTimeLocal.getDate();
+      returnString = `${newWeekday}, ${newMonth} ${newDate}`
+      
+      return returnString
+    }
+
+
+  }
+
 }
 
 function readableFormatLocalTIme(dateTime) {

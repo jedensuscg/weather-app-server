@@ -22,6 +22,7 @@ require("dotenv").config();
 let testGeocode = null;
 let testCurrentForecast = null;
 let testFutureForecast = null;
+let testDailyForecast = null;
 if (process.env.NODE_ENV == "development") {
   const fs = require("fs");
   const rawData = fs.readFileSync("./devOps/testWeatherFull.json");
@@ -29,6 +30,7 @@ if (process.env.NODE_ENV == "development") {
   testGeocode = testData.geocode;
   testCurrentForecast = testData.currentForecast;
   testFutureForecast = testData.futureForecast;
+  testDailyForecast = testData.dailyForecast;
 }
 
 /**
@@ -201,7 +203,7 @@ if (process.env.NODE_ENV == "production") {
                         rainChanceIn24Hours,
                         tempUnit,
                       };
-                      fiveDayForecast(climacellAPIKey,latitude,longitude,dailyForecastQueryString,calcEndDateTime.addDays(5),(error,{ dailyWeather, tempUnit } = {}) => {
+                      fiveDayForecast(climacellAPIKey,latitude,longitude,dailyForecastQueryString,calcEndDateTime.addDays(6),(error,{ dailyWeather, tempUnit } = {}) => {
                         if (error) {
 
                           if (errorMsg === undefined) {
@@ -243,6 +245,7 @@ if (process.env.NODE_ENV == "development") {
       geocode: testGeocode,
       currentForecast: testCurrentForecast,
       futureForecast: testFutureForecast,
+      dailyForecast: testDailyForecast,
     });
   });
 }
