@@ -10,7 +10,7 @@
  * @param {int} hours Number of hours from now to calculate for ending date and time.
  * @return {string} Calculated date and time.
  */
-const calcEndDateTime = (hours) => {
+const addHours = (hours) => {
   const endDateTimeUTC = new Date();
 
   endDateTimeUTC.setHours(endDateTimeUTC.getHours() + hours);
@@ -19,4 +19,22 @@ const calcEndDateTime = (hours) => {
   return endDateTimeUTCISO;
 };
 
-module.exports = calcEndDateTime;
+/**
+ * @description Returns a dateTime string in ISO format that is x number of 
+ * hours from current dateTime
+ * @param {int} days Number of days from now to calculate for ending date and time.
+ * @return {string} Calculated date and time.
+ */
+const addDays = (days) => {
+  const endDateTimeUTC = new Date();
+
+  endDateTimeUTC.setDate(endDateTimeUTC.getDate() + days);
+  console.log('days')
+  const endDateTimeUTCISO = endDateTimeUTC.toISOString();
+  return endDateTimeUTCISO;
+}
+
+module.exports = {
+  addDays,
+  addHours,
+}
