@@ -56,7 +56,8 @@ const month = [
 ];
 
 const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-
+const currentYear = new Date().getFullYear();
+console.log(currentYear)
 hourlyTabButton.addEventListener('click', function() {
   openPage('forecast-weather-content', this, 'lightblue')
 })
@@ -431,15 +432,24 @@ function createElementWithClass(type, className) {
 function getDayAndMonth(dateTime){
   const dateTimeLocal = new Date(dateTime)
   const currentDate = new Date();
+  const nextYear = new Date().getFullYear() + 1
+
   let returnString = '';
-  if(dateTimeLocal.getDate() >= currentDate.getDate()) {
+
+
+  if(dateTimeLocal.getDate() >= currentDate.getDate() || dateTimeLocal.getMonth() > currentDate.getMonth() || dateTimeLocal.getFullYear() == nextYear) {
     if (dateTimeLocal.getDate() == currentDate.getDate()) {
       return 'TODAY'
     } else {
       const newMonth = month[dateTimeLocal.getMonth()];
       const newWeekday = weekday[dateTimeLocal.getDay()];
       const newDate = dateTimeLocal.getDate();
+
       returnString = `${newWeekday}, ${newMonth} ${newDate}`
+      console.log(dateTimeLocal.getFullYear())
+      if (dateTimeLocal.getFullYear() == nextYear) {
+        returnString += ` ${nextYear}`
+      }
       
       return returnString
     }
@@ -504,7 +514,6 @@ function openPage(pageName, elmnt, color) {
 
   // Show the specific tab content
   document.getElementById(pageName).style.display = "block";
-  console.log(pageName)
 
   // Add the specific color to the button used to open the tab content
   elmnt.style.backgroundColor = color;
