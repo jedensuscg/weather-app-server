@@ -12,7 +12,10 @@ the server)
 This is a full application that is continuing the app created through a course on udemy.com.
 [The complete nodejs developer course](https://www.udemy.com/course/the-complete-nodejs-developer-course-2/)
 
-Extensive additions to the original course.
+Extensive additions made after the original course ended.
+
+This is by NO means a "professional" product.
+
 You can view the LIVE app at [https://weather.jamesedens.me](https://weather.jamesedens.me)
 NOTE* Live implementation running on Heroku free dynamo. Thus, if the app has no been used in 30 minutes it is unloaded and will take about 10-20 seconds for the server to boot up on Heroku's end. Please wait.
 
@@ -33,6 +36,9 @@ Back end webserver created in Node.JS and ExpressJS. Basic templates handled thr
     - temp and rain chance each hour
     - weather condition each hour with icon
   - Gives chance of rain for the next 24 hours.
+ - 5 Day Forecast
+   - Shows current condition Icon
+   - Shows Temperature
 
 ### USAGE
 If you wish to use this and expand on it some key things to know are:
@@ -61,192 +67,344 @@ Here is an example parsed JSON return
 ```json
 {
     "geocode": {
-        "type": "Geocode",
-        "Latitude": 36.2957,
-        "Longitude": -76.2248,
-        "Location": "Elizabeth City, North Carolina, United States"
+    "type": "Geocode",
+    "Latitude": 40.5864,
+    "Longitude": -122.3917,
+    "Location": "Redding, California, United States"
     },
     "currentForecast": {
-        "temp": 45.61,
-        "units": "F",
-        "windSpeed": 9.23,
-        "windUnits": "mph",
-        "windDirection": 295.69,
-        "precipitation": 0,
-        "precipitationUnits": "in/hr",
-        "humidity": 58.06,
-        "feelsLike": 45.61,
-        "cardinalWindHeading": "WNW",
-        "precipitationType": "none",
-        "precipWord": "Light",
-        "weatherCode": "clear"
+    "temp": 38.75,
+    "units": "F",
+    "windSpeed": 12.58,
+    "windUnits": "mph",
+    "windDirection": 176.75,
+    "precipitation": 0.0433,
+    "precipitationUnits": "in/hr",
+    "humidity": 83.25,
+    "feelsLike": 30.88,
+    "cardinalWindHeading": "S",
+    "precipitationType": "rain",
+    "precipWord": "Light",
+    "weatherCode": "rain_light"
     },
     "futureForecast": {
-        "hourWeather": [
-            {
-                "time": "3 pm",
-                "temp": "45F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "clear"
-            },
-            {
-                "time": "4 pm",
-                "temp": "44F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "clear"
-            },
-            {
-                "time": "5 pm",
-                "temp": "41F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "mostly_clear"
-            },
-            {
-                "time": "6 pm",
-                "temp": "39F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "clear"
-            },
-            {
-                "time": "7 pm",
-                "temp": "38F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "mostly_cloudy"
-            },
-            {
-                "time": "8 pm",
-                "temp": "37F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "9 pm",
-                "temp": "36F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "10 pm",
-                "temp": "36F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "11 pm",
-                "temp": "36F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "12 am",
-                "temp": "35F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "1 am",
-                "temp": "35F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "2 am",
-                "temp": "36F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "3 am",
-                "temp": "36F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "4 am",
-                "temp": "36F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "5 am",
-                "temp": "36F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "6 am",
-                "temp": "37F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "7 am",
-                "temp": "37F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "8 am",
-                "temp": "38F",
-                "rainChanceAtHour": "0%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "9 am",
-                "temp": "40F",
-                "rainChanceAtHour": "5%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "10 am",
-                "temp": "43F",
-                "rainChanceAtHour": "25%",
-                "weatherCode": "drizzle"
-            },
-            {
-                "time": "11 am",
-                "temp": "44F",
-                "rainChanceAtHour": "25%",
-                "weatherCode": "drizzle"
-            },
-            {
-                "time": "12 am",
-                "temp": "44F",
-                "rainChanceAtHour": "20%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "1 pm",
-                "temp": "44F",
-                "rainChanceAtHour": "15%",
-                "weatherCode": "cloudy"
-            },
-            {
-                "time": "2 pm",
-                "temp": "44F",
-                "rainChanceAtHour": "15%",
-                "weatherCode": "drizzle"
-            },
-            {
-                "time": "3 pm",
-                "temp": "44F",
-                "rainChanceAtHour": "15%",
-                "weatherCode": "drizzle"
-            },
-            {
-                "time": "4 pm",
-                "temp": "43F",
-                "rainChanceAtHour": "10%",
-                "weatherCode": "partly_cloudy"
-            }
-        ],
-        "rainChanceIn24Hours": 25
+    "hourWeather": [
+    {
+    "time": "2021-01-27T01:00:00.000Z",
+    "temp": "39F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "60%",
+    "weatherCode": "cloudy",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T02:00:00.000Z",
+    "temp": "39F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "51%",
+    "weatherCode": "cloudy",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T03:00:00.000Z",
+    "temp": "38F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "60%",
+    "weatherCode": "cloudy",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T04:00:00.000Z",
+    "temp": "37F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "100%",
+    "weatherCode": "snow_heavy",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T05:00:00.000Z",
+    "temp": "36F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "100%",
+    "weatherCode": "snow_heavy",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T06:00:00.000Z",
+    "temp": "36F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "100%",
+    "weatherCode": "snow_heavy",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T07:00:00.000Z",
+    "temp": "34F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "100%",
+    "weatherCode": "snow_heavy",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T08:00:00.000Z",
+    "temp": "33F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "100%",
+    "weatherCode": "snow_heavy",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T09:00:00.000Z",
+    "temp": "33F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "100%",
+    "weatherCode": "snow_heavy",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T10:00:00.000Z",
+    "temp": "33F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "90%",
+    "weatherCode": "flurries",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T11:00:00.000Z",
+    "temp": "33F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "70%",
+    "weatherCode": "snow_heavy",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T12:00:00.000Z",
+    "temp": "34F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "70%",
+    "weatherCode": "cloudy",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T13:00:00.000Z",
+    "temp": "33F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "90%",
+    "weatherCode": "snow",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T14:00:00.000Z",
+    "temp": "35F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "80%",
+    "weatherCode": "cloudy",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T15:00:00.000Z",
+    "temp": "33F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "51%",
+    "weatherCode": "snow_light",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-27T16:00:00.000Z",
+    "temp": "33F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "40%",
+    "weatherCode": "cloudy",
+    "dayNight": "day"
+    },
+    {
+    "time": "2021-01-27T17:00:00.000Z",
+    "temp": "35F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "21%",
+    "weatherCode": "cloudy",
+    "dayNight": "day"
+    },
+    {
+    "time": "2021-01-27T18:00:00.000Z",
+    "temp": "37F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "31%",
+    "weatherCode": "cloudy",
+    "dayNight": "day"
+    },
+    {
+    "time": "2021-01-27T19:00:00.000Z",
+    "temp": "45F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "25%",
+    "weatherCode": "cloudy",
+    "dayNight": "day"
+    },
+    {
+    "time": "2021-01-27T20:00:00.000Z",
+    "temp": "41F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "50%",
+    "weatherCode": "rain_light",
+    "dayNight": "day"
+    },
+    {
+    "time": "2021-01-27T21:00:00.000Z",
+    "temp": "43F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "50%",
+    "weatherCode": "rain_light",
+    "dayNight": "day"
+    },
+    {
+    "time": "2021-01-27T22:00:00.000Z",
+    "temp": "44F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "55%",
+    "weatherCode": "drizzle",
+    "dayNight": "day"
+    },
+    {
+    "time": "2021-01-27T23:00:00.000Z",
+    "temp": "44F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChanceAtHour": "55%",
+    "weatherCode": "drizzle",
+    "dayNight": "day"
+    },
+    {
+    "time": "2021-01-28T00:00:00.000Z",
+    "temp": "44F",
+    "sunrise": "2021-01-28T15:22:30.213Z",
+    "sunset": "2021-01-29T01:23:01.690Z",
+    "rainChanceAtHour": "55%",
+    "weatherCode": "drizzle",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-28T01:00:00.000Z",
+    "temp": "44F",
+    "sunrise": "2021-01-28T15:22:30.213Z",
+    "sunset": "2021-01-29T01:23:01.690Z",
+    "rainChanceAtHour": "60%",
+    "weatherCode": "drizzle",
+    "dayNight": "night"
+    },
+    {
+    "time": "2021-01-28T02:00:00.000Z",
+    "temp": "43F",
+    "sunrise": "2021-01-28T15:22:30.213Z",
+    "sunset": "2021-01-29T01:23:01.690Z",
+    "rainChanceAtHour": "60%",
+    "weatherCode": "drizzle",
+    "dayNight": "night"
     }
-}
+    ],
+    "rainChanceIn24Hours": 100
+    },
+    "dailyForecast": {
+    "dailyWeather": [
+    {
+    "time": "2021-01-26",
+    "minTemp": "34F",
+    "maxTemp": "42F",
+    "sunrise": "2021-01-27T15:23:21.851Z",
+    "sunset": "2021-01-28T01:21:49.074Z",
+    "rainChance": "85%",
+    "weatherCode": "snow_heavy",
+    "observationDate": "2021-01-26T00:00:00.000Z"
+    },
+    {
+    "time": "2021-01-27",
+    "minTemp": "34F",
+    "maxTemp": "42F",
+    "sunrise": "2021-01-28T15:22:30.213Z",
+    "sunset": "2021-01-29T01:23:01.690Z",
+    "rainChance": "75%",
+    "weatherCode": "rain",
+    "observationDate": "2021-01-27T00:00:00.000Z"
+    },
+    {
+    "time": "2021-01-28",
+    "minTemp": "34F",
+    "maxTemp": "42F",
+    "sunrise": "2021-01-29T15:21:36.761Z",
+    "sunset": "2021-01-30T01:24:14.480Z",
+    "rainChance": "40%",
+    "weatherCode": "rain_light",
+    "observationDate": "2021-01-28T00:00:00.000Z"
+    },
+    {
+    "time": "2021-01-29",
+    "minTemp": "34F",
+    "maxTemp": "42F",
+    "sunrise": "2021-01-30T15:20:41.531Z",
+    "sunset": "2021-01-31T01:25:27.406Z",
+    "rainChance": "75%",
+    "weatherCode": "rain_light",
+    "observationDate": "2021-01-29T00:00:00.000Z"
+    },
+    {
+    "time": "2021-01-30",
+    "minTemp": "34F",
+    "maxTemp": "42F",
+    "sunrise": "2021-01-31T15:19:44.553Z",
+    "sunset": "2021-02-01T01:26:40.432Z",
+    "rainChance": "45%",
+    "weatherCode": "drizzle",
+    "observationDate": "2021-01-30T00:00:00.000Z"
+    },
+    {
+    "time": "2021-01-31",
+    "minTemp": "34F",
+    "maxTemp": "42F",
+    "sunrise": "2021-02-01T15:18:45.863Z",
+    "sunset": "2021-02-02T01:27:53.524Z",
+    "rainChance": "90%",
+    "weatherCode": "rain_light",
+    "observationDate": "2021-01-31T00:00:00.000Z"
+    },
+    {
+    "time": "2021-02-01",
+    "minTemp": "34F",
+    "maxTemp": "42F",
+    "sunrise": "2021-02-02T15:17:45.495Z",
+    "sunset": "2021-02-03T01:29:06.650Z",
+    "rainChance": "95%",
+    "weatherCode": "flurries",
+    "observationDate": "2021-02-01T00:00:00.000Z"
+    }
+    ]
+    }
+    }
 ```
 
 
 ### UPCOMING FEATURES
 - ~~Full 12 hours forecast for the current day.~~
-- Different icons for day and day.
-- 5 day forecast for the week.
+- ~~Different icons for day and day.
+- ~~5 day forecast for the week.
