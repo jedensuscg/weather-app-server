@@ -416,5 +416,7 @@ Here is an example parsed JSON return
 ### UPCOMING FEATURES
 
 - ~~Full 12 hours forecast for the current day.~~
-- ~~Different icons for day and day.
-- ~~5 day forecast for the week.
+- ~~Different icons for day and day.~~
+- ~~5 day forecast for the week.~~
+- Add winds to Daily forecast.
+- Format and Style fixes.
