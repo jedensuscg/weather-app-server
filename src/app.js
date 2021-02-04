@@ -13,7 +13,7 @@ const hbs = require("hbs");
 const geocode = require("./utils/geocode");
 const currentForecast = require("./utils/currentForecast");
 const futureForecast = require("./utils/futureForecast");
-const fiveDayForecast = require('./utils/fiveDayForecast')
+const fiveDayForecast = require("./utils/fiveDayForecast");
 const calcEndDateTime = require("./utils/calcEndDateTime");
 const setQueryString = require("./utils/setQueryString");
 require("dotenv").config();
@@ -51,8 +51,8 @@ const currentForecastQueryFields = [
   "precipitation",
   "precipitation_type",
   "weather_code",
-  'sunrise',
-  'sunset',
+  "sunrise",
+  "sunset",
 ];
 /**
  * @memberof BackEnd
@@ -61,22 +61,10 @@ const currentForecastQueryFields = [
  * @const
  */
 const currentForecastQueryString = setQueryString(currentForecastQueryFields);
-const forecastWeatherQueryFields = [
-  "temp",
-  "precipitation_probability",
-  "weather_code",
-  'sunrise',
-  'sunset',
-];
+const forecastWeatherQueryFields = ["temp", "precipitation_probability", "weather_code", "sunrise", "sunset"];
 const forecastWeatherQueryString = setQueryString(forecastWeatherQueryFields);
 
-const dailyForecastQueryFields = [
-  "temp",
-  "precipitation_probability",
-  "weather_code",
-  'sunrise',
-  'sunset',
-];
+const dailyForecastQueryFields = ["temp", "precipitation_probability", "weather_code", "sunrise", "sunset"];
 const dailyForecastQueryString = setQueryString(dailyForecastQueryFields);
 
 let errorMsg = undefined;
@@ -129,112 +117,120 @@ if (process.env.NODE_ENV == "production") {
         errorMsg: "Address must be provided",
       });
     }
-    geocode(
-      mapboxAPIKey,
-      req.query.address,
-      (error, { latitude, longitude, location } = {}) => {
-        if (error) {
-          errorMsg = error;
-          return res.send({
-            errorMsg,
-          });
-        } else {
-          const geocodeData = {
-            type: "Geocode",
-            Latitude: latitude,
-            Longitude: longitude,
-            Location: location,
-          };
-          currentForecast(
-            climacellAPIKey,
-            latitude,
-            longitude,
-            currentForecastQueryString,
-            (
-              error,
-              {
-                temp: currentTemp,
-                units,
-                windSpeed,
-                windUnits,
-                windDirection,
-                precipitation,
-                precipitationUnits,
-                humidity,
-                feelsLike,
-                cardinalWindHeading,
-                precipitationType,
-                precipWord,
-                weatherCode,
-              } = {}
-            ) => {
-              if (error) {
-                errorMsg = error;
-                return res.send({
-                  errorMsg,
-                });
-              } else {
-                const currentData = {
-                  temp: currentTemp,
-                  units,
-                  windSpeed,
-                  windUnits,
-                  windDirection,
-                  precipitation,
-                  precipitationUnits,
-                  humidity,
-                  feelsLike,
-                  cardinalWindHeading,
-                  precipitationType,
-                  precipWord,
-                  weatherCode,
-                };
-                futureForecast(climacellAPIKey,latitude,longitude,forecastWeatherQueryString,calcEndDateTime.addHours(25),(error,{ hourWeather, rainChanceIn24Hours, tempUnit } = {}) => {
-                    if (error) {
-                      if (errorMsg === undefined) {
-                        errorMsg = error;
-                      }
-                      return res.send({
-                        errorMsg,
-                      });
-                    } else {
-                      const forecastData = {
-                        hourWeather,
-                        rainChanceIn24Hours,
-                        tempUnit,
-                      };
-                      fiveDayForecast(climacellAPIKey,latitude,longitude,dailyForecastQueryString,calcEndDateTime.addDays(6),(error,{ dailyWeather, tempUnit } = {}) => {
-                        if (error) {
+    geocode(mapboxAPIKey, req.query.address)
+      .then((value) => {
+        console.log(value);
+        res.send(value);
+      })
+      .catch((msg, error) => {
+        res.status(400)
+        res.send(msg)
+        console.log(error);
+      });
 
-                          if (errorMsg === undefined) {
-                            errorMsg = error;
-                          }
-                          return res.send({
-                            errorMsg,
-                          });
-                        } else {
-                          const dailyForecastData = {
-                            dailyWeather,
-                            tempUnit,
-                          }
-                          res.send({
-                            geocode: geocodeData,
-                            currentForecast: currentData,
-                            futureForecast: forecastData,
-                            dailyForecast: dailyForecastData,
-                          });
-                        }
+    // geocode(mapboxAPIKey, req.query.address, (error, { latitude, longitude, location } = {}) => {
+    //     if (error) {
+    //       errorMsg = error;
+    //       return res.send({
+    //         errorMsg,
+    //       });
+    //     } else {
+    //       const geocodeData = {
+    //         type: "Geocode",
+    //         Latitude: latitude,
+    //         Longitude: longitude,
+    //         Location: location,
+    //       };
+    //       currentForecast(
+    //         climacellAPIKey,
+    //         latitude,
+    //         longitude,
+    //         currentForecastQueryString,
+    //         (
+    //           error,
+    //           {
+    //             temp: currentTemp,
+    //             units,
+    //             windSpeed,
+    //             windUnits,
+    //             windDirection,
+    //             precipitation,
+    //             precipitationUnits,
+    //             humidity,
+    //             feelsLike,
+    //             cardinalWindHeading,
+    //             precipitationType,
+    //             precipWord,
+    //             weatherCode,
+    //           } = {}
+    //         ) => {
+    //           if (error) {
+    //             errorMsg = error;
+    //             return res.send({
+    //               errorMsg,
+    //             });
+    //           } else {
+    //             const currentData = {
+    //               temp: currentTemp,
+    //               units,
+    //               windSpeed,
+    //               windUnits,
+    //               windDirection,
+    //               precipitation,
+    //               precipitationUnits,
+    //               humidity,
+    //               feelsLike,
+    //               cardinalWindHeading,
+    //               precipitationType,
+    //               precipWord,
+    //               weatherCode,
+    //             };
+    //             futureForecast(climacellAPIKey,latitude,longitude,forecastWeatherQueryString,calcEndDateTime.addHours(25),(error,{ hourWeather, rainChanceIn24Hours, tempUnit } = {}) => {
+    //                 if (error) {
+    //                   if (errorMsg === undefined) {
+    //                     errorMsg = error;
+    //                   }
+    //                   return res.send({
+    //                     errorMsg,
+    //                   });
+    //                 } else {
+    //                   const forecastData = {
+    //                     hourWeather,
+    //                     rainChanceIn24Hours,
+    //                     tempUnit,
+    //                   };
+    //                   fiveDayForecast(climacellAPIKey,latitude,longitude,dailyForecastQueryString,calcEndDateTime.addDays(6),(error,{ dailyWeather, tempUnit } = {}) => {
+    //                     if (error) {
 
-                      });
-                    }
-                  }
-                );
-              }
-            }
-          );
-        }
-      }
-    );
+    //                       if (errorMsg === undefined) {
+    //                         errorMsg = error;
+    //                       }
+    //                       return res.send({
+    //                         errorMsg,
+    //                       });
+    //                     } else {
+    //                       const dailyForecastData = {
+    //                         dailyWeather,
+    //                         tempUnit,
+    //                       }
+    //                       res.send({
+    //                         geocode: geocodeData,
+    //                         currentForecast: currentData,
+    //                         futureForecast: forecastData,
+    //                         dailyForecast: dailyForecastData,
+    //                       });
+    //                     }
+
+    //                   });
+    //                 }
+    //               }
+    //             );
+    //           }
+    //         }
+    //       );
+    //     }
+    //   }
+    // );
   });
 }
 
