@@ -10,9 +10,7 @@ const request = require("postman-request");
  * @param {callback} callback Callback function
  */
 const geocode = (mapbox_api, address) => {
-  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-    address
-  )}.json?&access_token=${mapbox_api}`;
+  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?&access_token=${mapbox_api}`;
   return new Promise((resolve, reject) => {
     request({ url: url, json: true }, (error, response, { message: messageError, features = [] } = {}) => {
       if (error) {

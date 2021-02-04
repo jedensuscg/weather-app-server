@@ -117,16 +117,29 @@ if (process.env.NODE_ENV == "production") {
         errorMsg: "Address must be provided",
       });
     }
-    geocode(mapboxAPIKey, req.query.address)
-      .then((value) => {
-        console.log(value);
-        res.send(value);
-      })
-      .catch((msg, error) => {
-        res.status(400)
-        res.send(msg)
-        console.log(error);
+    geocodePromise = geocode(mapboxAPIKey, req.query.address);
+    currentForecastPromise = geocodePromise.then((data) => {
+      return currentForecast(climacellAPIKey, data.latitude, data.longitude, currentForecastQueryString);
+    });
+    
+    Promise.all([geocodePromise, currentForecastPromise]).then(([geocodeData, currentData]) => {
+      res.send({
+        geocodeData,
+        currentData,
       });
+    });
+
+    // .then((geocodeData) => {
+    //   currentForecast(climacellAPIKey, geocodeData.latitude, geocodeData.longitude, currentForecastQueryString), value;
+    // })
+    // .then((value) => {
+    //   res.send(value);
+    //   console.log(value);
+    // })
+    // .catch((msg) => {
+    //   res.status(400);
+    //   res.send(msg);
+    // });
 
     // geocode(mapboxAPIKey, req.query.address, (error, { latitude, longitude, location } = {}) => {
     //     if (error) {

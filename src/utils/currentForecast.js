@@ -15,14 +15,15 @@ const precipWords = require('./precipWords')
  * @param {callback} callback The callback with requested weather data or error.
  */
 const currentForecast = (climacell_api, lat, lon, queryString, callback) => {
-    const urlCurrent = `https://api.climacell.co/v3/weather/realtime?unit_system=us&apikey=${climacell_api}&lat=${lat}&lon=${lon}&fields=${queryString}`
-    request({ url: urlCurrent, json: true }, (error, response, { errorCode, message: msgError, temp, wind_speed, wind_direction, feels_like, humidity, precipitation, precipitation_type, weather_code, sunrise, sunset } = {}) => {
+  const urlCurrent = `https://api.climacell.co/v3/weather/realtime?unit_system=us&apikey=${climacell_api}&lat=${lat}&lon=${lon}&fields=${queryString}`
+    return new Promise((resolve, reject) => {
+      request({ url: urlCurrent, json: true }, (error, response, { errorCode, message: msgError, temp, wind_speed, wind_direction, feels_like, humidity, precipitation, precipitation_type, weather_code, sunrise, sunset } = {}) => {
         if (error) {
-            callback('Could not connect to Climacell API when attemping to retrieve current data. Check internet or verify URL.')
+            reject('Could not connect to Climacell API when attempting to retrieve current data. Check internet or verify URL.')
         } else if (errorCode) {
-            callback(`Climacell: Error Code: ${errorCode}: Error Msg: ${msgError}`)
+            reject(`Climacell: Error Code: ${errorCode}: Error Msg: ${msgError}`)
         } else if (msgError) {
-            callback(`Climacell: ERROR when attempting to retrieve current data! ${msgError}`)
+            reject(`Climacell: ERROR when attempting to retrieve current data! ${msgError}`)
         } else {
             const cardinalWindHeading = windDegToCardinal(wind_direction.value)
             const precipWord = precipWords(precipitation.value)
@@ -44,9 +45,12 @@ const currentForecast = (climacell_api, lat, lon, queryString, callback) => {
                 sunrise,
                 sunset,
             }
-            callback(undefined, data)
+            resolve(data)
         }
     })
+    })
+    
+    
 }
 
 module.exports = currentForecast
