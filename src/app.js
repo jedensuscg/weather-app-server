@@ -88,6 +88,14 @@ hbs.registerPartials(partialsPath);
 // Setup static directory to serve
 app.use(express.static(publicDirectoryPath));
 
+
+app.get("", (req, res) => {
+  res.render("index", {
+    title: "WEATHER",
+    name: "James Edens",
+  });
+});
+
 app.get("", (req, res) => {
   res.render("index", {
     title: "WEATHER",
@@ -115,7 +123,8 @@ if (process.env.NODE_ENV == "production") {
     if (!req.query.address) {
       res.status(400);
       return res.send({
-        errorMsg: "Address must be provided",
+        status: 400,
+        error: "Address must be provided",
       });
     }
     geocodePromise = geocode(mapboxAPIKey, req.query.address);
