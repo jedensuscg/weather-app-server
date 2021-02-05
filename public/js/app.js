@@ -131,7 +131,7 @@ function displayCurrentWeather(geocode, currentForecast) {
   const currentTempIcon = document.querySelector(".large-temp-icon");
   currentTempIcon.before(currentConditionIcon);
 
-  currentTemp.textContent = `${Math.ceil(currentForecast.temp)}${
+  currentTemp.textContent = `${Math.ceil(currentForecast.currentTemp)}${
     currentForecast.units
   }`;
 
@@ -180,7 +180,8 @@ function displayFiveDayWeather(dailyForecast) {
   dailyForecastContentDiv.appendChild(dailyList)
 }
 
-function createDailyList({dailyWeather: days}) {
+function createDailyList(days) {
+  console.log(days)
   // Create the list of days (div) to hold weather information
   const dayList = createElementWithClass('div', 'daily-forecast-list')
   let day = 0;
