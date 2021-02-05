@@ -77,6 +77,7 @@ weatherForm.addEventListener("submit", (e) => {
         firstSearch = true
         
       } else {
+        currentTemp.classList.remove('error');
         displayCurrentWeather(geocode, currentForecast);
         displayForecastWeather(futureForecast);
         displayFiveDayWeather(dailyForecast);
