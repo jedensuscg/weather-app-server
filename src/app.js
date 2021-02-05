@@ -113,6 +113,7 @@ if (process.env.NODE_ENV == "production") {
   console.log(`Sending data in ${process.env.NODE_ENV} mode.`);
   app.get("/weather", (req, res) => {
     if (!req.query.address) {
+      res.status(400);
       return res.send({
         errorMsg: "Address must be provided",
       });
@@ -130,16 +131,21 @@ if (process.env.NODE_ENV == "production") {
       return fiveDayForecast(climacellAPIKey, data.latitude, data.longitude, dailyForecastQueryString, calcEndDateTime.addDays(6));
     });
 
-    Promise.all([geocodePromise, currentForecastPromise, futureForecastPromise, fiveDayForecastPromise]).then(
-      ([geocodeData, currentData, forecastData, dailyForecastData]) => {
+    Promise.all([geocodePromise, currentForecastPromise, futureForecastPromise, fiveDayForecastPromise])
+      .then(([geocodeData, currentData, forecastData, dailyForecastData]) => {
+        res.status(200);
         res.send({
           geocode: geocodeData,
           currentForecast: currentData,
           futureForecast: forecastData,
           dailyForecast: dailyForecastData,
         });
-      }
-    );
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(error.status);
+        res.send(error);
+      });
   });
 }
 
