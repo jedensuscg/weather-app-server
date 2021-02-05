@@ -22,7 +22,7 @@ const fiveDayForecast = (climacellAPI, lat, lon, queryString, endTime, callback)
       if (error) {
         reject({
           status: 404,
-          error: "Could not connect to Climacell API when attempting to retrieve forecast data. Check internet or verify URL.",
+          error: "Could not connect to Climacell API when attempting to retrieve forecast data. Check internet or verify Climacell service is available.",
         });
       } else if (body.errorCode) {
         reject({ status: 401, error: `Climacell Error Code: ${body.errorCode}: Error Msg: ${body.message}` });

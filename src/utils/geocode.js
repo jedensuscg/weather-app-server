@@ -15,7 +15,7 @@ const geocode = (mapboxAPIToken, address) => {
   return new Promise((resolve, reject) => {
     request({ url: url, json: true }, (error, response, { message: messageError, features = [] } = {}) => {
       if (error) {
-        reject({status: 404, error: `Unable to Connect to mapbox geocode service. Check internet connection or verify API URL`});
+        reject({status: 404, error: `Unable to Connect to mapbox geocode service. Check internet connection or verify Mapbox service is available`});
       } else if (messageError == "Not Found") {
         reject({status: 400, error: "Location Not Found"});
       } else if (messageError == "Not Authorized - Invalid Token") {

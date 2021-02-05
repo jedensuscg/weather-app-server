@@ -40,7 +40,7 @@ const currentForecast = (climacellAPIKey, lat, lon, queryString) => {
         if (error) {
           reject({
             status: 404,
-            error: "Could not connect to Climacell API when attempting to retrieve current data. Check internet or verify URL.",
+            error: "Could not connect to Climacell API when attempting to retrieve current data. Check internet or verify Climacell service is available.",
           });
         } else if (errorCode) {
           reject({ status: 401, error: `Climacell: Error Code: ${errorCode}: Error Msg: ${msgError}` });
