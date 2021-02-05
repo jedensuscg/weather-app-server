@@ -112,7 +112,7 @@ weatherForm.addEventListener("submit", (e) => {
  * @see {@link module:currentForecast} for how current forecast data is retrieved.
  */
 function displayCurrentWeather(geocode, currentForecast) {
-  weatherHeaderP.textContent = `Your Current Weather for ${geocode.Location}`;
+  weatherHeaderP.textContent = `Your Current Weather for ${geocode.location}`;
 
   const currentConditionIcon = createWeatherIcon(
     `/img/${currentForecast.weatherCode}.svg`,

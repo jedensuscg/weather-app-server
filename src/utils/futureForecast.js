@@ -18,15 +18,16 @@ let rainChanceArray = [];
  * @param {string} requestedTimeIndex No longer used. leave blank
  * @param {callback} callback Callback
  */
-const futureForecast = (climacell_api, lat, lon, queryString, endTime, callback) => {
+const futureForecast = (climacell_api, lat, lon, queryString, endTime) => {
     const urlCurrent = `https://api.climacell.co/v3/weather/forecast/hourly?lat=${lat}&lon=${lon}&unit_system=us&start_time=now&end_time=${endTime}&fields=${queryString}&apikey=${climacell_api}`
-    request({ url: urlCurrent, json: true }, (error, { body }) => {
+    return new Promise((resolve, reject) => {
+      request({ url: urlCurrent, json: true }, (error, { body }) => {
         if (error) {
-            callback('Could not connect to Climacell API when attemping to retrieve forecast data. Check internet or verify URL.')
+            reject('Could not connect to Climacell API when attempting to retrieve forecast data. Check internet or verify URL.')
         } else if (body.errorCode) {
-            callback(`Climacell Error Code: ${body.errorCode}: Error Msg: ${body.message}`)
+            reject(`Climacell Error Code: ${body.errorCode}: Error Msg: ${body.message}`)
         } else if (body.message) {
-            callback(`Climacell: ERROR when attempting to retrieve forecast data! "${body.message}"`)
+            reject(`Climacell: ERROR when attempting to retrieve forecast data! "${body.message}"`)
         } else {
 
             const tempUnit = body[0].temp.units;
@@ -70,11 +71,15 @@ const futureForecast = (climacell_api, lat, lon, queryString, endTime, callback)
             const data = {
                 hourWeather,
                 rainChanceIn24Hours,
+                tempUnit,
  
             }
-            callback(undefined, data)
+            resolve(data)
         }
     })
+    })
+    
+    
 }
 
 module.exports = futureForecast
