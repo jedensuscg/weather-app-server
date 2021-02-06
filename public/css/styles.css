@@ -17,6 +17,7 @@ body {
     margin: 0px;
     display: flex;
     flex-direction: column;
+    font-family: 'Merriweather Sans', sans-serif;
 }
 
 #wrapper {
@@ -97,6 +98,7 @@ form {
 
 .large-condition-icon {
     display: block;
+    padding-top: 10px;
 }
 footer {
     height: 75px;
@@ -173,6 +175,9 @@ header a:hover {
 #weather-head {
     text-align: center;
     grid-column: span 2;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 5px;
 }
 
 /* #region HOURLY FORECAST STYLES*/
@@ -258,7 +263,7 @@ header a:hover {
     padding: 0;
     margin: 2px;
     margin-top: -20px;
-    font-size: 1.5em;
+    font-size: 2em;
 }
 
 .forecast-hour-rain {

@@ -47,10 +47,10 @@ hourlyTabButton.style.visibility = "hidden";
 forecastWeatherContentDiv.style.visibility = "hidden";
 
 hourlyTabButton.addEventListener("click", function () {
-  openPage("forecast-weather-content", this, "lightblue");
+  openPage("forecast-weather-content", this, "rgb(1,50,117)");
 });
 dailyTabButton.addEventListener("click", function () {
-  openPage("forecast-daily-content", this, "lightblue");
+  openPage("forecast-daily-content", this, "rgb(1,50,117)");
 });
 // #endregion
 
@@ -172,7 +172,7 @@ function createDailyList(days) {
   // Iterates over each day and creates the associated weather code Icon (i.e rain, sunny, etc.)
   for (day; day < days.length; day++) {
     const dayData = days[day];
-    const conditionIcon = createWeatherIcon(`/img/${dayData.weatherCode}.svg`, "80", "small-condition-icon", "condition icon");
+    const conditionIcon = createWeatherIcon(`/img/${dayData.weatherCode}.svg`, "90", "small-condition-icon", "condition icon");
 
     // Create rest of the HTML Elements
 
@@ -240,7 +240,7 @@ function createForecastList({ hourWeather: hours }) {
     const hourData = hours[hour];
 
     // Create weather icon for specified weather code (ie Sunny, rain, etc.)
-    const conditionIcon = createWeatherIcon(`/img/${hourData.weatherCode}.svg`, "60", "small-condition-icon", "condition icon");
+    const conditionIcon = createWeatherIcon(`/img/${hourData.weatherCode}.svg`, "75", "small-condition-icon", "condition icon");
 
     // Create HTML Elements
     const leftDiv = createElementWithClass("div", "hour-left-div");
@@ -304,7 +304,7 @@ function createForecastList({ hourWeather: hours }) {
 
 /**
  *@memberof ClientSide
- * @description Creates an image element with desired icon and it's dimensions ().
+ * @description Creates an image element with desired icon and cit's dimensions ().
  * @param {string} src icon src
  * @param {string} dimensions desired width
  * @param {string} alt alt text for image
@@ -471,7 +471,7 @@ function openPage(pageName, elmnt, color) {
 
   // Add the specific color to the button used to open the tab content
   elmnt.style.backgroundColor = color;
-  elmnt.style.color = "black";
+  elmnt.style.color = "white";
 }
 
 // Get the element with id="defaultOpen" and click on it
