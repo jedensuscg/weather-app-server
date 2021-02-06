@@ -4,6 +4,10 @@
     --object-background-color: #c4c4c4;
     --object-background-color-hover: #696969;
     --object-text-color: #7a0101;
+    --div-background-color: rgb(255, 255, 255);
+    --daily-div-background: #dcff7b;
+    --daily-div-background-hover: #ff9f44;
+    
 }
 
 body {
@@ -181,29 +185,39 @@ header a:hover {
     color: black;
 }
 
-.forecast-hour-div-day {
+.forecast-hour-div {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     margin-top: 0px;
-    color: black;
+    padding-bottom: 15px;
     padding-left: 15%;
     border: 1px solid black;
     border-radius: 5px;
+   
+}
+/* .forecast-hour-div-night {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin-top: 0px;
+
+    padding-left: 15%;
+    border: 1px solid black;
+    border-radius: 5px;
+   
+} */
+
+.day {
+    color: black;
     background: rgb(255,255,255);
     background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(74,207,241,1) 22%, rgba(74,207,241,1) 72%, rgba(255,255,255,1) 100%);
 }
-.forecast-hour-div-night {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    margin-top: 0px;
+
+.night {
     color: white;
-    padding-left: 15%;
-    border: 1px solid black;
-    border-radius: 5px;
     background: rgb(85,113,239);
-background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%, rgba(28,49,165,1) 72%, rgba(85,113,239,1) 100%);
+    background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%, rgba(28,49,165,1) 72%, rgba(85,113,239,1) 100%);
 }
 
 
@@ -211,7 +225,7 @@ background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%,
     text-align: right;
     grid-column: span 2;
     text-decoration: underline;
-    font-size: 1.3em;
+    font-size: 1em;
     margin: 5px 10px 2px -20px;
     width: 100%;
     border-bottom: solid 1px black;
@@ -222,6 +236,7 @@ background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%,
     float: left;
     font-weight: bolder;
     color: white;
+    font-size: .75em;
 }
 
 .small-condition-div{
@@ -257,8 +272,17 @@ background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%,
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 30%;
-    border: solid black 1px;
+    border: solid black 2px;
     border-radius: 5px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    background: rgb(1,50,117);
+    background: linear-gradient(180deg, rgba(1,50,117,1) 0%, rgba(39,75,106,1) 29%, rgba(253,219,45,1) 87%, rgba(253,107,45,1) 99%);    
+    padding-bottom: 15px;
+}
+
+.forecast-daily-div:hover {
+    filter: saturate(250%);
 }
 
 .forecast-day-date{
@@ -268,6 +292,7 @@ background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%,
     width: 100%;
     border-bottom: solid 1px black;
     margin: auto;
+    color: rgb(212, 211, 211);
 }
 
 .day-right-div {
@@ -288,6 +313,7 @@ background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%,
 
 .climacell-icon {
     width: 40%;
+    margin-top: 5px;
 }
 
 .error {
@@ -313,21 +339,22 @@ background: linear-gradient(90deg, rgba(85,113,239,1) 0%, rgba(28,49,165,1) 22%,
     font-size: 17px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    
   }
+
 
   .tabcontent {
     color: white;
     display: none;
-    padding: 5px;
   }
 
   #forecast-weather-content {
-      background-color: lightblue;
+      background-color: var(--div-background-color);
   }
 
   #forecast-daily-content {
-      color: black;
-      background-color: lightblue;
+      color: white;
+      background-color: var(--div-background-color);
   
   }
 /* #endregion */

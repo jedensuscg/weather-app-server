@@ -25,6 +25,7 @@ const currentPrecipitation = document.querySelector("#precip");
 const currentHumidity = document.querySelector("#humidity");
 const weatherCode = document.querySelector("#weather-code");
 const forecastPrecipChance = document.querySelector("#forecast-precip-chance");
+const rainChanceP = document.querySelector(".rain-chance")
 const forecastWeatherHeader = document.querySelector("#forecast-weather-head");
 const betweenForecastHR = document.createElement("hr");
 const flatIconAttributeImg = document.querySelector(".attribution");
@@ -144,9 +145,9 @@ function displayForecastWeather(futureForecast) {
   forecastPrecipChance.before(hourListDiv);
 
   if (futureForecast.rainChanceIn24Hours < 1) {
-    forecastPrecipChance.textContent = "No rain is forecasted for the next 24 hours.";
+    rainChanceP.textContent = "No rain is forecasted for the next 24 hours.";
   } else {
-    forecastPrecipChance.textContent = `There is a ${futureForecast.rainChanceIn24Hours}% chance of rain in the next 24 hours.`;
+    rainChanceP.textContent = `There is a ${futureForecast.rainChanceIn24Hours}% chance of rain in the next 24 hours.`;
   }
 }
 
@@ -247,7 +248,7 @@ function createForecastList({ hourWeather: hours }) {
     const timeH4 = createElementWithClass("h4", "forecast-hour-time");
     const tempP = createElementWithClass("span", "forecast-hour-temp");
     const rainP = createElementWithClass("span", "forecast-hour-rain");
-    const hourDiv = createElementWithClass("div", `${assignDayOrNightClass(hourData, timeH4)}`);
+    const hourDiv = createElementWithClass("div", `forecast-hour-div ${assignDayOrNightClass(hourData, timeH4)}`);
     const conditionDiv = createElementWithClass("div", "small-condition-div");
     const dateSpan = createElementWithClass("span", "date-span");
     const time = readableFormatLocalTIme(hourData.time);
@@ -292,9 +293,9 @@ function createForecastList({ hourWeather: hours }) {
   //Object Functions
   function assignDayOrNightClass(hourData, timeH4) {
     if (hourData.dayNight == "day") {
-      nightOrDay = "forecast-hour-div-day";
+      nightOrDay = "day";
     } else {
-      nightOrDay = "forecast-hour-div-night";
+      nightOrDay = "night";
       timeH4.style.color = "white";
     }
     return nightOrDay;
@@ -347,6 +348,7 @@ function clearPreviousSearch() {
     feelsLike.textContent = "";
     currentHumidity.textContent = "";
     weatherCode.textContent = "";
+    rainChanceP.textContent = ""
     forecastPrecipChance.textContent = "";
     betweenForecastHR.remove();
     climacellIcon.style.visibility = "hidden";
