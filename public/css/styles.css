@@ -65,10 +65,9 @@ header {
     padding-bottom: 100px;
     width: 100vw;
 }
-form {
-    position: relative;
-    max-width: 40%;
-}
+
+
+
 
 
 @media (min-width: 651px) {
@@ -82,6 +81,11 @@ form {
         margin: auto;
         width: 60%
     }
+
+    form {
+        position: relative;
+        max-width: 50%;
+    }
 }
 @media (max-width:650px) {
     .top-content {
@@ -93,6 +97,11 @@ form {
         padding: 10px 5px;
         width: 90%;
         margin: auto;
+    }
+    form {
+        position: relative;
+        max-width: 90%;
+    
     }
 }
 
@@ -154,16 +163,27 @@ header a:hover {
 .search:focus{
     border: 2px white;
 }
-.search-button {
+.function-buttons {
     cursor: pointer;
     border: 1px solid rgb(114, 114, 114);
     background: var(--object-background-color);
     color: var(--colorful-text);
     font-weight: bolder;
     height: 25px;
-    width: 80px;
+    width: 150px;
     margin: 8px 0px 8px 0px;
     border-radius: 15px;
+}
+
+#location-icon{
+    position: relative;
+    width: 35px;
+    top: 15px;
+    margin-left: 5px;
+    filter: invert(12%) sepia(41%) saturate(7217%) hue-rotate(328deg) brightness(108%) contrast(126%);
+}
+#location-icon:hover {
+    filter: invert(45%) sepia(77%) saturate(2829%) hue-rotate(164deg) brightness(98%) contrast(101%);
 }
 
 .search-button:hover {

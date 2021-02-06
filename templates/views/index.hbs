@@ -20,10 +20,13 @@
                 {{>header}}
                 <p>Use this site for weather!</p>
                 <form action="">
-                    <input placeholder="Location" class="search" type="text">
+                    <div class="searchbar-div">
+                        <input placeholder="Location" class="search" type="text"><img id="location-icon" src="/img/target-focus.svg" alt="use location image">
+                    </div>
+
                     <br>
 
-                    <button class="search-button">SEARCH</button>
+                    <button id="search-button" class="function-buttons">SEARCH</button>
                 </form>
 
             </div>

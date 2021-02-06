@@ -8,6 +8,8 @@
  * Credit goes to Andrew Mead for the inspiration. Mead.io
  */
 
+
+
 console.log("Client Side Javascript loaded");
 
 // #region DECLARATIONS
@@ -25,7 +27,7 @@ const currentPrecipitation = document.querySelector("#precip");
 const currentHumidity = document.querySelector("#humidity");
 const weatherCode = document.querySelector("#weather-code");
 const forecastPrecipChance = document.querySelector("#forecast-precip-chance");
-const rainChanceP = document.querySelector(".rain-chance")
+const rainChanceP = document.querySelector(".rain-chance");
 const forecastWeatherHeader = document.querySelector("#forecast-weather-head");
 const betweenForecastHR = document.createElement("hr");
 const flatIconAttributeImg = document.querySelector(".attribution");
@@ -34,6 +36,7 @@ const currentForecastLeftDIv = document.querySelector(".current-left-div");
 const currentForecastRightDiv = document.querySelector(".current-right-div");
 const hourlyTabButton = document.querySelector("#hourly-tab-button");
 const dailyTabButton = document.querySelector("#daily-tab-button");
+const getLocationButton = document.querySelector("#location-icon");
 let firstSearch = true;
 let hourListDiv = undefined;
 const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -54,31 +57,53 @@ dailyTabButton.addEventListener("click", function () {
 });
 // #endregion
 
+getLocationButton.addEventListener("click", (e) => {
+  const geo = navigator.geolocation;
+  geo.getCurrentPosition(
+    (location) => {
+      const coords = location.coords
+      console.log(`${coords.longitude.toFixed(4)},${coords.latitude.toFixed(4)}`);
+      fetch(`/geolocate?address=${coords.longitude},${coords.latitude}`).then((response) => {
+        response.json().then((data) => {
+          searchInput.value = data.location
+        })
+
+      }) 
+    },
+    () => {
+      console.log("ERROR getting location");
+    }
+  );
+});
+
 weatherForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   weatherContentDiv.style.background = "inherit";
   const location = searchInput.value;
 
-    clearPreviousSearch();
+  clearPreviousSearch();
 
- 
   firstSearch = false;
+  fetchWeather(location)
+});
+
+function fetchWeather(location) {
   console.log("running fetch");
   fetch(`/weather?address=${location}`).then((response) => {
     response.json().then((data) => {
       const { geocode, currentForecast, futureForecast, dailyForecast } = data;
 
       weatherContentDiv.classList.add("weather-border");
+      console.log(geocode.location)
 
       if (data.error) {
         weatherHeaderP.textContent = `ERROR: Status Code ${data.status}`;
         currentTemp.textContent = `${data.error}`;
         currentTemp.classList.add("error");
-        firstSearch = true
-        
+        firstSearch = true;
       } else {
-        currentTemp.classList.remove('error');
+        currentTemp.classList.remove("error");
         displayCurrentWeather(geocode, currentForecast);
         displayForecastWeather(futureForecast);
         displayFiveDayWeather(dailyForecast);
@@ -93,7 +118,8 @@ weatherForm.addEventListener("submit", (e) => {
       }
     });
   });
-});
+}
+
 
 /**
  * @memberof ClientSide
@@ -157,7 +183,6 @@ function displayFiveDayWeather(dailyForecast) {
 }
 
 function createDailyList(days) {
-  console.log(days);
   // Create the list of days (div) to hold weather information
   const dayList = createElementWithClass("div", "daily-forecast-list");
   let day = 0;
@@ -348,7 +373,7 @@ function clearPreviousSearch() {
     feelsLike.textContent = "";
     currentHumidity.textContent = "";
     weatherCode.textContent = "";
-    rainChanceP.textContent = ""
+    rainChanceP.textContent = "";
     forecastPrecipChance.textContent = "";
     betweenForecastHR.remove();
     climacellIcon.style.visibility = "hidden";
@@ -403,7 +428,6 @@ function getDayAndMonth(dateTime) {
       const newDate = dateTimeLocal.getDate();
 
       returnString = `${newWeekday}, ${newMonth} ${newDate}`;
-      console.log(dateTimeLocal.getFullYear());
       if (dateTimeLocal.getFullYear() == nextYear) {
         returnString += ` ${nextYear}`;
       }
