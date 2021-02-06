@@ -58,6 +58,7 @@ dailyTabButton.addEventListener("click", function () {
 // #endregion
 
 getLocationButton.addEventListener("click", (e) => {
+  searchInput.value = 'Getting Location...'
   const geo = navigator.geolocation;
   geo.getCurrentPosition(
     (location) => {
@@ -72,6 +73,7 @@ getLocationButton.addEventListener("click", (e) => {
     },
     () => {
       console.log("ERROR getting location");
+      searchInput.value = 'Unable to get location'
     }
   );
 });
