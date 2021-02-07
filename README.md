@@ -28,6 +28,7 @@ Back end webserver created in Node.JS and ExpressJS. Basic templates handled thr
 
 - Easy geocoding
   - Get location from a simple city name, all the way to a full address. The first address that the API returns is used, so state may be required. For example entering Redding returns Redding, California US. So if you need Redding, Indiana, type Redding IN
+  - Option to get location from browser.
 - Current Weather
   - current sky conditions with icon
   - temperature in fahrenheit
