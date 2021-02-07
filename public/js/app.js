@@ -8,6 +8,8 @@
  * Credit goes to Andrew Mead for the inspiration. Mead.io
  */
 
+
+
 console.log("Client Side Javascript loaded");
 
 // #region DECLARATIONS
@@ -25,6 +27,7 @@ const currentPrecipitation = document.querySelector("#precip");
 const currentHumidity = document.querySelector("#humidity");
 const weatherCode = document.querySelector("#weather-code");
 const forecastPrecipChance = document.querySelector("#forecast-precip-chance");
+const rainChanceP = document.querySelector(".rain-chance");
 const forecastWeatherHeader = document.querySelector("#forecast-weather-head");
 const betweenForecastHR = document.createElement("hr");
 const flatIconAttributeImg = document.querySelector(".attribution");
@@ -33,6 +36,7 @@ const currentForecastLeftDIv = document.querySelector(".current-left-div");
 const currentForecastRightDiv = document.querySelector(".current-right-div");
 const hourlyTabButton = document.querySelector("#hourly-tab-button");
 const dailyTabButton = document.querySelector("#daily-tab-button");
+const getLocationButton = document.querySelector("#locate-button");
 let firstSearch = true;
 let hourListDiv = undefined;
 const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -46,23 +50,50 @@ hourlyTabButton.style.visibility = "hidden";
 forecastWeatherContentDiv.style.visibility = "hidden";
 
 hourlyTabButton.addEventListener("click", function () {
-  openPage("forecast-weather-content", this, "lightblue");
+  openPage("forecast-weather-content", this, "rgb(1,50,117)");
 });
 dailyTabButton.addEventListener("click", function () {
-  openPage("forecast-daily-content", this, "lightblue");
+  openPage("forecast-daily-content", this, "rgb(1,50,117)");
 });
 // #endregion
 
+getLocationButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  searchInput.value = 'Getting Location...'
+  const geo = navigator.geolocation;
+  geo.getCurrentPosition(
+    (location) => {
+      const coords = location.coords
+      const coordinates = `${coords.longitude.toFixed(4)},${coords.latitude.toFixed(4)}`;
+      searchInput.value = ''
+      initializeBeforeFetch(coordinates)
+      console.log(coordinates)
+      
+    },
+    () => {
+      console.log("ERROR getting location");
+      searchInput.value = 'Unable to get location'
+    }
+  );
+});
+
 weatherForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  console.log('prefetch')
+  const location = searchInput.value;
+  initializeBeforeFetch(location)
+});
+
+function initializeBeforeFetch(location) {
 
   weatherContentDiv.style.background = "inherit";
-  const location = searchInput.value;
+  clearPreviousSearch();
 
-    clearPreviousSearch();
-
- 
   firstSearch = false;
+  fetchWeather(location)
+}
+
+function fetchWeather(location) {
   console.log("running fetch");
   fetch(`/weather?address=${location}`).then((response) => {
     response.json().then((data) => {
@@ -74,10 +105,9 @@ weatherForm.addEventListener("submit", (e) => {
         weatherHeaderP.textContent = `ERROR: Status Code ${data.status}`;
         currentTemp.textContent = `${data.error}`;
         currentTemp.classList.add("error");
-        firstSearch = true
-        
+        firstSearch = true;
       } else {
-        currentTemp.classList.remove('error');
+        currentTemp.classList.remove("error");
         displayCurrentWeather(geocode, currentForecast);
         displayForecastWeather(futureForecast);
         displayFiveDayWeather(dailyForecast);
@@ -92,7 +122,8 @@ weatherForm.addEventListener("submit", (e) => {
       }
     });
   });
-});
+}
+
 
 /**
  * @memberof ClientSide
@@ -144,9 +175,9 @@ function displayForecastWeather(futureForecast) {
   forecastPrecipChance.before(hourListDiv);
 
   if (futureForecast.rainChanceIn24Hours < 1) {
-    forecastPrecipChance.textContent = "No rain is forecasted for the next 24 hours.";
+    rainChanceP.textContent = "No rain is forecasted for the next 24 hours.";
   } else {
-    forecastPrecipChance.textContent = `There is a ${futureForecast.rainChanceIn24Hours}% chance of rain in the next 24 hours.`;
+    rainChanceP.textContent = `There is a ${futureForecast.rainChanceIn24Hours}% chance of rain in the next 24 hours.`;
   }
 }
 
@@ -156,7 +187,6 @@ function displayFiveDayWeather(dailyForecast) {
 }
 
 function createDailyList(days) {
-  console.log(days);
   // Create the list of days (div) to hold weather information
   const dayList = createElementWithClass("div", "daily-forecast-list");
   let day = 0;
@@ -171,7 +201,7 @@ function createDailyList(days) {
   // Iterates over each day and creates the associated weather code Icon (i.e rain, sunny, etc.)
   for (day; day < days.length; day++) {
     const dayData = days[day];
-    const conditionIcon = createWeatherIcon(`/img/${dayData.weatherCode}.svg`, "80", "small-condition-icon", "condition icon");
+    const conditionIcon = createWeatherIcon(`/img/${dayData.weatherCode}.svg`, "90", "small-condition-icon", "condition icon");
 
     // Create rest of the HTML Elements
 
@@ -239,7 +269,7 @@ function createForecastList({ hourWeather: hours }) {
     const hourData = hours[hour];
 
     // Create weather icon for specified weather code (ie Sunny, rain, etc.)
-    const conditionIcon = createWeatherIcon(`/img/${hourData.weatherCode}.svg`, "60", "small-condition-icon", "condition icon");
+    const conditionIcon = createWeatherIcon(`/img/${hourData.weatherCode}.svg`, "75", "small-condition-icon", "condition icon");
 
     // Create HTML Elements
     const leftDiv = createElementWithClass("div", "hour-left-div");
@@ -247,7 +277,7 @@ function createForecastList({ hourWeather: hours }) {
     const timeH4 = createElementWithClass("h4", "forecast-hour-time");
     const tempP = createElementWithClass("span", "forecast-hour-temp");
     const rainP = createElementWithClass("span", "forecast-hour-rain");
-    const hourDiv = createElementWithClass("div", `${assignDayOrNightClass(hourData, timeH4)}`);
+    const hourDiv = createElementWithClass("div", `forecast-hour-div ${assignDayOrNightClass(hourData, timeH4)}`);
     const conditionDiv = createElementWithClass("div", "small-condition-div");
     const dateSpan = createElementWithClass("span", "date-span");
     const time = readableFormatLocalTIme(hourData.time);
@@ -292,9 +322,9 @@ function createForecastList({ hourWeather: hours }) {
   //Object Functions
   function assignDayOrNightClass(hourData, timeH4) {
     if (hourData.dayNight == "day") {
-      nightOrDay = "forecast-hour-div-day";
+      nightOrDay = "day";
     } else {
-      nightOrDay = "forecast-hour-div-night";
+      nightOrDay = "night";
       timeH4.style.color = "white";
     }
     return nightOrDay;
@@ -303,7 +333,7 @@ function createForecastList({ hourWeather: hours }) {
 
 /**
  *@memberof ClientSide
- * @description Creates an image element with desired icon and it's dimensions ().
+ * @description Creates an image element with desired icon and cit's dimensions ().
  * @param {string} src icon src
  * @param {string} dimensions desired width
  * @param {string} alt alt text for image
@@ -347,6 +377,7 @@ function clearPreviousSearch() {
     feelsLike.textContent = "";
     currentHumidity.textContent = "";
     weatherCode.textContent = "";
+    rainChanceP.textContent = "";
     forecastPrecipChance.textContent = "";
     betweenForecastHR.remove();
     climacellIcon.style.visibility = "hidden";
@@ -401,7 +432,6 @@ function getDayAndMonth(dateTime) {
       const newDate = dateTimeLocal.getDate();
 
       returnString = `${newWeekday}, ${newMonth} ${newDate}`;
-      console.log(dateTimeLocal.getFullYear());
       if (dateTimeLocal.getFullYear() == nextYear) {
         returnString += ` ${nextYear}`;
       }
@@ -469,7 +499,7 @@ function openPage(pageName, elmnt, color) {
 
   // Add the specific color to the button used to open the tab content
   elmnt.style.backgroundColor = color;
-  elmnt.style.color = "black";
+  elmnt.style.color = "white";
 }
 
 // Get the element with id="defaultOpen" and click on it

@@ -32,7 +32,7 @@ const fiveDayForecast = (climacellAPI, lat, lon, queryString, endTime, callback)
         reject({ status: 400, error: `Climacell: ERROR when attempting to retrieve forecast data! "${body.message}"` });
       } else {
         const tempUnit = body[0].temp[0].min.units;
-        console.log(tempUnit);
+
         const dailyWeather = [];
 
         for (let index = 0; index < body.length; index++) {

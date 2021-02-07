@@ -15,7 +15,8 @@
     "express": "^4.17.1",
     "hbs": "^4.1.1",
     "luxon": "^1.25.0",
-    "postman-request": "^2.88.1-postman.27"
+    "postman-request": "^2.88.1-postman.27",
+    "validator": "^13.5.2"
   },
   "devDependencies": {
     "eslint": "^7.17.0",

@@ -117,6 +117,12 @@ app.get("/help", (req, res) => {
   });
 });
 
+app.get("/geolocate", (req, res) => {
+  geocode(mapboxAPIKey, req.query.address).then((data) => {
+    res.send(data)
+  });
+}) 
+
 if (process.env.NODE_ENV == "production") {
   console.log(`Sending data in ${process.env.NODE_ENV} mode.`);
   app.get("/weather", (req, res) => {
