@@ -20,12 +20,7 @@ body {
     font-family: 'Merriweather Sans', sans-serif;
 }
 
-#wrapper {
-    position: relative;
-    width: 100vw;
-    
 
-}
 
 #title{
     font-size: 2.5em;
@@ -63,7 +58,7 @@ header {
 .main-content {
     margin: 0 auto;
     padding-bottom: 100px;
-    width: 100vw;
+    width: 95vw;
 }
 
 
@@ -71,9 +66,14 @@ header {
 
 
 @media (min-width: 651px) {
+    #wrapper {
+        position: relative;
+        width: 95vw;
+    }
+
     .top-content {
-        width: 70vw;
-        margin: 0 auto 0 25%;
+        width: 80%;
+        margin: 0 auto 0 20%;
     }
 
     #weather-content {
@@ -84,13 +84,19 @@ header {
 
     form {
         position: relative;
-        max-width: 50%;
+        max-width: 80%;
     }
 }
 @media (max-width:650px) {
+    #wrapper {
+        position: relative;
+        width: 100vw;
+    }
+
     .top-content {
-        width: 80%;
-        margin: 0 20% 0 15%;
+        width: 100%;
+        margin: auto;
+        text-align: center;
     }
 
     #weather-content {
@@ -100,7 +106,7 @@ header {
     }
     form {
         position: relative;
-        max-width: 90%;
+        max-width: 100%;
     
     }
 }
@@ -155,6 +161,7 @@ header a:hover {
     border-radius: 15px;
     padding: 8px;
     outline: none;
+    width: 300px;
 }
 .search:hover {
     background: rgb(185, 185, 185);
@@ -173,23 +180,17 @@ header a:hover {
     width: 150px;
     margin: 8px 0px 8px 0px;
     border-radius: 15px;
-}
-
-#location-icon{
     position: relative;
-    width: 35px;
-    top: 15px;
-    margin-left: 5px;
-    filter: invert(12%) sepia(41%) saturate(7217%) hue-rotate(328deg) brightness(108%) contrast(126%);
-}
-#location-icon:hover {
-    filter: invert(45%) sepia(77%) saturate(2829%) hue-rotate(164deg) brightness(98%) contrast(101%);
+    bottom: 20px;
 }
 
-.search-button:hover {
+.function-buttons:hover {
     background: var(--object-background-color-hover);
     color: rgb(255, 85, 85);
+}
 
+#search-button {
+    margin-right: 18px;
 }
 
 #weather-head {

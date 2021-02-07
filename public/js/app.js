@@ -36,7 +36,7 @@ const currentForecastLeftDIv = document.querySelector(".current-left-div");
 const currentForecastRightDiv = document.querySelector(".current-right-div");
 const hourlyTabButton = document.querySelector("#hourly-tab-button");
 const dailyTabButton = document.querySelector("#daily-tab-button");
-const getLocationButton = document.querySelector("#location-icon");
+const getLocationButton = document.querySelector("#locate-button");
 let firstSearch = true;
 let hourListDiv = undefined;
 const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -58,18 +58,17 @@ dailyTabButton.addEventListener("click", function () {
 // #endregion
 
 getLocationButton.addEventListener("click", (e) => {
+  e.preventDefault();
   searchInput.value = 'Getting Location...'
   const geo = navigator.geolocation;
   geo.getCurrentPosition(
     (location) => {
       const coords = location.coords
-      console.log(`${coords.longitude.toFixed(4)},${coords.latitude.toFixed(4)}`);
-      fetch(`/geolocate?address=${coords.longitude},${coords.latitude}`).then((response) => {
-        response.json().then((data) => {
-          searchInput.value = data.location
-        })
-
-      }) 
+      const coordinates = `${coords.longitude.toFixed(4)},${coords.latitude.toFixed(4)}`;
+      searchInput.value = ''
+      initializeBeforeFetch(coordinates)
+      console.log(coordinates)
+      
     },
     () => {
       console.log("ERROR getting location");
@@ -80,15 +79,19 @@ getLocationButton.addEventListener("click", (e) => {
 
 weatherForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  console.log('prefetch')
+  const location = searchInput.value;
+  initializeBeforeFetch(location)
+});
+
+function initializeBeforeFetch(location) {
 
   weatherContentDiv.style.background = "inherit";
-  const location = searchInput.value;
-
   clearPreviousSearch();
 
   firstSearch = false;
   fetchWeather(location)
-});
+}
 
 function fetchWeather(location) {
   console.log("running fetch");
@@ -97,7 +100,6 @@ function fetchWeather(location) {
       const { geocode, currentForecast, futureForecast, dailyForecast } = data;
 
       weatherContentDiv.classList.add("weather-border");
-      console.log(geocode.location)
 
       if (data.error) {
         weatherHeaderP.textContent = `ERROR: Status Code ${data.status}`;

@@ -119,7 +119,6 @@ app.get("/help", (req, res) => {
 
 app.get("/geolocate", (req, res) => {
   geocode(mapboxAPIKey, req.query.address).then((data) => {
-    console.log("test")
     res.send(data)
   });
 }) 
