@@ -93,8 +93,8 @@ MEDIA QUERIES
         overflow-y: scroll;
     }
 
-    .daily-forecast-list .forecast-daily-content{
-        max-height: 600px;
+    .daily-forecast-list{
+        height: 600px;
         overflow-y: scroll;
     }
 }
@@ -123,8 +123,8 @@ MEDIA QUERIES
     
     }
 
-    .daily-forecast-list .forecast-daily-content{
-        max-height: 350px;
+    .daily-forecast-list{
+        height: 350px;
         overflow-y: scroll;
     }
 }
