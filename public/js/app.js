@@ -262,7 +262,7 @@ function createForecastList({ hourWeather: hours }) {
 
   // create Icons with desired dimensions
   const temperatureIcon = createWeatherIcon("/img/temperature.svg", "25", "small-temp-icon", "temp gauge");
-  const raidDropIcon = createWeatherIcon("/img/drop.svg", "15", "small-precip-icon", "rain drop");
+  //const raidDropIcon = createWeatherIcon("/img/drop.svg", "15", "small-precip-icon", "rain drop");
 
   // Iterate through each hour and create element and fill with data.
   for (let hour = 1; hour < hours.length; hour++) {
@@ -309,7 +309,8 @@ function createForecastList({ hourWeather: hours }) {
     leftDiv.appendChild(temperatureIcon.cloneNode(true));
     leftDiv.appendChild(tempP);
     leftDiv.appendChild(lineBreak.cloneNode(true));
-    leftDiv.appendChild(raidDropIcon.cloneNode(true));
+    leftDiv.appendChild(document.createTextNode('Rain '));
+    //leftDiv.appendChild(raidDropIcon.cloneNode(true));
     leftDiv.appendChild(rainP);
     rightDiv.appendChild(conditionDiv);
     conditionDiv.appendChild(conditionIcon);
@@ -388,7 +389,9 @@ function clearPreviousSearch() {
 
     if (firstSearch == false) {
       removeAllChildNodes(hourListDiv);
+      //removeAllChildNodes(dayList);
       hourListDiv.remove();
+      dailyList.remove();
       const conditionIcon = document.querySelector(".large-condition-icon");
       const largeTempIcon = document.querySelector(".large-temp-icon");
       conditionIcon.remove();
