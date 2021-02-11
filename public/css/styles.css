@@ -37,7 +37,7 @@ body {
 }
 
 .current-temp {
-    font-size: 3em;
+    font-size: 2.5em;
 }
 
 
@@ -61,10 +61,11 @@ header {
     width: 95vw;
 }
 
+/*
+MEDIA QUERIES
+*/
 
-
-
-
+/* Large Displays */
 @media (min-width: 651px) {
     #wrapper {
         position: relative;
@@ -86,8 +87,24 @@ header {
         position: relative;
         max-width: 80%;
     }
+
+    .daily-forecast-list {
+        max-height: 600px;
+        overflow-y: scroll;
+    }
+
+    .forecast-hourly-div {
+        height: 600px;
+        overflow-y: auto;
+    }
+
+    .forecast-hour-temp {
+        font-size: 2em;
+    }
 }
-@media (max-width:650px) {
+
+/* Small Displays */
+@media (max-width:750px) {
     #wrapper {
         position: relative;
         width: 100vw;
@@ -109,6 +126,29 @@ header {
         max-width: 100%;
     
     }
+
+    .daily-forecast-list{
+        height: 450px;
+        overflow-y: scroll;
+    }
+
+    .forecast-hourly-div {
+        height: 450px;
+        overflow-y: auto;
+    }
+
+    .forecast-hour-temp {
+        font-size: 1.2em;
+    }
+
+}
+
+.current-weather-p {
+    margin: 8px 0px 8px 0px;
+}
+
+.rain-chance {
+    margin: 8px 0px 8px 0px;
 }
 
 .large-condition-icon {
@@ -199,12 +239,14 @@ header a:hover {
     font-size: 1.1em;
     font-weight: 600;
     margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 /* #region HOURLY FORECAST STYLES*/
 .forecast-hourly-div {
     display: grid;
     grid-template-columns: 50% 50%;
+
 }
 
 #forecast-precip-chance {
@@ -214,10 +256,12 @@ header a:hover {
 .forecast-hour-div {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: .5fr 1fr .5fr;
+    height: 100px;
     margin-top: 0px;
-    padding-bottom: 15px;
+    padding-bottom: 5px;
     padding-left: 15%;
+    padding-right: 3px;
     border: 1px solid black;
     border-radius: 5px;
    
@@ -267,8 +311,9 @@ header a:hover {
 
 .small-condition-div{
     display: inline-block;
-    position: absolute;
+    position: relative;
 }
+
 
 .hour-left-div {
     grid-row: span 3;
@@ -284,7 +329,7 @@ header a:hover {
     padding: 0;
     margin: 2px;
     margin-top: -20px;
-    font-size: 2em;
+    
 }
 
 .forecast-hour-rain {
@@ -294,6 +339,9 @@ header a:hover {
 /* #endregion */
 
 /* #region DAILY FORECAST STYLES */
+
+
+
 .forecast-daily-div {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -376,6 +424,7 @@ header a:hover {
 
   #forecast-weather-content {
       background-color: var(--div-background-color);
+
   }
 
   #forecast-daily-content {
