@@ -138,7 +138,7 @@ function displayCurrentWeather(geocode, currentForecast) {
 
   const currentConditionIcon = createWeatherIcon(
     `/img/${currentForecast.weatherCode}.svg`,
-    "75",
+    "70",
     "large-condition-icon",
     "conditions icon"
   );

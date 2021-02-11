@@ -37,7 +37,7 @@ body {
 }
 
 .current-temp {
-    font-size: 3em;
+    font-size: 2.5em;
 }
 
 
@@ -93,9 +93,9 @@ MEDIA QUERIES
         overflow-y: scroll;
     }
 
-    .daily-forecast-list{
+    .forecast-hourly-div {
         height: 600px;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 
     .forecast-hour-temp {
@@ -128,14 +128,27 @@ MEDIA QUERIES
     }
 
     .daily-forecast-list{
-        height: 350px;
+        height: 450px;
         overflow-y: scroll;
+    }
+
+    .forecast-hourly-div {
+        height: 450px;
+        overflow-y: auto;
     }
 
     .forecast-hour-temp {
         font-size: 1.2em;
     }
 
+}
+
+.current-weather-p {
+    margin: 8px 0px 8px 0px;
+}
+
+.rain-chance {
+    margin: 8px 0px 8px 0px;
 }
 
 .large-condition-icon {
@@ -226,14 +239,14 @@ header a:hover {
     font-size: 1.1em;
     font-weight: 600;
     margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 /* #region HOURLY FORECAST STYLES*/
 .forecast-hourly-div {
     display: grid;
     grid-template-columns: 50% 50%;
-    height: 300px;
-    overflow-y: auto;
+
 }
 
 #forecast-precip-chance {
