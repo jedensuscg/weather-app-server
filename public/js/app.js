@@ -269,7 +269,7 @@ function createForecastList({ hourWeather: hours }) {
     const hourData = hours[hour];
 
     // Create weather icon for specified weather code (ie Sunny, rain, etc.)
-    const conditionIcon = createWeatherIcon(`/img/${hourData.weatherCode}.svg`, "75", "small-condition-icon", "condition icon");
+    const conditionIcon = createWeatherIcon(`/img/${hourData.weatherCode}.svg`, "65", "small-condition-icon", "condition icon");
 
     // Create HTML Elements
     const leftDiv = createElementWithClass("div", "hour-left-div");
