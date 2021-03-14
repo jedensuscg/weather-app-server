@@ -37,9 +37,9 @@ const fiveDayForecast = (climacellAPI, lat, lon, queryString, endTime, callback)
 
         for (let index = 0; index < body.length; index++) {
           const observationDate = new Date(body[index].observation_time.value);
-
-          const minTemp = body[0].temp[0].min.value;
-          const maxTemp = body[0].temp[1].max.value;
+          console.log(body[index].temp[1])
+          const minTemp = body[index].temp[0].min.value;
+          const maxTemp = body[index].temp[1].max.value;
 
           dailyWeather.push({
             time: body[index].observation_time.value,
