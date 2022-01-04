@@ -17,7 +17,7 @@ let rainChanceArray = [];
  * @param {callback} callback Callback
  */
 const futureForecast = (climacellAPIKey, lat, lon, queryString, endTime) => {
-  const urlCurrent = `https://api.climacell.co/v3/weather/forecast/hourly?apikey=${climacellAPIKey}&lat=${lat}&lon=${lon}&unit_system=us&start_time=now&end_time=${endTime}&fields=${queryString}`;
+  const urlCurrent = `https://api.tomorrow.co/v4/timelines?apikey=${climacellAPIKey}&lat=${lat}&lon=${lon}&unit_system=us&start_time=now&end_time=${endTime}&fields=${queryString}`;
   return new Promise((resolve, reject) => {
     request({ url: urlCurrent, json: true }, (error, { body }) => {
       if (error) {

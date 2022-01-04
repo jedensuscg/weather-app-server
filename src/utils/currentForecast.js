@@ -14,8 +14,8 @@ const precipWords = require("./precipWords");
  * @param {string} queryString The query string to send for desired data from Climacell API.
  * @param {callback} callback The callback with requested weather data or error.
  */
-const currentForecast = (climacellAPIKey, lat, lon, queryString) => {
-  const urlCurrent = `https://api.climacell.co/v3/weather/realtime?unit_system=us&apikey=${climacellAPIKey}&lat=${lat}&lon=${lon}&fields=${queryString}`;
+const currentForecast = (climacellAPIKey, location, queryString) => {
+  const urlCurrent = `https://api.tomorrow.co/v4/timelines?unit=imperial&apikey=${climacellAPIKey}&location=${location}&fields=${queryString}`;
   return new Promise((resolve, reject) => {
     request(
       { url: urlCurrent, json: true },
@@ -25,16 +25,16 @@ const currentForecast = (climacellAPIKey, lat, lon, queryString) => {
         {
           errorCode,
           message: msgError,
-          temp,
-          wind_speed,
-          wind_direction,
-          feels_like,
+          temperature: temp,
+          windSpeed: wind_speed,
+          windDirection: wind_direction,
+          temperatureApparent: feels_like,
           humidity,
-          precipitation,
-          precipitation_type,
-          weather_code,
-          sunrise,
-          sunset,
+          precipitationProbability: precipitation,
+          precipitationType: precipitation_type,
+          weatherCode: weather_code,
+          sunriseTime: sunrise,
+          sunsetTime: sunset,
         } = {}
       ) => {
         if (error) {

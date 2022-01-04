@@ -16,7 +16,7 @@ const request = require("postman-request");
  */
 const fiveDayForecast = (climacellAPI, lat, lon, queryString, endTime, callback) => {
   // eslint-disable-next-line max-len
-  const urlCurrent = `https://api.climacell.co/v3/weather/forecast/daily?lat=${lat}&lon=${lon}&unit_system=us&start_time=now&end_time=${endTime}&fields=${queryString}&apikey=${climacellAPI}`;
+  const urlCurrent = `https://api.tomorrow.co/v4/timelines?lat=${lat}&lon=${lon}&unit=imperial&start_time=now&end_time=${endTime}&fields=${queryString}&apikey=${climacellAPI}`;
   return new Promise((resolve, reject) => {
     request({ url: urlCurrent, json: true }, (error, { body }) => {
       if (error) {

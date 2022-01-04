@@ -43,16 +43,16 @@ if (process.env.NODE_ENV == "development") {
  *
  */
 const currentForecastQueryFields = [
-  "wind_speed",
-  "temp",
-  "wind_direction",
-  "feels_like",
+  "WindSpeed",
+  "temperature",
+  "windDirection",
+  "temperatureApparent",
   "humidity",
-  "precipitation",
-  "precipitation_type",
-  "weather_code",
-  "sunrise",
-  "sunset",
+  "precipitationProbability",
+  "precipitationType",
+  "weatherCode",
+  "sunriseTime",
+  "sunsetTime",
 ];
 /**
  * @memberof BackEnd
@@ -61,10 +61,10 @@ const currentForecastQueryFields = [
  * @const
  */
 const currentForecastQueryString = setQueryString(currentForecastQueryFields);
-const forecastWeatherQueryFields = ["temp", "precipitation_probability", "weather_code", "sunrise", "sunset"];
+const forecastWeatherQueryFields = ["temperature", "precipitationType", "weatherCode", "sunriseTime", "sunsetTime"];
 const forecastWeatherQueryString = setQueryString(forecastWeatherQueryFields);
 
-const dailyForecastQueryFields = ["temp", "precipitation_probability", "weather_code", "sunrise", "sunset"];
+const dailyForecastQueryFields = ["temperature", "precipitationType", "weatherCode", "sunriseTime", "sunsetTime"];
 const dailyForecastQueryString = setQueryString(dailyForecastQueryFields);
 
 let errorMsg = undefined;
