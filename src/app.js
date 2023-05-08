@@ -72,7 +72,7 @@ let errorMsg = undefined;
 const app = express();
 const port = process.env.PORT || 3000;
 const mapboxAPIKey = process.env.API_KEY_MAPBOX;
-const climacellAPIKey = process.env.API_KEY_CLIMACELL;
+const weatherAPIKey = process.env.API_KEY_WEATHER;
 let requestedTimeIndex = 13;
 
 // Define paths for express config
@@ -135,15 +135,15 @@ if (process.env.NODE_ENV == "production") {
     }
     geocodePromise = geocode(mapboxAPIKey, req.query.address);
     currentForecastPromise = geocodePromise.then((data) => {
-      return currentForecast(climacellAPIKey, data.latitude, data.longitude, currentForecastQueryString);
+      return currentForecast(weatherAPIKey, data.latitude, data.longitude, currentForecastQueryString);
     });
 
     futureForecastPromise = geocodePromise.then((data) => {
-      return futureForecast(climacellAPIKey, data.latitude, data.longitude, forecastWeatherQueryString, calcEndDateTime.addHours(25));
+      return futureForecast(weatherAPIKey, data.latitude, data.longitude, forecastWeatherQueryString, calcEndDateTime.addHours(25));
     });
 
     fiveDayForecastPromise = geocodePromise.then((data) => {
-      return fiveDayForecast(climacellAPIKey, data.latitude, data.longitude, dailyForecastQueryString, calcEndDateTime.addDays(6));
+      return fiveDayForecast(weatherAPIKey, data.latitude, data.longitude, dailyForecastQueryString, calcEndDateTime.addDays(6));
     });
 
     Promise.all([geocodePromise, currentForecastPromise, futureForecastPromise, fiveDayForecastPromise])
