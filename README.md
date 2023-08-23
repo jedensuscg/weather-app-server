@@ -1,8 +1,7 @@
 # Node.JS Weather App Webserver and front-end UI.
 
-View the app at [https://weather.jamesedens.me](https://weather.jamesedens.me)
-(Give it 10-20 seconds. Its hosted on a free Heroku dyno and needs to "wake up
-the server)
+Due to Heroku removing free accounts, and also changes to the API for the weather provider I was using, the live verson is no longer online. 
+In a future date I may redesign the app to use the new API,and move it to my own server.
 
 - [Node.JS Weather App Webserver and front-end UI.](#nodejs-weather-app-webserver-and-front-end-ui)
     - [ABOUT](#about)
