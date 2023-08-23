@@ -18,8 +18,7 @@ Extensive additions made after the original course ended.
 
 This is by NO means a "professional" product.
 
-You can view the LIVE app at [https://weather.jamesedens.me](https://weather.jamesedens.me)
-NOTE\* Live implementation running on Heroku free dynamo. Thus, if the app has no been used in 30 minutes it is unloaded and will take about 10-20 seconds for the server to boot up on Heroku's end. Please wait.
+
 
 Back end webserver created in Node.JS and ExpressJS. Basic templates handled through handlebars. (Footer and header mostly).
 
